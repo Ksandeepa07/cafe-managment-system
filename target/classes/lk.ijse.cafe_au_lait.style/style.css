@@ -1,0 +1,63 @@
+/*login and loading page styles start*/
+.loginForm{
+
+    /*-fx-background-color: #E9AF86;*/
+    -fx-background-color: #7B3927;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-background-radius: 10px;
+
+}
+
+.loginName{
+    -fx-text-fill:#A85A26;
+}
+
+.userNameField{
+    -fx-background-color: transparent;
+     -fx-text-fill: #7B3927;
+//-fx-border-color: #2D033B;
+    -fx-border-color:#dfa47e;
+    -fx-border-width: 0 0 2 0;
+    -fx-prompt-text-fill:#dfa47e ;
+
+}
+
+.LoginButton{
+//-fx-background-color: linear-gradient(to top right  , #1C82AD, #86E5FF);
+    -fx-background-color:#dfa47e ;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 0);
+    -fx-background-radius: 10px;
+    -fx-text-fill: #7B3927;
+
+}
+
+.combo-box-base {
+    -fx-background-color: #dfa47e;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-text-fill: #7B3927;
+
+}
+
+.combo-box.cell{
+    -fx-font-weight: bold;
+
+
+}
+
+.combo-box .list-view .list-cell{
+    -fx-text-fill: #7B3927;
+    -fx-background-color:#dfa47e;
+    -fx-font-weight: bold;
+}
+
+.combo-box .cell:selected {
+    -fx-text-fill: #7B3927;
+}
+
+.progress-bar > .track {
+    -fx-background-color: transparent;
+}
+
+/*end*/
