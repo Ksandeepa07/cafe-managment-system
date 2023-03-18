@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorpane" prefHeight="705.0" prefWidth="1374.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cafe_au_lait.controller.DashbordController">
+   <children>
+      <AnchorPane prefHeight="680.0" prefWidth="221.0" styleClass="dashbordForm" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css">
+         <children>
+            <JFXButton fx:id="homeBtn" buttonType="RAISED" layoutX="42.0" layoutY="122.0" onAction="#homeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="Home" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="inventoryBtn" buttonType="RAISED" layoutX="42.0" layoutY="388.0" onAction="#inventoryBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text=" Inventory" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="supplierBtn" buttonType="RAISED" layoutX="42.0" layoutY="295.0" onAction="#supplierBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="   Suppliers" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="employeeBtn" buttonType="RAISED" layoutX="42.0" layoutY="206.0" onAction="#employeeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="    Employee" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="ordersBtn" buttonType="RAISED" layoutX="42.0" layoutY="475.0" onAction="#ordersBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="Orders" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="reportsBtn" buttonType="RAISED" layoutX="42.0" layoutY="565.0" onAction="#reportsBttnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="Reports" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></JFXButton>
+            <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="14.0" layoutY="659.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/icons8-logout.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="timeLbl" alignment="CENTER" layoutX="24.0" layoutY="61.0" prefHeight="35.0" prefWidth="179.0" styleClass="timeLbl" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css" textFill="#dfa47e" />
+            <Label fx:id="datLbl" alignment="CENTER" layoutX="21.0" layoutY="26.0" prefHeight="35.0" prefWidth="179.0" styleClass="timeLbl" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css" textFill="#dfa47e" />
+            <Label layoutX="67.0" layoutY="674.0" text="Logout" textFill="#dfa47e">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/homeIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/supplierIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/employeeIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/inventoryyIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/orderIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/reportIcon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ancPane" layoutX="221.0" prefHeight="693.0" prefWidth="1153.0">
+         <children>
+            <ImageView fitHeight="705.0" fitWidth="1166.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.cafe_au_lait.assets/dashbordd.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

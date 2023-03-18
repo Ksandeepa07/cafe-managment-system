@@ -16,7 +16,7 @@ public class Launcher extends Application {
         Parent load = FXMLLoader.load(resource);
 
         stage.setScene(new Scene(load));
-        stage.setTitle("Customer Manage");
+        stage.setTitle("Loading Page");
         stage.centerOnScreen();
         stage.show();
     }

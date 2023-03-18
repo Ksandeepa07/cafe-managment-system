@@ -8,6 +8,9 @@
     -fx-background-radius: 10px;
 
 }
+.signUpFrmae{
+    -fx-background-color: #dfa47e;
+}
 
 .loginName{
     -fx-text-fill:#A85A26;
@@ -15,13 +18,17 @@
 
 .userNameField{
     -fx-background-color: transparent;
-     -fx-text-fill: #7B3927;
+     -fx-text-fill: #dfa47e;
 //-fx-border-color: #2D033B;
     -fx-border-color:#dfa47e;
     -fx-border-width: 0 0 2 0;
-    -fx-prompt-text-fill:#dfa47e ;
+    /*-fx-prompt-text-fill:#dfa47e ;*/
+     /*-fx-font-size: 12px;*/
+    /*-fx-font-weight: bold;*/
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
 
 }
+
 
 .LoginButton{
 //-fx-background-color: linear-gradient(to top right  , #1C82AD, #86E5FF);
@@ -44,6 +51,7 @@
     -fx-font-weight: bold;
 
 
+
 }
 
 .combo-box .list-view .list-cell{
@@ -54,10 +62,75 @@
 
 .combo-box .cell:selected {
     -fx-text-fill: #7B3927;
+
 }
 
 .progress-bar > .track {
     -fx-background-color: transparent;
 }
 
+.forgotPassword{
+
+    /*-fx-background-color: #E9AF86;*/
+    -fx-background-color: #7B3927;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+
+
+}
+
 /*end*/
+
+.dashbordForm{
+
+    /*-fx-background-color: #E9AF86;*/
+    -fx-background-color: #7B3927;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+
+
+}
+.dontHaveAnAcoount {
+-fx-background-color: transparent;
+-fx-text-fill:#7B3927 ;
+}
+
+.dashbordBtns{
+//-fx-background-color: linear-gradient(to top right  , #1C82AD, #86E5FF);*/*/
+    /*-fx-background-color:#dfa47e ;*/
+    -fx-background-color: linear-gradient(to top left  ,#7B3927 ,#dfa47e);
+    /*-fx-background-color: linear-gradient(from 0px 0px to 4px 30px, repeat, #dfa47e 60%, #7B3927  40%);*/
+
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 8, 0, 0, 0);
+    -fx-background-radius: 10px;
+    -fx-text-fill: #7B3927;
+    -fx-font-weight: bold;
+
+}
+
+
+.timeLbl{
+    /*-fx-background-color:#dfa47e;*/
+    /*-fx-background-radius: 10px;*/
+
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+
+
+
+}
+
+.atLbl {
+
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+
+.sampl{
+-fx-background-radius: 30px
+}
+
+
+
+
