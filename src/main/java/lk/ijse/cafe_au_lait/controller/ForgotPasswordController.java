@@ -2,20 +2,31 @@ package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+
+import com.mysql.cj.conf.IntegerProperty;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.mail.MessagingException;
 
@@ -47,58 +58,107 @@ public class ForgotPasswordController {
 
     @FXML
     private AnchorPane recoveryAnchorpane;
+
+    @FXML
+    private JFXButton submitButton1;
+
+    @FXML
+    private Label countLbl;
+
     int otp;
+
+//    private static Timeline timeline;
+//    private static SimpleIntegerProperty timeSeconds = new SimpleIntegerProperty();
+//    private static final int START_TIME = 30;
+
 
     @FXML
     void sendCodeClick(ActionEvent event) throws Exception {
-        Random random=new Random();
-        otp=random.nextInt(9000);
-        otp+=1000;
+        AnimationController.updateTime(sendCodeBtn,countLbl);
 
-        try {
-            EmailController.sendEmail(Emailtxtt.getText(), "cafe au lait verification", otp+"");
-            System.out.println("Email sent successfully.");
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        if(DataValidateController.emailCheck(Emailtxtt.getText())){
+            try {
+
+//                sendCodeBtn.setDisable(true);
+//                timeSeconds.set(START_TIME);
+//                timeline = new Timeline();
+//                timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(START_TIME+1),
+//                        new KeyValue(timeSeconds, 0)));
+//                timeline.setOnFinished(event1 -> {
+//                    sendCodeBtn.setDisable(false);
+//                    countLbl.setVisible(false);
+//
+//                });
+//                timeline.playFromStart();
+//                countLbl.textProperty().bind(timeSeconds.asString());
+
+
+
+                submitButton.setVisible(true);
+                otpLbl.setVisible(true);
+                otpTxt.setVisible(true);
+
+                Random random=new Random();
+                otp=random.nextInt(9000);
+                otp+=1000;
+                EmailController.sendEmail(Emailtxtt.getText(), "cafe au lait verification", otp+"");
+                System.out.println("Email sent successfully.");
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            NotificationController.ErrorMasseage("invalid e-mail address");
+            submitButton.setVisible(false);
+            otpLbl.setVisible(false);
+            otpTxt.setVisible(false);
         }
-        submitButton.setVisible(true);
-        otpLbl.setVisible(true);
-        otpTxt.setVisible(true);
+
+
+
+
+
+
 
     }
+
+
+
+
+
 
     @FXML
     void submmitCodeClick(ActionEvent event) throws IOException {
         if(String.valueOf(otp).equals(otpTxt.getText()) ){
-
             EmailTxt.setText("Enter your new password");
             otpLbl.setText("Confirm new Password");
             sendCodeBtn.setVisible(false);
-        if(submitButton.getText().equals("Save")){
-            recoveryAnchorpane.getScene().getWindow().hide();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.cafe_au_lait.view/loginPage.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("ABC");
-            stage.setScene(new Scene(root1));
-            stage.setResizable(false);
-            stage.show();
-
-        }
+            submitButton.setVisible(false);
+            submitButton1.setVisible(true);
+            otpTxt.setText(" ");
+            Emailtxtt.setText(" ");
 
         }else{
-          new Alert(Alert.AlertType.ERROR,"wrong otp").show();
-          submitButton.setText("submit");
+            NotificationController.ErrorMasseage("Wrong OTP !");
+            submitButton.setText("submit");
 
         }
-        submitButton.setText("Save");
-
-
-
+    }
+    @FXML
+    void submmitCodeClick1(ActionEvent event) throws IOException {
+        recoveryAnchorpane.getScene().getWindow().hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.cafe_au_lait.view/loginPage.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("ABC");
+        stage.setScene(new Scene(root1));
+        stage.setResizable(false);
+        stage.show();
     }
 
     @FXML
     void initialize() {
+        submitButton1.setVisible(false);
         submitButton.setVisible(false);
         otpLbl.setVisible(false);
         otpTxt.setVisible(false);

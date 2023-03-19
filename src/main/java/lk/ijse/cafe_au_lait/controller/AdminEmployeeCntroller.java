@@ -2,7 +2,7 @@ package lk.ijse.cafe_au_lait.controller;
 
 import javafx.event.ActionEvent;
 
-public class adminEmployeeCntroller {
+public class AdminEmployeeCntroller {
     public void homeBtnClick(ActionEvent actionEvent) {
     }
 

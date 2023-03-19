@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,7 +23,7 @@ import org.controlsfx.control.Notifications;
 
 import javax.swing.text.html.ImageView;
 
-public class loginPageController {
+public class LoginPageController {
     String username= "kaveen";
     String password="1234";
 
@@ -49,71 +50,31 @@ public class loginPageController {
 
 
     public void dontHaveClick(ActionEvent actionEvent) throws IOException {
-//        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.cafe_au_lait.view/signUp.fxml"));
-//        ancPane.getChildren().clear();
-//        ancPane.getChildren().add(load);
-
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.cafe_au_lait.view/signUp.fxml"));
-        Parent load = fxmlLoader.load();
-        ancPane.getChildren().setAll(load);
-
-            // Fade out old scene
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1));
-            fadeOut.setFromValue(1);
-            fadeOut.setToValue(0);
-            fadeOut.play();
-
-            // Slide in new scene
-            TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), load);
-
-            slideIn.setFromY(load.getTranslateX() - 300);
-            slideIn.setToY(load.getTranslateX());
-            slideIn.play();
-
-            // Remove old scene from parent after fade out is completed
-            fadeOut.setOnFinished((event) -> {
-                ancPane.getChildren().remove(0);
-            });
-        }
+        AnimationController.fadeAnimation("/lk.ijse.cafe_au_lait.view/signUp.fxml", ancPane);
+    }
 
     public void forgotPasswordClick(ActionEvent actionEvent) throws IOException {
         loginBtn.getScene().getWindow().hide();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.cafe_au_lait.view/forgotPassword.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Password recovery page");
-        stage.setScene(new Scene(root1));
-        stage.setResizable(false);
-        stage.show();
+        StageController.changeStage("/lk.ijse.cafe_au_lait.view/forgotPassword.fxml","Password recovery");
     }
 
     @FXML
     void loginClick() throws IOException {
         if( chooseOption.getValue().equals("Admin")){
-            NotificationController.loginAnimation();
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            NotificationController.animationMesseage("/lk.ijse.cafe_au_lait.assets/loginCoffeeCup.gif","Login",
+                    "Login succesfull !!");
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 loginBtn.getScene().getWindow().hide();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.cafe_au_lait.view/admindashbord.fxml"));
-                Parent root1 = null;
                 try {
-                    root1 = (Parent) fxmlLoader.load();
+                    StageController.changeStage("/lk.ijse.cafe_au_lait.view/admindashbord.fxml","Dashboard");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Stage stage = new Stage();
-                stage.setTitle("ABC");
-                stage.setScene(new Scene(root1));
-                stage.setResizable(false);
-                stage.show();
-
             }));
             timeline.play();
-
         }else{
-            new Alert(Alert.AlertType.CONFIRMATION,"wrong details").show();
+            NotificationController.ErrorMasseage("Wrong OTP !");
         }
-
     }
 
     @FXML

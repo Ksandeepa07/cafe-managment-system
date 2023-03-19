@@ -1,4 +1,4 @@
 package lk.ijse.cafe_au_lait.controller;
 
-public class adminReportsController {
+public class AdminInventoryController {
 }

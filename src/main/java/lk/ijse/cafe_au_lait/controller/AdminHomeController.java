@@ -7,7 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class adminHomeController {
+public class AdminHomeController {
 
     @FXML
     private ResourceBundle resources;

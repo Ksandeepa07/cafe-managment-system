@@ -15,12 +15,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
-public class DashbordController {
+public class AdminDashbordController {
 
     @FXML
     private ResourceBundle resources;
@@ -88,49 +89,37 @@ public class DashbordController {
     }
 
     public void homeBtnClick(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.cafe_au_lait.view/adminhome.fxml"));
-        ancPane.getChildren().clear();
-        ancPane.getChildren().add(load);
-
+        StageController.changeScene("/lk.ijse.cafe_au_lait.view/adminhome.fxml",ancPane);
     }
 
     public void employeeBtnClick(ActionEvent actionEvent) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.cafe_au_lait.view/adminEmployee.fxml"));
-        ancPane.getChildren().clear();
-        ancPane.getChildren().add(load);
+        StageController.changeScene("/lk.ijse.cafe_au_lait.view/adminEmployee.fxml",ancPane);
     }
 
     @FXML
     void supplierBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.cafe_au_lait.view/adminSupplier.fxml"));
-        ancPane.getChildren().clear();
-        ancPane.getChildren().add(load);
-
+        StageController.changeScene("/lk.ijse.cafe_au_lait.view/adminSupplier.fxml",ancPane);
     }
 
     @FXML
     void inventoryBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.cafe_au_lait.view/adminInventoy.fxml"));
-        ancPane.getChildren().clear();
-        ancPane.getChildren().add(load);
-
+        StageController.changeScene("/lk.ijse.cafe_au_lait.view/adminInventoy.fxml",ancPane);
     }
 
     @FXML
     void ordersBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.cafe_au_lait.view/adminOrders.fxml"));
-        ancPane.getChildren().clear();
-        ancPane.getChildren().add(load);
+        StageController.changeScene("/lk.ijse.cafe_au_lait.view/adminOrders.fxml",ancPane);
     }
 
     @FXML
     void reportsBttnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.cafe_au_lait.view/adminReports.fxml"));
-        ancPane.getChildren().clear();
-        ancPane.getChildren().add(load);
-
+       StageController.changeScene("/lk.ijse.cafe_au_lait.view/adminReports.fxml",ancPane);
     }
 
+    public void logoutClick(MouseEvent mouseEvent) throws IOException {
+        anchorpane.getScene().getWindow().hide();
+        StageController.changeStage("/lk.ijse.cafe_au_lait.view/loginPage.fxml","Login");
+    }
 
     @FXML
     void initialize() {
@@ -139,6 +128,7 @@ public class DashbordController {
         assert timeLbl != null : "fx:id=\"timeLbl\" was not injected: check your FXML file 'admindashbord.fxml'.";
 
     }
+
 
 
 }
