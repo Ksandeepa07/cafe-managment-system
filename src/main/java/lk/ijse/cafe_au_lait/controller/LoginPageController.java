@@ -14,18 +14,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
-import javax.swing.text.html.ImageView;
-
 public class LoginPageController {
-    String username= "kaveen";
-    String password="1234";
+
+    String password;
 
     @FXML
     private ResourceBundle resources;
@@ -48,6 +47,21 @@ public class LoginPageController {
     @FXML
     public AnchorPane ancPane;
 
+    @FXML
+    private TextField txtShowPassword;
+
+    @FXML
+    private Button showPasswordBtn;
+
+    @FXML
+    private Button hidePasswordBtn;
+
+    @FXML
+    private ImageView showPasswordImage;
+
+    @FXML
+    private ImageView hidePasswordImage;
+
 
     public void dontHaveClick(ActionEvent actionEvent) throws IOException {
         AnimationController.fadeAnimation("/lk.ijse.cafe_au_lait.view/signUp.fxml", ancPane);
@@ -57,6 +71,8 @@ public class LoginPageController {
         loginBtn.getScene().getWindow().hide();
         StageController.changeStage("/lk.ijse.cafe_au_lait.view/forgotPassword.fxml","Password recovery");
     }
+
+
 
     @FXML
     void loginClick() throws IOException {
@@ -77,9 +93,31 @@ public class LoginPageController {
         }
     }
 
+    public void shiwPasswordClick(MouseEvent mouseEvent) {
+        password=passwordTxt.getText();
+        passwordTxt.setVisible(false);
+        showPasswordImage.setVisible(false);
+        txtShowPassword.setVisible(true);
+        hidePasswordImage.setVisible(true);
+        txtShowPassword.setText(password);
+    }
+
+    public void hidepasswordClick(MouseEvent mouseEvent) {
+        password=txtShowPassword.getText();
+        passwordTxt.setVisible(true);
+        showPasswordImage.setVisible(true);
+        txtShowPassword.setVisible(false);
+        hidePasswordImage.setVisible(false);
+        passwordTxt.setText(password);
+
+    }
+
+
     @FXML
     void initialize() {
 
+        txtShowPassword.setVisible(false);
+        hidePasswordImage.setVisible(false);
         assert usernameTxt != null : "fx:id=\"usernameTxt\" was not injected: check your FXML file 'loginPage.fxml'.";
         assert passwordTxt != null : "fx:id=\"passwordTxt\" was not injected: check your FXML file 'loginPage.fxml'.";
         assert loginBtn != null : "fx:id=\"loginBtn\" was not injected: check your FXML file 'loginPage.fxml'.";
@@ -87,7 +125,5 @@ public class LoginPageController {
         chooseOption.getItems().addAll("Admin", "Cashier");
 
     }
-
-
 
 }

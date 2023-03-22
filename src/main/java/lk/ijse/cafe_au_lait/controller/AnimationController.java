@@ -74,7 +74,6 @@ public class AnimationController {
         timeline.setOnFinished(event1 -> {
             button.setDisable(false);
             label.setVisible(false);
-
         });
         timeline.playFromStart();
         label.textProperty().bind(timeSeconds.asString());
