@@ -7,19 +7,14 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.animation.Animation;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
+import util.StageController;
+import util.TimeController;
 
 public class AdminDashbordController {
 
@@ -63,31 +58,6 @@ public class AdminDashbordController {
     private Label lblStatus;
     int x=0;
 
-
-
-    private  void Timenow(){
-        Thread thread =new Thread(() ->{
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
-           SimpleDateFormat sdf1 = new SimpleDateFormat("MMMM,  dd, yyyy");
-            while (true){
-                try{
-                    Thread.sleep(1000);
-
-                }catch (Exception e){
-                    System.out.println(e);
-                }
-                final String timenow = sdf.format(new Date());
-                String timenow1 = sdf1.format(new Date());
-
-                Platform.runLater(() ->{
-                    timeLbl.setText(timenow);
-                    datLbl.setText(timenow1);
-                });
-            }
-        });
-        thread.start();
-    }
-
     public void homeBtnClick(javafx.event.ActionEvent actionEvent) throws IOException {
         StageController.changeScene("/lk.ijse.cafe_au_lait.view/adminhome.fxml",ancPane);
     }
@@ -123,8 +93,7 @@ public class AdminDashbordController {
 
     @FXML
     void initialize() {
-
-        Timenow();
+        TimeController.timeNow(timeLbl,datLbl);
         assert timeLbl != null : "fx:id=\"timeLbl\" was not injected: check your FXML file 'admindashbord.fxml'.";
 
     }

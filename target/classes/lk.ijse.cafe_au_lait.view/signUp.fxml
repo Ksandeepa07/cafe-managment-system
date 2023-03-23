@@ -44,7 +44,7 @@
                   <Image url="@../lk.ijse.cafe_au_lait.assets/icons8-lock.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="loginBtn" buttonType="RAISED" layoutX="178.0" layoutY="304.0" onAction="#loginClick" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="Sign up" textFill="#7b3927">
+            <JFXButton fx:id="signBtn" buttonType="RAISED" layoutX="178.0" layoutY="304.0" onAction="#signClick" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="Sign up" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
@@ -64,7 +64,7 @@
                   <Image url="@../lk.ijse.cafe_au_lait.assets/icons8-mail-48.png" />
                </image>
             </ImageView>
-            <PasswordField fx:id="passwordTxt1" focusTraversable="false" layoutX="59.0" layoutY="257.0" prefHeight="25.0" prefWidth="202.0" promptText="Confirm Password" styleClass="userNameField" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css">
+            <PasswordField fx:id="confirmPassword" focusTraversable="false" layoutX="59.0" layoutY="257.0" prefHeight="25.0" prefWidth="202.0" promptText="Confirm Password" styleClass="userNameField" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>

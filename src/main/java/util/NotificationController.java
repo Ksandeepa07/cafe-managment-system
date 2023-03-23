@@ -1,4 +1,4 @@
-package lk.ijse.cafe_au_lait.controller;
+package util;
 
 
 import javafx.scene.control.Alert;
@@ -12,7 +12,7 @@ import org.controlsfx.control.Notifications;
 
 
 public class NotificationController {
-    static void ErrorMasseage(String messeage){
+   public static void ErrorMasseage(String messeage){
         Alert alert= new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
@@ -30,7 +30,7 @@ public class NotificationController {
         alert.showAndWait();
 
     }
-    static void animationMesseage(String image,String title,String text){
+    public static void animationMesseage(String image,String title,String text){
         Image img = new Image(String.valueOf(image), 96, 96, false, false);
         Notifications notificationBuilder = Notifications.create()
                 .title(title)

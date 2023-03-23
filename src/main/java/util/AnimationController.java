@@ -1,8 +1,7 @@
-package lk.ijse.cafe_au_lait.controller;
+package util;
 
 import javafx.animation.*;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -17,7 +16,7 @@ public class AnimationController {
     private static SimpleIntegerProperty timeSeconds = new SimpleIntegerProperty();
     private static final int START_TIME = 30;
 
-    static void fadeAnimation(String fxml, AnchorPane pane) throws IOException {
+    public static void fadeAnimation(String fxml, AnchorPane pane) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AnimationController.class.getResource(String.valueOf(fxml)));
         Parent load = fxmlLoader.load();
         pane.getChildren().setAll(load);
@@ -41,7 +40,7 @@ public class AnimationController {
         });
     }
 
-    static void fadeUpAnimation(String fxml, AnchorPane pane) throws IOException {
+    public static void fadeUpAnimation(String fxml, AnchorPane pane) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AnimationController.class.getResource(String.valueOf(fxml)));
         Parent load = fxmlLoader.load();
         pane.getChildren().setAll(load);
@@ -65,7 +64,7 @@ public class AnimationController {
         });
     }
 
-    static void updateTime(Button button, Label label){
+   public static void updateTime(Button button, Label label){
         button.setDisable(true);
         timeSeconds.set(START_TIME);
         timeline = new Timeline();

@@ -81,6 +81,8 @@
 
 /*end*/
 
+/*Start DashBoaed*/
+
 .dashbordForm{
 
     /*-fx-background-color: #E9AF86;*/
@@ -130,6 +132,78 @@
 .sampl{
 -fx-background-radius: 30px
 }
+
+.dashBoardTextField{
+    -fx-background-color: transparent;
+    -fx-text-fill: #7B3927;
+//-fx-border-color: #2D033B;
+    -fx-border-color:#7B3927;
+    -fx-border-width: 0 0 3 0;
+    /*-fx-prompt-text-fill:#dfa47e ;*/
+    -fx-font-size: 15px;
+    /*-fx-font-weight: bold;*/
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    /*-fx-border-radius: 10px;*/
+
+}
+
+.dashBoardLabels{
+    -fx-font-weight: bold;
+
+}
+
+.table-view .column-header {
+    -fx-background-color:#7B3927 ;
+    -fx-text-fill: #7B3927;
+}
+.table-view .table-cell{
+    -fx-background-color: #dfa47e;
+    -fx-text-fill: #7B3927;
+}
+
+
+.table-row-cell{
+    -fx-border-color: #7B3927;
+    -fx-table-cell-border-color:#7B3927;
+    -fx-font-weight: bolder;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #dfa47e;
+    -fx-font-weight: bolder;
+}
+.buttons:hover{
+    -fx-background-color: #dfa47e ;
+    -fx-text-fill: #dfa47e;
+    -fx-font-weight: bold;
+}
+/*.table-row-cell:selected {*/
+/*    -fx-background-color: #7B3927;*/
+/*}*/
+
+.DashBoardcombo-box-base {
+    -fx-background-color: #7B3927;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-text-fill: #7B3927;
+
+}
+
+.DashBoardcombo-box.cell{
+    -fx-font-weight: bold;
+
+}
+
+.DashBoardcombo-box .list-view .list-cell{
+    -fx-text-fill: #7B3927;
+    -fx-background-color:#dfa47e;
+    -fx-font-weight: bold;
+}
+
+.DashBoardcombo-box .cell:selected {
+    -fx-text-fill: #7B3927;
+
+}
+
 
 
 

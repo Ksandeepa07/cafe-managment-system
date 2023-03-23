@@ -1,6 +1,5 @@
 package lk.ijse.cafe_au_lait.controller;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,19 +7,16 @@ import java.util.ResourceBundle;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
+import util.AnimationController;
+import util.NotificationController;
+import util.StageController;
 
 public class LoginPageController {
 
@@ -89,7 +85,20 @@ public class LoginPageController {
             }));
             timeline.play();
         }else{
-            NotificationController.ErrorMasseage("Wrong OTP !");
+            NotificationController.animationMesseage("/lk.ijse.cafe_au_lait.assets/loginCoffeeCup.gif","Login","Login " +
+                    "succesfull !!");
+
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                loginBtn.getScene().getWindow().hide();
+                try {
+                    StageController.changeStage("/lk.ijse.cafe_au_lait.view/cashierDashboard.fxml","Dashboard");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }));
+            timeline.play();
+
+
         }
     }
 
