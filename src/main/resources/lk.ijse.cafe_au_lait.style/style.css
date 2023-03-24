@@ -39,31 +39,23 @@
 
 }
 
-.combo-box-base {
+.firstComboBox .list-cell {
+    -fx-background-color: #7B3927;
+    -fx-text-fill: #dfa47e;
+}
+
+.firstComboBox .arrow-button .arrow {
     -fx-background-color: #dfa47e;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 3px, 3px, 2px, 1px;
-    -fx-text-fill: #7B3927;
-
+    -fx-background-insets: 8;
+    -fx-padding: 12;
 }
 
-.combo-box.cell{
-    -fx-font-weight: bold;
-
-
-
+.firstComboBox .arrow-button {
+    -fx-background-color: #7B3927;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
 }
 
-.combo-box .list-view .list-cell{
-    -fx-text-fill: #7B3927;
-    -fx-background-color:#dfa47e;
-    -fx-font-weight: bold;
-}
-
-.combo-box .cell:selected {
-    -fx-text-fill: #7B3927;
-
-}
 
 .progress-bar > .track {
     -fx-background-color: transparent;
@@ -139,11 +131,9 @@
 //-fx-border-color: #2D033B;
     -fx-border-color:#7B3927;
     -fx-border-width: 0 0 3 0;
-    /*-fx-prompt-text-fill:#dfa47e ;*/
     -fx-font-size: 15px;
-    /*-fx-font-weight: bold;*/
     -fx-font-family: 'Helvetica', Arial, sans-serif;
-    /*-fx-border-radius: 10px;*/
+    -fx-prompt-text-fill:#7B3927 ;
 
 }
 
@@ -152,57 +142,126 @@
 
 }
 
-.table-view .column-header {
-    -fx-background-color:#7B3927 ;
-    -fx-text-fill: #7B3927;
-}
-.table-view .table-cell{
-    -fx-background-color: #dfa47e;
-    -fx-text-fill: #7B3927;
-}
 
-
-.table-row-cell{
-    -fx-border-color: #7B3927;
-    -fx-table-cell-border-color:#7B3927;
-    -fx-font-weight: bolder;
-}
-.table-view .column-header .label {
-    -fx-text-fill: #dfa47e;
-    -fx-font-weight: bolder;
-}
 .buttons:hover{
     -fx-background-color: #dfa47e ;
     -fx-text-fill: #dfa47e;
     -fx-font-weight: bold;
 }
-/*.table-row-cell:selected {*/
+
+.secondComboBox .list-cell {
+    -fx-background-color: #dfa47e;
+    -fx-text-fill: #7B3927;
+
+}
+
+.secondComboBox .arrow-button .arrow {
+    -fx-background-color: #7B3927;
+    -fx-background-insets: 8;
+    -fx-padding: 12;
+}
+
+.secondComboBox .arrow-button {
+    -fx-background-color: #dfa47e;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+/*.date-picker {*/
+/*    -fx-background-color: #7B3927;*/
+/*    -fx-text-fill: #7B3927;*/
+/*}*/
+
+/*!* Style for the Calendar icon *!*/
+/*.date-picker .arrow-button .arrow {*/
 /*    -fx-background-color: #7B3927;*/
 /*}*/
 
-.DashBoardcombo-box-base {
+/*!* Style for the Calendar background *!*/
+/*.date-picker-popup > .popup-content > .calendar-grid {*/
+/*    -fx-background-color: blue;*/
+/*}*/
+
+.table-view {
+    -fx-background-color:#dfa47e; /* set the background color */
+    -fx-selection-bar-color: #7B3927; /* set the selection color */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #7B3927; /* set the background color of selected rows */
+    -fx-text-fill: #7B3927; /* set the text color of selected rows */
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #dfa47e; /* set the background color of odd rows */
+    /*-fx-border-color: #7B3927;*/
+    -fx-table-cell-border-color: #7B3927;
+    -fx-font-weight: bolder;
+ }
+
+.table-row-cell:even {
+    -fx-background-color: #F8C399; /* set the background color of even rows */
+    /*-fx-border-color: #7B3927;*/
+    -fx-table-cell-border-color: #7B3927;
+    -fx-font-weight: bolder;
+ }
+
+.table-column {
+    -fx-alignment: center; /* set the alignment of table column */
+}
+
+.table-view .column-header {
+    -fx-background-color:#7B3927 ;
+    -fx-text-fill: #7B3927;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #dfa47e;
+    -fx-font-weight: bolder;
+}
+
+.table-view .table-cell{
+
+    -fx-text-fill: #7B3927;
+    -fx-font-weight: bolder;
+}
+/*.table-row-cell {*/
+/*    -fx-border-color: #7B3927;*/
+/*    -fx-table-cell-border-color: #7B3927;*/
+/*    -fx-font-weight: bolder;*/
+/*}*/
+
+.searchBar{
+    -fx-background-color: transparent;
+    -fx-text-fill: #7B3927;
+//-fx-border-color: #2D033B;
+    -fx-border-color:#7B3927;
+    -fx-border-width: 2 2 2 2;
+    -fx-font-size: 15px;
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-border-radius: 10px;
+    -fx-prompt-text-fill:#7B3927 ;
+}
+.date-picker {
+
+    -fx-background-color: transparent;
+    -fx-border-color: #7B3927;
+    -fx-border-style: solid;
+    /*-fx-border-width: 0 0 3 0; !* Set the bottom border width to 2px *!*/
+
+}
+
+
+.date-picker > .arrow-button {
     -fx-background-color: #7B3927;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 3px, 3px, 2px, 1px;
-    -fx-text-fill: #7B3927;
-
+  }
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #dfa47e;
 }
 
-.DashBoardcombo-box.cell{
-    -fx-font-weight: bold;
 
-}
 
-.DashBoardcombo-box .list-view .list-cell{
-    -fx-text-fill: #7B3927;
-    -fx-background-color:#dfa47e;
-    -fx-font-weight: bold;
-}
 
-.DashBoardcombo-box .cell:selected {
-    -fx-text-fill: #7B3927;
 
-}
 
 
 

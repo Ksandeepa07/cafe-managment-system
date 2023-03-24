@@ -2,8 +2,11 @@ package lk.ijse.cafe_au_lait.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import com.jfoenix.controls.JFXButton;
 import dto.Employee;
@@ -14,8 +17,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.EmployeeModel;
+import util.NotificationController;
 
 public class AdminEmployeeCntroller {
 
@@ -89,6 +96,12 @@ public class AdminEmployeeCntroller {
     private JFXButton deleteBtn;
 
     @FXML
+    private ImageView searchIcon;
+
+    @FXML
+    private TextField searchIdTxt;
+
+    @FXML
     void saveOnAction(ActionEvent event) throws SQLException {
         String id=idTxt.getText();
         String name=nameTxt.getText();
@@ -101,14 +114,23 @@ public class AdminEmployeeCntroller {
         Employee employee=new Employee(id,name,address,dob,nic,jobTitle,contact,email);
         Boolean isSaved=EmployeeModel.save(employee);
         if (isSaved){
-            System.out.println("saved");
+            idTxt.setText(" ");
+            nameTxt.setText(" ");
+            addressTxt.setText(" ");
+            jobTitileTxt.setValue(null);
+            dobTxt.setValue(null);
+            nicTxt.setText( "");
+            contactTxt.setText(" ");
+            emailTxt.setText(" ");
+
+            NotificationController.animationMesseage("lk.ijse.cafe_au_lait.assets/tik.png","Saved",
+                    "Employee Added sucessfully !!");
+            getAll();
 
         }
-
     }
 
     void getAll()  {
-
         try {
             ObservableList<EmployeeTM> employeeData =EmployeeModel.getAll();
 
@@ -129,6 +151,101 @@ public class AdminEmployeeCntroller {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
     }
+
+    public void searchIconClick(MouseEvent mouseEvent) {
+        try {
+            Employee employee=EmployeeModel.searchById(searchIdTxt.getText());
+            if(employee!=null){
+                idTxt.setText(employee.getId());
+                nameTxt.setText(employee.getName());
+                addressTxt.setText(employee.getAddress());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate date = LocalDate.parse(employee.getDob(), formatter);
+                dobTxt.setValue(date);
+                nicTxt.setText(employee.getNic());
+                jobTitileTxt.setValue(employee.getJobTitle());
+                contactTxt.setText(employee.getContact());
+                emailTxt.setText(employee.getEmail());
+            }else{
+                NotificationController.ErrorMasseage("Employee ID Not Found");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void searchTable(KeyEvent keyEvent) throws SQLException {
+        String searchValue = searchIdTxt.getText().trim();
+        ObservableList<EmployeeTM> obList = EmployeeModel.getAll();
+
+        if (!searchValue.isEmpty()) {
+            ObservableList<EmployeeTM> filteredData = obList.filtered(new Predicate<EmployeeTM>(){
+                @Override
+                public boolean test(EmployeeTM employeetm) {
+                    return String.valueOf(employeetm.getId()).toLowerCase().contains(searchValue.toLowerCase());
+                }
+            });
+            tblEmployee.setItems(filteredData);
+        } else {
+            tblEmployee.setItems(obList);
+        }
+    }
+
+    public void updateOnAction(ActionEvent actionEvent) {
+        String id=idTxt.getText();
+        String name=nameTxt.getText();
+        String address=addressTxt.getText();
+        String dob= String.valueOf(dobTxt.getValue());
+        String nic=nicTxt.getText();
+        String jobTitle= (String) jobTitileTxt.getValue();
+        String contact=contactTxt.getText();
+        String email=emailTxt.getText();
+
+        Employee employee=new Employee(id,name,address,dob,nic,jobTitle,contact,email);
+        try {
+            boolean isUpdated=EmployeeModel.update(employee);
+            if(isUpdated){
+                idTxt.setText(" ");
+                nameTxt.setText(" ");
+                addressTxt.setText(" ");
+                jobTitileTxt.setValue(null);
+                dobTxt.setValue(null);
+                nicTxt.setText( "");
+                contactTxt.setText(" ");
+                emailTxt.setText(" ");
+
+                getAll();
+                NotificationController.animationMesseage("lk.ijse.cafe_au_lait.assets/tik.png","Update",
+                        "Employee Updated sucessfully !!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void deleteOnAction(ActionEvent actionEvent) {
+        try {
+            boolean isDeleted=EmployeeModel.delete(idTxt.getText());
+            if(isDeleted){
+                getAll();
+                NotificationController.animationMesseage("lk.ijse.cafe_au_lait.assets/tik.png","Delete",
+                        "Employee Deleted sucessfully !!");
+                idTxt.setText(" ");
+                nameTxt.setText(" ");
+                addressTxt.setText(" ");
+                jobTitileTxt.setValue(null);
+                dobTxt.setValue(null);
+                nicTxt.setText( "");
+                contactTxt.setText(" ");
+                emailTxt.setText(" ");
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
 
     @FXML
     void initialize() {
@@ -155,9 +272,8 @@ public class AdminEmployeeCntroller {
 
     }
 
-    public void updateOnAction(ActionEvent actionEvent) {
-    }
 
-    public void deleteOnAction(ActionEvent actionEvent) {
-    }
+
+
+
 }

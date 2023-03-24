@@ -53,6 +53,9 @@ public class SignUpController {
     @FXML
     private PasswordField confirmPassword;
 
+    @FXML
+    private ComboBox  jobTitlte;
+
     public void alreadyHaveAnAccountClick(ActionEvent actionEvent) throws IOException {
         AnimationController.fadeUpAnimation("/lk.ijse.cafe_au_lait.view/loginPage.fxml", ancPane);
     }
@@ -61,8 +64,9 @@ public class SignUpController {
         String username=usernameTxt.getText();
         String password=passwordTxt.getText();
         String email=emailTxt.getText();
+        String jobTitle= (String) jobTitlte.getValue();
 
-        User user=new User(username,password,email);
+        User user=new User(username,password,email,jobTitle);
         try {
             if(passwordTxt.getText().equals(confirmPassword.getText())) {
                 boolean isSaved = UserModel.save(user);
@@ -84,6 +88,7 @@ public class SignUpController {
         assert passwordTxt != null : "fx:id=\"passwordTxt\" was not injected: check your FXML file 'signUp.fxml'.";
         assert chooseOption != null : "fx:id=\"chooseOption\" was not injected: check your FXML file 'signUp.fxml'.";
         assert alreadyHaveAnAccount != null : "fx:id=\"alreadyHaveAnAccount\" was not injected: check your FXML file 'signUp.fxml'.";
+        jobTitlte.getItems().addAll("Admin", "Cashier");
 
     }
 

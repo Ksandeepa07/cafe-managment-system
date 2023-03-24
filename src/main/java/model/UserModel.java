@@ -9,11 +9,12 @@ import java.sql.SQLException;
 
 public class UserModel {
     public static boolean save(User user) throws SQLException {
-        String sql="INSERT INTO user(Username,Password,Email)VALUES(?,?,?) ";
+        String sql="INSERT INTO user(Username,Password,Email,JobTitle)VALUES(?,?,?,?) ";
         try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
             pstm.setString(1,user.getUsername());
             pstm.setString(2,user.getPassword());
             pstm.setString(3,user.getEmial());
+            pstm.setString(4,user.getJobTitle());
            int rows= pstm.executeUpdate();
 
            if(rows<0){
@@ -33,7 +34,8 @@ public class UserModel {
             return new User(
                     resultSet.getString(1),
                     resultSet.getString(2),
-                    resultSet.getString(3)
+                    resultSet.getString(3),
+                    resultSet.getString(4)
             );
         }
         return null;

@@ -43,7 +43,7 @@
                   <Image url="@../lk.ijse.cafe_au_lait.assets/icons8-lock.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="chooseOption" layoutX="59.0" layoutY="85.0" prefWidth="150.0" promptText="Admin" styleClass="cell" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css" visibleRowCount="2" />
+            <ComboBox fx:id="chooseOption" layoutX="59.0" layoutY="85.0" prefWidth="150.0" promptText="Admin" styleClass="secondComboBox" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css" visibleRowCount="2" />
             <JFXButton fx:id="loginBtn" buttonType="RAISED" layoutX="179.0" layoutY="261.0" onAction="#loginClick" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="Login" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
@@ -59,7 +59,7 @@
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
             </Hyperlink>
-            <TextField fx:id="txtShowPassword" layoutX="59.0" layoutY="209.0" prefHeight="33.0" prefWidth="202.0" styleClass="userNameField" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css" />
+            <TextField fx:id="txtShowPassword" layoutX="59.0" layoutY="209.0" onKeyPressed="#passwordFieldEnter" prefHeight="33.0" prefWidth="202.0" styleClass="userNameField" stylesheets="@../lk.ijse.cafe_au_lait.style/style.css" />
             <ImageView fx:id="showPasswordImage" fitHeight="26.0" fitWidth="24.0" layoutX="237.0" layoutY="214.0" onMouseClicked="#shiwPasswordClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../lk.ijse.cafe_au_lait.assets/icons8-eye-50.png" />
