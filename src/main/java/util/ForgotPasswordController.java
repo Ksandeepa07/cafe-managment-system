@@ -19,10 +19,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.UserModel;
-import util.AnimationController;
-import util.DataValidateController;
-import util.EmailController;
-import util.NotificationController;
 
 import javax.mail.MessagingException;
 
@@ -88,7 +84,7 @@ public class ForgotPasswordController {
                   otp = random.nextInt(9000);
                   otp += 1000;
                   EmailController.sendEmail(Emailtxtt.getText(), "cafe au lait verification", otp + "");
-                  NotificationController.animationMesseage("/lk.ijse.cafe_au_lait.assets/tik.png","otp","OTP sent " +
+                  NotificationController.animationMesseage("/assets/tik.png","otp","OTP sent " +
                           "sucessfully");
                     AnimationController.updateTime(sendCodeBtn,countLbl);
               } catch (MessagingException e) {
@@ -132,10 +128,10 @@ public class ForgotPasswordController {
         try {
             boolean isSavd=UserModel.updatePassword(usernamee,password);
             if(isSavd){
-                NotificationController.animationMesseage("/lk.ijse.cafe_au_lait.assets/tik.png","OTP",
+                NotificationController.animationMesseage("/assets/tik.png","OTP",
                         "Password change sucessfully");
                 recoveryAnchorpane.getScene().getWindow().hide();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/lk.ijse.cafe_au_lait.view/loginPage.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/loginPage.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setTitle("ABC");

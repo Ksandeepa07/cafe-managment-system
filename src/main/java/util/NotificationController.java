@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import java.util.Optional;
+
 
 public class NotificationController {
    public static void ErrorMasseage(String messeage){
@@ -23,7 +25,7 @@ public class NotificationController {
         alert.getDialogPane().setHeaderText(null);
 
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/lk.ijse.cafe_au_lait.assets/error.png"));
+        stage.getIcons().add(new Image("/assets/error.png"));
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(cancelButton);
 
@@ -39,5 +41,29 @@ public class NotificationController {
                 .hideAfter(Duration.seconds(3));
         notificationBuilder.darkStyle();
         notificationBuilder.show();
+    }
+
+    public static boolean confirmationMasseage(String messeage){
+        Alert alert= new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText(messeage);
+
+        alert.getDialogPane().setPrefSize(300, 150);
+        alert.getDialogPane().setStyle("-fx-background-color: #dfa47e;");
+        alert.getDialogPane().setHeaderText(null);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/assets/error.png"));
+        ButtonType okButton = new ButtonType("ok", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(okButton,cancelButton);
+
+        Optional<ButtonType> result =alert.showAndWait();
+        if(result.orElse(cancelButton) == okButton){
+            return true;
+        }
+            return false;
     }
 }
