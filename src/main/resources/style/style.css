@@ -101,6 +101,9 @@
     -fx-font-weight: bold;
 
 }
+.dashbordBtns:hover{
+    -fx-background-color: black;
+}
 
 
 .timeLbl{
