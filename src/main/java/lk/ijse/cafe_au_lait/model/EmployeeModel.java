@@ -12,6 +12,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EmployeeModel {
+    public static ObservableList<String> loadEmpIds() throws SQLException {
+        String sql="SELECT * FROM employee";
+        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
+            ObservableList<String> employeeData= FXCollections.observableArrayList();
+            ResultSet resultSet=pstm.executeQuery();
+
+            while (resultSet.next()){
+                employeeData.add(resultSet.getString(1));
+            }
+            return employeeData;
+        }
+    }
     public static boolean save(Employee employee) throws SQLException {
         String sql="INSERT INTO Employee (EmpId,Name,Address,NIC,DOB,JobTitle,PhoneNumber,Email) VALUE (?,?,?,?,?,?,?,?)";
         PreparedStatement pstm= DBConnection.getInstance().getConnection().prepareStatement(sql);

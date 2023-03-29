@@ -11,18 +11,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SalaryModel {
-    public static ObservableList<String> loadEmpIds() throws SQLException {
-        String sql="SELECT * FROM employee";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            ObservableList<String> employeeData= FXCollections.observableArrayList();
-            ResultSet resultSet=pstm.executeQuery();
+//    public static ObservableList<String> loadEmpIds() throws SQLException {
+//        String sql="SELECT * FROM employee";
+//        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
+//            ObservableList<String> employeeData= FXCollections.observableArrayList();
+//            ResultSet resultSet=pstm.executeQuery();
+//
+//            while (resultSet.next()){
+//                employeeData.add(resultSet.getString(1));
+//            }
+//            return employeeData;
+//        }
 
-            while (resultSet.next()){
-                employeeData.add(resultSet.getString(1));
-            }
-            return employeeData;
-        }
-    }
 
     public static boolean save(Salary salary) throws SQLException {
         String sql="INSERT INTO salary(salaryId,EmpId,salaryPaymentMethod,salaryPayment,salaryOt)" +
@@ -82,5 +82,17 @@ public class SalaryModel {
         }
         return false;
 
+    }
+
+    public static boolean delete(String value) throws SQLException {
+        String sql="DELETE FROM salary WHERE salaryId=?";
+        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
+            pstm.setString(1,value);
+            int rows=pstm.executeUpdate();
+            if(rows>0){
+                return true;
+            }
+        }
+        return false;
     }
 }

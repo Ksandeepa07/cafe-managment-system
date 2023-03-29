@@ -85,7 +85,27 @@ public class AdminSalaryController {
     private ComboBox methodTxt;
 
     @FXML
-    void deleteOnAction(ActionEvent event) {
+    void deleteOnAction(ActionEvent event){
+        try {
+            boolean isDeleted=SalaryModel.delete(salaryTxt.getText());
+            boolean result=NotificationController.confirmationMasseage("Are you sure you want delete this " +
+                    "salary ?");
+            if(result){
+                if(isDeleted){
+                    idTxt.setValue(null);
+                    salaryTxt.setText(" ");
+                    methodTxt.setValue(null);
+                    payamentTxt.setText(" ");
+                    overTimeTxt.setText(" ");
+                    getAll();
+                    NotificationController.animationMesseage("assets/tik.png","Delete",
+                            "Salary Deleted sucessfully !!");
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
@@ -272,7 +292,7 @@ public class AdminSalaryController {
 
     void loadEmployeeId(){
         try {
-            ObservableList<String> employeeData= SalaryModel.loadEmpIds();
+            ObservableList<String> employeeData= EmployeeModel.loadEmpIds();
             idTxt.setItems(employeeData);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

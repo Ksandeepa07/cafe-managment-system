@@ -7,14 +7,11 @@ import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
+import javafx.scene.control.*;
 import lk.ijse.cafe_au_lait.dto.Item;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -22,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import lk.ijse.cafe_au_lait.dto.tm.ItemTM;
+import lk.ijse.cafe_au_lait.dto.tm.SupplierTM;
 import lk.ijse.cafe_au_lait.model.ItemModel;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 
@@ -244,6 +242,20 @@ public class AdminInventoryController {
         //////////////////////
 
     }
+
+    public void tblClick(MouseEvent mouseEvent) {
+        TablePosition pos = tblItem.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        // Get the data from the selected row
+        ObservableList<TableColumn<ItemTM, ?>> columns = tblItem.getColumns();
+
+        idTxt.setText(columns.get(0).getCellData(row).toString());
+        nameTxt.setText(columns.get(1).getCellData(row).toString());
+        quantityTxt.setText(columns.get(2).getCellData(row).toString());
+        priceTxt.setText(columns.get(3).getCellData(row).toString());
+        categoryTxt.setText(columns.get(4).getCellData(row).toString());
+    }
+
 
     @FXML
     void initialize() {

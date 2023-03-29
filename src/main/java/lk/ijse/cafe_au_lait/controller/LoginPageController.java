@@ -25,8 +25,9 @@ import lk.ijse.cafe_au_lait.util.StageController;
 public class LoginPageController {
     String username;
     String selectJob;
-    String password=null;
-    String jobTitle=null;
+    String password;
+    String jobTitle;
+    String userr;
 
 
 
@@ -69,6 +70,13 @@ public class LoginPageController {
     @FXML
     private ImageView hidePasswordImage;
 
+    @FXML
+    private Label invlidLbl;
+
+    @FXML
+    private Label invlidLbl1;
+
+
 
     public void dontHaveClick(ActionEvent actionEvent) throws IOException {
         AnimationController.fadeAnimation("/view/signUp.fxml", ancPane);
@@ -79,21 +87,19 @@ public class LoginPageController {
         StageController.changeStage("/view/forgotPassword.fxml","Password recovery");
     }
 
-
-
     @FXML
     void loginClick() throws IOException {
          username=usernameTxt.getText();
          selectJob= (String) chooseOption.getValue();
-         password=null;
-         jobTitle=null;
+//         password=null;
+//         jobTitle=null;
         try {
-            User user=UserModel.SearchById(username);
-            password=user.getPassword();
-            jobTitle=user.getJobTitle();
+            User user = UserModel.SearchById(username);
+            password = user.getPassword();
+            jobTitle = user.getJobTitle();
+            userr=user.getUsername();
+        }catch (Exception e){
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
         if(passwordTxt.getText().equals(password) && selectJob.equals(jobTitle)&& selectJob.equals("Cashier") ){
@@ -101,11 +107,9 @@ public class LoginPageController {
                     "Login succesfull !!");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 loginBtn.getScene().getWindow().hide();
-                try {
+
                     StageController.changeStage("/view/cashierDashboard.fxml","Dashboard");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }));
             timeline.play();
         }else if (passwordTxt.getText().equals(password) && selectJob.equals(jobTitle)&& selectJob.equals("Admin") ){
@@ -114,17 +118,63 @@ public class LoginPageController {
 
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 loginBtn.getScene().getWindow().hide();
-                try {
+
                     StageController.changeStage("/view/admindashbord.fxml","Dashboard");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }));
             timeline.play();
+
+        }else if(usernameTxt.getText().isEmpty() && passwordTxt.getText().isEmpty()) {
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
+            invlidLbl.setText("Username can't be empty");
+            invlidLbl1.setText("Password can't be empty");
+            usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+
+        }else if(usernameTxt.getText().isEmpty()) {
+                invlidLbl.setVisible(true);
+                invlidLbl1.setVisible(true);
+                invlidLbl.setText("Username can't be empty");
+                invlidLbl1.setText(" ");
+                usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+                passwordTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+
+
+        }else if(passwordTxt.getText().isEmpty()) {
+                invlidLbl.setVisible(true);
+                invlidLbl1.setVisible(true);
+                invlidLbl.setText("");
+                invlidLbl1.setText("Password can't be empty");
+                usernameTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+                passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+
+
+        }else if(!usernameTxt.getText().equals(userr)) {
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
+            invlidLbl.setText("Wrong username !");
+            invlidLbl1.setText(" ");
+            usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+
+        }else if(!passwordTxt.getText().equals(password)) {
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
+            invlidLbl.setText(" ");
+            invlidLbl1.setText("Wrong password ! ");
+            usernameTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
 
         }else{
             NotificationController.animationMesseage("/assets/error.png","Error",
                     "Invalid details");
+            invlidLbl.setText("Invalid details");
+            invlidLbl1.setText("Invalid details");
+            usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
         }
 
     }
@@ -161,6 +211,8 @@ public class LoginPageController {
     @FXML
     void initialize() {
 //        dontHaveAcoount.setVisible(false);
+        invlidLbl.setVisible(false);
+        invlidLbl1.setVisible(false);
         txtShowPassword.setVisible(false);
         hidePasswordImage.setVisible(false);
         chooseOption.getItems().addAll("Admin", "Cashier");
