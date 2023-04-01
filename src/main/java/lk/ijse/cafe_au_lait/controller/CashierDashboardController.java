@@ -1,10 +1,6 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,6 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.cafe_au_lait.util.StageController;
 import lk.ijse.cafe_au_lait.util.TimeController;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class CashierDashboardController {
 
@@ -53,7 +53,7 @@ public class CashierDashboardController {
 
     @FXML
     void customerBtnClick(ActionEvent event) {
-        StageController.changeScene("/view/cashierCustomer.fxml",ancPane);
+        StageController.changeScene("/view/cashierCustomer.fxml", ancPane);
 
 
     }
@@ -65,7 +65,7 @@ public class CashierDashboardController {
 
     @FXML
     void eventBttnClick(ActionEvent event) throws IOException {
-        StageController.changeScene("/view/cashierEvent.fxml",ancPane);
+        StageController.changeScene("/view/cashierEvent.fxml", ancPane);
 
     }
 
@@ -81,17 +81,20 @@ public class CashierDashboardController {
 
     @FXML
     void logoutClick(MouseEvent event) {
+        anchorpane.getScene().getWindow().hide();
+        StageController.changeStage("/view/loginPage.fxml", "Login");
 
     }
 
     @FXML
     void ordersBtnClick(ActionEvent event) {
+        StageController.changeScene("/view/cashierOrdeForm.fxml", ancPane);
 
     }
 
     @FXML
     void initialize() {
-        TimeController.timeNow(timeLbl,datLbl);
+        TimeController.timeNow(timeLbl, datLbl);
 
     }
 }

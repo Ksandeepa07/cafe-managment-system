@@ -1,101 +1,125 @@
 package lk.ijse.cafe_au_lait.model;
 
-import lk.ijse.cafe_au_lait.db.DBConnection;
-import lk.ijse.cafe_au_lait.dto.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.cafe_au_lait.dto.Item;
+import lk.ijse.cafe_au_lait.dto.OrderDto;
 import lk.ijse.cafe_au_lait.dto.tm.ItemTM;
+import lk.ijse.cafe_au_lait.util.CrudUtil;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ItemModel {
     public static boolean save(Item item) throws SQLException {
-        String sql="INSERT INTO item(ItemId,ItemName,ItemQuantity" +
+        String sql = "INSERT INTO item(ItemId,ItemName,ItemQuantity" +
                 ",ItemUnitPrice,ItemCategory)VALUE(?,?,?,?,?)";
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1,item.getId());
-            pstm.setString(2,item.getName());
-            pstm.setInt(3,item.getQuantity());
-            pstm.setDouble(4,item.getPrice());
-            pstm.setString(5,item.getCategory());
-
-            int rows=pstm.executeUpdate();
-            if(rows>0){
-                return true;
-            }
-        }
-        return false;
+        return CrudUtil.execute(sql,
+                item.getId(),
+                item.getName(),
+                item.getQuantity(),
+                item.getPrice(),
+                item.getCategory());
     }
 
     public static ObservableList<ItemTM> getAll() throws SQLException {
-        String sql="SELECT * FROM item";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            ResultSet resultSet=pstm.executeQuery();
-            ObservableList<ItemTM> itemData= FXCollections.observableArrayList();
+        String sql = "SELECT * FROM item";
 
-            while (resultSet.next()){
-                itemData.add(new ItemTM(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getInt(3),
-                        resultSet.getDouble(4),
-                        resultSet.getString(5)
-                ));
-            }
-            return itemData;
+        ObservableList<ItemTM> itemData = FXCollections.observableArrayList();
+        ResultSet resultSet = CrudUtil.execute(sql);
+        while (resultSet.next()) {
+            itemData.add(new ItemTM(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getDouble(4),
+                    resultSet.getString(5)
+            ));
         }
+        return itemData;
+
     }
 
-    public static Item searchById(String text) throws SQLException {
-        String sql="SELECT * FROM item WHERE itemId=?";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1,text);
-            ResultSet resultSet=pstm.executeQuery();
-
-            if(resultSet.next()){
-                return  new Item(
+    public static Item searchById(String text) {
+        String sql = "SELECT * FROM item WHERE itemId=?";
+        ResultSet resultSet = null;
+        try {
+            resultSet = CrudUtil.execute(sql, text);
+            if (resultSet.next()) {
+                return new Item(
                         resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getInt(3),
                         resultSet.getDouble(4),
                         resultSet.getString(5)
-                        );
+                );
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
         return null;
     }
 
     public static boolean update(Item item) throws SQLException {
-        String sql="UPDATE item SET itemName=?,itemQuantity=?,itemUnitPrice=?,ItemCategory=? " +
+        String sql = "UPDATE item SET itemName=?,itemQuantity=?,itemUnitPrice=?,ItemCategory=? " +
                 "WHERE itemId=? ";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1,item.getName());
-            pstm.setInt(2, item.getQuantity());
-            pstm.setDouble(3, item.getPrice());
-            pstm.setString(4, item.getCategory());
-            pstm.setString(5,item.getId());
+        return CrudUtil.execute(sql,
 
-            int rows=pstm.executeUpdate();
-            if(rows>0){
-                return true;
-            }
-        }
-        return false;
+                item.getName(),
+                item.getQuantity(),
+                item.getPrice(),
+                item.getCategory(),
+                item.getId());
     }
 
     public static boolean delete(String text) throws SQLException {
-        String sql="DELETE FROM item WHERE itemId=?";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1,text);
-            int rows=pstm.executeUpdate();
-            if(rows>0) {
-                return true;
+        String sql = "DELETE FROM item WHERE itemId=?";
+        return CrudUtil.execute(sql, text);
+    }
 
+    public static ObservableList<String> loadItemId() {
+        String sql = "SELECT * FROM item";
+        ObservableList<String> itemData = FXCollections.observableArrayList();
+        try {
+
+            ResultSet resultSet = CrudUtil.execute(sql);
+            while (resultSet.next()) {
+                itemData.add(
+                        resultSet.getString(1)
+                );
             }
+            return itemData;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static boolean updateQty(List<OrderDto> orderDtoList) {
+        for (OrderDto orderDto : orderDtoList) {
+            if (!updateQty(orderDto)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public static boolean updateQty(OrderDto orderDto) {
+        String sql = "UPDATE item SET itemQuantity=(itemQuantity-?) WHERE itemId=?";
+        try {
+            return CrudUtil.execute(sql,
+                    orderDto.getQty(),
+                    orderDto.getItemId());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return false;
     }
 }
+

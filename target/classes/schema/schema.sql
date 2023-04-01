@@ -38,7 +38,7 @@ create table if not exists Orders(
     OrderDate DATE not null ,
     OrderTime TIME not null ,
     OrderPayment decimal(7,2) not null,
-    Delivery boolean not null ,
+    Delivery varchar(20) not null ,
     primary key (OrderId),
     constraint foreign key (CustId) references Customer (CustId)
     on UPDATE cascade
@@ -50,8 +50,6 @@ create table if not exists Orders(
 create table if not exists Delivery(
     DeliveryId varchar(20),
     DeliveryLocation varchar(25) not null,
-    DeliveryStatus varchar(20) not null ,
-    DeliveryTime TIME not null ,
     OrderId varchar(20),
     EmpId varchar(20),
     constraint primary key (DeliveryId),

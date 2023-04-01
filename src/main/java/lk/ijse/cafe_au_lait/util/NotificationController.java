@@ -14,8 +14,8 @@ import java.util.Optional;
 
 
 public class NotificationController {
-   public static void ErrorMasseage(String messeage){
-        Alert alert= new Alert(Alert.AlertType.ERROR);
+    public static void ErrorMasseage(String messeage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(messeage);
@@ -32,7 +32,8 @@ public class NotificationController {
         alert.showAndWait();
 
     }
-    public static void animationMesseage(String image,String title,String text){
+
+    public static void animationMesseage(String image, String title, String text) {
         Image img = new Image(String.valueOf(image), 96, 96, false, false);
         Notifications notificationBuilder = Notifications.create()
                 .title(title)
@@ -43,8 +44,8 @@ public class NotificationController {
         notificationBuilder.show();
     }
 
-    public static boolean confirmationMasseage(String messeage){
-        Alert alert= new Alert(Alert.AlertType.CONFIRMATION);
+    public static boolean confirmationMasseage(String messeage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("confirmation");
         alert.setHeaderText(null);
         alert.setContentText(messeage);
@@ -58,12 +59,9 @@ public class NotificationController {
         ButtonType okButton = new ButtonType("ok", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        alert.getButtonTypes().setAll(okButton,cancelButton);
+        alert.getButtonTypes().setAll(okButton, cancelButton);
 
-        Optional<ButtonType> result =alert.showAndWait();
-        if(result.orElse(cancelButton) == okButton){
-            return true;
-        }
-            return false;
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.orElse(cancelButton) == okButton;
     }
 }

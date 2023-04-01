@@ -95,10 +95,10 @@ public class CashierCustomerController {
                     "customer ?");
             if (result) {
                 if (isDeleted) {
-                    idTxt.setText(" ");
-                    nameTxt.setText(" ");
-                    contactTxt.setText(" ");
-                    emailTxt.setText(" ");
+                    idTxt.setText("");
+                    nameTxt.setText("");
+                    contactTxt.setText("");
+                    emailTxt.setText("");
                     getAll();
                     NotificationController.animationMesseage("assets/tik.png", "Delete",
                             "Customer Deleted sucessfully !!");
@@ -129,21 +129,18 @@ public class CashierCustomerController {
                     emailCheckLbl.setVisible(false);
                     emailCheckLbl.setText(" ");
                     Customer customer = new Customer(id, name, contact, email);
-                    try {
-                        boolean isSaved = CustomerModel.save(customer);
-                        if (isSaved) {
-                            getAll();
-                            idTxt.setText(" ");
-                            nameTxt.setText(" ");
-                            contactTxt.setText(" ");
-                            emailTxt.setText(" ");
-                            NotificationController.animationMesseage("assets/tik.png", "Saved",
-                                    "Customer Added sucessfully !!");
+                    boolean isSaved = CustomerModel.save(customer);
+                    if (isSaved) {
+                        getAll();
+                        idTxt.setText("");
+                        nameTxt.setText("");
+                        contactTxt.setText("");
+                        emailTxt.setText("");
+                        NotificationController.animationMesseage("assets/tik.png", "Saved",
+                                "Customer Added sucessfully !!");
 
-                        }
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
                     }
+
                 } else {
                     emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
                     emailCheckLbl.setVisible(true);
@@ -167,21 +164,18 @@ public class CashierCustomerController {
 
     @FXML
     void searchIconClick(MouseEvent event) {
-        try {
-            Customer customer = CustomerModel.searchById(searchIdTxt.getText());
-            if (customer != null) {
-                idTxt.setText(customer.getCustId());
-                nameTxt.setText(customer.getCustName());
-                contactTxt.setText(customer.getCustContact());
-                emailTxt.setText(customer.getCustEmail());
 
-            } else {
-                NotificationController.ErrorMasseage("Event ID Not Found");
-            }
+        Customer customer = CustomerModel.searchById(searchIdTxt.getText());
+        if (customer != null) {
+            idTxt.setText(customer.getCustId());
+            nameTxt.setText(customer.getCustName());
+            contactTxt.setText(customer.getCustContact());
+            emailTxt.setText(customer.getCustEmail());
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } else {
+            NotificationController.ErrorMasseage("Event ID Not Found");
         }
+
 
     }
 

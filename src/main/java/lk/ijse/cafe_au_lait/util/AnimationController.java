@@ -12,9 +12,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class AnimationController {
-    private static Timeline timeline;
-    private static SimpleIntegerProperty timeSeconds = new SimpleIntegerProperty();
     private static final int START_TIME = 30;
+    private static final SimpleIntegerProperty timeSeconds = new SimpleIntegerProperty();
+    private static Timeline timeline;
 
     public static void fadeAnimation(String fxml, AnchorPane pane) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AnimationController.class.getResource(String.valueOf(fxml)));
@@ -64,11 +64,11 @@ public class AnimationController {
         });
     }
 
-   public static void updateTime(Button button, Label label){
+    public static void updateTime(Button button, Label label) {
         button.setDisable(true);
         timeSeconds.set(START_TIME);
         timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(START_TIME+1),
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(START_TIME + 1),
                 new KeyValue(timeSeconds, 0)));
         timeline.setOnFinished(event1 -> {
             button.setDisable(false);

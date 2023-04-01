@@ -1,57 +1,45 @@
 package lk.ijse.cafe_au_lait.controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
-import lk.ijse.cafe_au_lait.dto.User;
-import javafx.animation.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.cafe_au_lait.dto.User;
 import lk.ijse.cafe_au_lait.model.UserModel;
 import lk.ijse.cafe_au_lait.util.AnimationController;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 import lk.ijse.cafe_au_lait.util.StageController;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class LoginPageController {
+    @FXML
+    public AnchorPane ancPane;
     String username;
     String selectJob;
     String password;
     String jobTitle;
     String userr;
-
-
-
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private TextField usernameTxt;
-
     @FXML
     private PasswordField passwordTxt;
-
     @FXML
     private Button loginBtn;
-
     @FXML
-    private ComboBox  chooseOption;
-
-    @FXML
-    public AnchorPane ancPane;
-
+    private ComboBox chooseOption;
     @FXML
     private TextField txtShowPassword;
 
@@ -77,54 +65,53 @@ public class LoginPageController {
     private Label invlidLbl1;
 
 
-
     public void dontHaveClick(ActionEvent actionEvent) throws IOException {
         AnimationController.fadeAnimation("/view/signUp.fxml", ancPane);
     }
 
     public void forgotPasswordClick(ActionEvent actionEvent) throws IOException {
         loginBtn.getScene().getWindow().hide();
-        StageController.changeStage("/view/forgotPassword.fxml","Password recovery");
+        StageController.changeStage("/view/forgotPassword.fxml", "Password recovery");
     }
 
     @FXML
     void loginClick() throws IOException {
-         username=usernameTxt.getText();
-         selectJob= (String) chooseOption.getValue();
-//         password=null;
-//         jobTitle=null;
+        username = usernameTxt.getText();
+        selectJob = (String) chooseOption.getValue();
+        password = null;
+        jobTitle = null;
         try {
             User user = UserModel.SearchById(username);
             password = user.getPassword();
             jobTitle = user.getJobTitle();
-            userr=user.getUsername();
-        }catch (Exception e){
+            userr = user.getUsername();
+        } catch (Exception e) {
 
         }
 
-        if(passwordTxt.getText().equals(password) && selectJob.equals(jobTitle)&& selectJob.equals("Cashier") ){
-            NotificationController.animationMesseage("/assets/loginCoffeeCup.gif","Login",
+        if (passwordTxt.getText().equals(password) && selectJob.equals(jobTitle) && selectJob.equals("Cashier")) {
+            NotificationController.animationMesseage("/assets/loginCoffeeCup.gif", "Login",
                     "Login succesfull !!");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 loginBtn.getScene().getWindow().hide();
 
-                    StageController.changeStage("/view/cashierDashboard.fxml","Dashboard");
+                StageController.changeStage("/view/cashierDashboard.fxml", "Dashboard");
 
             }));
             timeline.play();
-        }else if (passwordTxt.getText().equals(password) && selectJob.equals(jobTitle)&& selectJob.equals("Admin") ){
-            NotificationController.animationMesseage("/assets/loginCoffeeCup.gif","Login","Login " +
+        } else if (passwordTxt.getText().equals(password) && selectJob.equals(jobTitle) && selectJob.equals("Admin")) {
+            NotificationController.animationMesseage("/assets/loginCoffeeCup.gif", "Login", "Login " +
                     "succesfull !!");
 
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 loginBtn.getScene().getWindow().hide();
 
-                    StageController.changeStage("/view/admindashbord.fxml","Dashboard");
+                StageController.changeStage("/view/admindashbord.fxml", "Dashboard");
 
             }));
             timeline.play();
 
-        }else if(usernameTxt.getText().isEmpty() && passwordTxt.getText().isEmpty()) {
+        } else if (usernameTxt.getText().isEmpty() && passwordTxt.getText().isEmpty()) {
             invlidLbl.setVisible(true);
             invlidLbl1.setVisible(true);
             invlidLbl.setText("Username can't be empty");
@@ -132,42 +119,57 @@ public class LoginPageController {
             usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
             passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
 
-        }else if(usernameTxt.getText().isEmpty()) {
-                invlidLbl.setVisible(true);
-                invlidLbl1.setVisible(true);
-                invlidLbl.setText("Username can't be empty");
-                invlidLbl1.setText(" ");
-                usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                passwordTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
-
-
-        }else if(passwordTxt.getText().isEmpty()) {
-                invlidLbl.setVisible(true);
-                invlidLbl1.setVisible(true);
-                invlidLbl.setText("");
-                invlidLbl1.setText("Password can't be empty");
-                usernameTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
-                passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-
-
-        }else if(!usernameTxt.getText().equals(userr)) {
+        } else if (usernameTxt.getText().isEmpty()) {
             invlidLbl.setVisible(true);
             invlidLbl1.setVisible(true);
-            invlidLbl.setText("Wrong username !");
-            invlidLbl1.setText(" ");
+            invlidLbl.setText("Username can't be empty");
+            invlidLbl1.setText("");
             usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
             passwordTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
 
-        }else if(!passwordTxt.getText().equals(password)) {
+
+        } else if (passwordTxt.getText().isEmpty()) {
             invlidLbl.setVisible(true);
             invlidLbl1.setVisible(true);
-            invlidLbl.setText(" ");
+            invlidLbl.setText("");
+            invlidLbl1.setText("Password can't be empty");
+            usernameTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+
+
+        } else if (!usernameTxt.getText().equals(userr) && !passwordTxt.getText().equals(password)) {
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
+            invlidLbl.setText("");
             invlidLbl1.setText("Wrong password ! ");
             usernameTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
             passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
 
-        }else{
-            NotificationController.animationMesseage("/assets/error.png","Error",
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
+            invlidLbl.setText("Wrong username !");
+            invlidLbl1.setText("");
+            usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+
+        } else if (!usernameTxt.getText().equals(userr)) {
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
+            invlidLbl.setText("Wrong username !");
+            invlidLbl1.setText("");
+            usernameTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+
+        } else if (!passwordTxt.getText().equals(password)) {
+            invlidLbl.setVisible(true);
+            invlidLbl1.setVisible(true);
+            invlidLbl.setText("");
+            invlidLbl1.setText("Wrong password ! ");
+            usernameTxt.setStyle("-fx-border-color: #dfa47e; -fx-border-width: 0 0 3 0;");
+            passwordTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+
+        } else {
+            NotificationController.animationMesseage("/assets/error.png", "Error",
                     "Invalid details");
             invlidLbl.setText("Invalid details");
             invlidLbl1.setText("Invalid details");
@@ -179,8 +181,9 @@ public class LoginPageController {
 
     }
 
+
     public void shiwPasswordClick(MouseEvent mouseEvent) {
-        password=passwordTxt.getText();
+        password = passwordTxt.getText();
         passwordTxt.setVisible(false);
         showPasswordImage.setVisible(false);
         txtShowPassword.setVisible(true);
@@ -189,7 +192,7 @@ public class LoginPageController {
     }
 
     public void hidepasswordClick(MouseEvent mouseEvent) {
-        password=txtShowPassword.getText();
+        password = txtShowPassword.getText();
         passwordTxt.setVisible(true);
         showPasswordImage.setVisible(true);
         txtShowPassword.setVisible(false);
@@ -218,7 +221,6 @@ public class LoginPageController {
         chooseOption.getItems().addAll("Admin", "Cashier");
 
     }
-
 
 
 }

@@ -139,11 +139,11 @@ public class AdminSupplierController {
                     try {
                         boolean isSaved = SupplierModel.save(supplier);
                         if (isSaved) {
-                            idTxt.setText(" ");
-                            nameTxt.setText(" ");
-                            addressTxt.setText(" ");
-                            contactTxt.setText(" ");
-                            emailTxt.setText(" ");
+                            idTxt.setText("");
+                            nameTxt.setText("");
+                            addressTxt.setText("");
+                            contactTxt.setText("");
+                            emailTxt.setText("");
                             getAll();
                             NotificationController.animationMesseage("assets/tik.png", "Saved",
                                     "Supplier Added sucessfully !!");
@@ -231,26 +231,26 @@ public class AdminSupplierController {
                     emailCheckLbl.setVisible(false);
                     emailCheckLbl.setText(" ");
 
-        Supplier supplier = new Supplier(id, name, contact, address, email);
-        boolean result = NotificationController.confirmationMasseage("Are you sure you want update this " +
-                "employee ?");
-        if (result) {
-            try {
-                boolean isUpdated = SupplierModel.update(supplier);
-                if (isUpdated) {
-                    idTxt.setText(" ");
-                    nameTxt.setText(" ");
-                    addressTxt.setText(" ");
-                    contactTxt.setText(" ");
-                    emailTxt.setText(" ");
-                    getAll();
-                    NotificationController.animationMesseage("assets/tik.png", "Update",
-                            "Suplier Updated sucessfully !!");
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
+                    Supplier supplier = new Supplier(id, name, contact, address, email);
+                    boolean result = NotificationController.confirmationMasseage("Are you sure you want update this " +
+                            "employee ?");
+                    if (result) {
+                        try {
+                            boolean isUpdated = SupplierModel.update(supplier);
+                            if (isUpdated) {
+                                idTxt.setText("");
+                                nameTxt.setText("");
+                                addressTxt.setText("");
+                                contactTxt.setText("");
+                                emailTxt.setText("");
+                                getAll();
+                                NotificationController.animationMesseage("assets/tik.png", "Update",
+                                        "Suplier Updated sucessfully !!");
+                            }
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    }
                 } else {
                     emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
                     emailCheckLbl.setVisible(true);

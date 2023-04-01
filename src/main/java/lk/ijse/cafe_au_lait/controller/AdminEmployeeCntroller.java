@@ -110,7 +110,7 @@ public class AdminEmployeeCntroller {
     private Label emailCheckLbl;
 
     @FXML
-    void saveOnAction(ActionEvent event) throws SQLException {
+    void saveOnAction(ActionEvent event) {
         String id = idTxt.getText();
         String name = nameTxt.getText();
         String address = addressTxt.getText();
@@ -131,22 +131,29 @@ public class AdminEmployeeCntroller {
                     emailCheckLbl.setText(" ");
                     Customer customer = new Customer(id, name, contact, email);
                     Employee employee = new Employee(id, name, address, dob, nic, jobTitle, contact, email);
-                    Boolean isSaved = EmployeeModel.save(employee);
-                    if (isSaved) {
-                        idTxt.setText(" ");
-                        nameTxt.setText(" ");
-                        addressTxt.setText(" ");
-                        jobTitileTxt.setValue(null);
-                        dobTxt.setValue(null);
-                        nicTxt.setText("");
-                        contactTxt.setText(" ");
-                        emailTxt.setText(" ");
 
-                        NotificationController.animationMesseage("assets/tik.png", "Saved",
-                                "Employee Added sucessfully !!");
-                        getAll();
+                    Boolean isSaved = null;
+                    try {
+                        isSaved = EmployeeModel.save(employee);
+                        if (isSaved) {
+                            idTxt.setText(" ");
+                            nameTxt.setText(" ");
+                            addressTxt.setText(" ");
+                            jobTitileTxt.setValue(null);
+                            dobTxt.setValue(null);
+                            nicTxt.setText("");
+                            contactTxt.setText("");
+                            emailTxt.setText("");
 
+                            NotificationController.animationMesseage("assets/tik.png", "Saved",
+                                    "Employee Added sucessfully !!");
+                            getAll();
+
+                        }
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
                     }
+
                 } else {
                     emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
                     emailCheckLbl.setVisible(true);
@@ -246,7 +253,7 @@ public class AdminEmployeeCntroller {
                 if (DataValidateController.emailCheck(email)) {
                     emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
                     emailCheckLbl.setVisible(false);
-                    emailCheckLbl.setText(" ");
+                    emailCheckLbl.setText("");
 
                     Employee employee = new Employee(id, name, address, dob, nic, jobTitle, contact, email);
                     try {
@@ -255,14 +262,14 @@ public class AdminEmployeeCntroller {
                                 "employee ?");
                         if (result) {
                             if (isUpdated) {
-                                idTxt.setText(" ");
-                                nameTxt.setText(" ");
-                                addressTxt.setText(" ");
+                                idTxt.setText("");
+                                nameTxt.setText("");
+                                addressTxt.setText("");
                                 jobTitileTxt.setValue(null);
                                 dobTxt.setValue(null);
                                 nicTxt.setText("");
-                                contactTxt.setText(" ");
-                                emailTxt.setText(" ");
+                                contactTxt.setText("");
+                                emailTxt.setText("");
 
                                 getAll();
                                 NotificationController.animationMesseage("assets/tik.png", "Update",
@@ -304,14 +311,14 @@ public class AdminEmployeeCntroller {
                     getAll();
                     NotificationController.animationMesseage("assets/tik.png", "Delete",
                             "Employee Deleted sucessfully !!");
-                    idTxt.setText(" ");
-                    nameTxt.setText(" ");
-                    addressTxt.setText(" ");
+                    idTxt.setText("");
+                    nameTxt.setText("");
+                    addressTxt.setText("");
                     jobTitileTxt.setValue(null);
                     dobTxt.setValue(null);
                     nicTxt.setText("");
-                    contactTxt.setText(" ");
-                    emailTxt.setText(" ");
+                    contactTxt.setText("");
+                    emailTxt.setText("");
 
                 }
             }

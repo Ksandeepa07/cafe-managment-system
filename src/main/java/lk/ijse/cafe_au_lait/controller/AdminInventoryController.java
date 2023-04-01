@@ -1,27 +1,26 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
-import java.net.URL;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.util.ResourceBundle;
-import java.util.function.Predicate;
-
-import javafx.scene.control.*;
-import lk.ijse.cafe_au_lait.dto.Item;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import lk.ijse.cafe_au_lait.dto.Item;
 import lk.ijse.cafe_au_lait.dto.tm.ItemTM;
-import lk.ijse.cafe_au_lait.dto.tm.SupplierTM;
 import lk.ijse.cafe_au_lait.model.ItemModel;
 import lk.ijse.cafe_au_lait.util.NotificationController;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class AdminInventoryController {
 
@@ -85,20 +84,20 @@ public class AdminInventoryController {
     @FXML
     void deleteOnAction(ActionEvent event) {
         try {
-            boolean isDeleted=ItemModel.delete(idTxt.getText());
-            boolean result=NotificationController.confirmationMasseage("Are you sure you want delete this " +
+            boolean isDeleted = ItemModel.delete(idTxt.getText());
+            boolean result = NotificationController.confirmationMasseage("Are you sure you want delete this " +
                     "item ?");
-            if (result){
-                if (isDeleted){
+            if (result) {
+                if (isDeleted) {
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png","Delete",
+                    NotificationController.animationMesseage("assets/tik.png", "Delete",
                             "Item Deleted sucessfully !!");
-                    idTxt.setText(" ");
-                    nameTxt.setText(" ");
-                    quantityTxt.setText(" ");
-                    priceTxt.setText(" ");
-                    categoryTxt.setText(" ");
-            }
+                    idTxt.setText("");
+                    nameTxt.setText("");
+                    quantityTxt.setText("");
+                    priceTxt.setText("");
+                    categoryTxt.setText("");
+                }
 
             }
         } catch (SQLException throwables) {
@@ -109,23 +108,23 @@ public class AdminInventoryController {
 
     @FXML
     void saveOnAction(ActionEvent event) {
-       String id=idTxt.getText();
-       String name=nameTxt.getText();
-       Integer quantity= Integer.valueOf(quantityTxt.getText());
-       Double price= Double.valueOf(priceTxt.getText());
-       String category=categoryTxt.getText();
+        String id = idTxt.getText();
+        String name = nameTxt.getText();
+        Integer quantity = Integer.valueOf(quantityTxt.getText());
+        Double price = Double.valueOf(priceTxt.getText());
+        String category = categoryTxt.getText();
 
-        Item item=new Item(id,name,quantity,price,category);
+        Item item = new Item(id, name, quantity, price, category);
         try {
-            boolean isSaved= ItemModel.save(item);
-            if(isSaved){
-                idTxt.setText(" ");
-                nameTxt.setText(" ");
-                quantityTxt.setText(" ");
-                priceTxt.setText(" ");
-                categoryTxt.setText(" ");
+            boolean isSaved = ItemModel.save(item);
+            if (isSaved) {
+                idTxt.setText("");
+                nameTxt.setText("");
+                quantityTxt.setText("");
+                priceTxt.setText("");
+                categoryTxt.setText("");
                 getAll();
-                NotificationController.animationMesseage("assets/tik.png","Saved",
+                NotificationController.animationMesseage("assets/tik.png", "Saved",
                         "Item Added sucessfully !!");
             }
         } catch (SQLException throwables) {
@@ -136,18 +135,15 @@ public class AdminInventoryController {
 
     @FXML
     void searchIconClick(MouseEvent event) {
-        try {
-            Item item=ItemModel.searchById(searchIdTxt.getText());
-            idTxt.setText(item.getId());
-            nameTxt.setText(item.getName());
-            quantityTxt.setText(String.valueOf(item.getQuantity()));
-            priceTxt.setText(String.valueOf(item.getPrice()));
-            categoryTxt.setText(item.getCategory());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 
+        Item item = ItemModel.searchById(searchIdTxt.getText());
+        idTxt.setText(item.getId());
+        nameTxt.setText(item.getName());
+        quantityTxt.setText(String.valueOf(item.getQuantity()));
+        priceTxt.setText(String.valueOf(item.getPrice()));
+        categoryTxt.setText(item.getCategory());
+
+    }
 
 
     @FXML
@@ -156,7 +152,7 @@ public class AdminInventoryController {
         ObservableList<ItemTM> obList = ItemModel.getAll();
 
         if (!searchValue.isEmpty()) {
-            ObservableList<ItemTM> filteredData = obList.filtered(new Predicate<ItemTM>(){
+            ObservableList<ItemTM> filteredData = obList.filtered(new Predicate<ItemTM>() {
                 @Override
                 public boolean test(ItemTM itemTM) {
                     return String.valueOf(itemTM.getId()).toLowerCase().contains(searchValue.toLowerCase());
@@ -171,26 +167,26 @@ public class AdminInventoryController {
 
     @FXML
     void updateOnAction(ActionEvent event) {
-        String id=idTxt.getText();
-        String name=nameTxt.getText();
-        Integer quantity= Integer.valueOf(quantityTxt.getText());
-        Double price= Double.valueOf(priceTxt.getText());
-        String category=categoryTxt.getText();
-        Item item=new Item(id,name,quantity,price,category);
+        String id = idTxt.getText();
+        String name = nameTxt.getText();
+        Integer quantity = Integer.valueOf(quantityTxt.getText());
+        Double price = Double.valueOf(priceTxt.getText());
+        String category = categoryTxt.getText();
+        Item item = new Item(id, name, quantity, price, category);
 
         try {
-            boolean isUpdated=ItemModel.update(item);
-            boolean result=NotificationController.confirmationMasseage("Are you sure you want update this " +
+            boolean isUpdated = ItemModel.update(item);
+            boolean result = NotificationController.confirmationMasseage("Are you sure you want update this " +
                     "item ?");
-            if(result){
-                if(isUpdated){
-                    idTxt.setText(" ");
-                    nameTxt.setText(" ");
-                    quantityTxt.setText(" ");
-                    priceTxt.setText(" ");
-                    categoryTxt.setText(" ");
+            if (result) {
+                if (isUpdated) {
+                    idTxt.setText("");
+                    nameTxt.setText("");
+                    quantityTxt.setText("");
+                    priceTxt.setText("");
+                    categoryTxt.setText("");
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png","Update",
+                    NotificationController.animationMesseage("assets/tik.png", "Update",
                             "Item Updated sucessfully !!");
 
                 }
@@ -202,16 +198,16 @@ public class AdminInventoryController {
 
     }
 
-    void getAll(){
+    void getAll() {
         try {
-            ObservableList<ItemTM> itemData =ItemModel.getAll();
+            ObservableList<ItemTM> itemData = ItemModel.getAll();
             tblItem.setItems(itemData);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    void getCellValueFactory(){
+    void getCellValueFactory() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));

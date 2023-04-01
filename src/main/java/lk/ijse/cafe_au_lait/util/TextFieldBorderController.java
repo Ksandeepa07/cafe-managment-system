@@ -7,7 +7,7 @@ import javafx.scene.input.MouseEvent;
 
 
 public class TextFieldBorderController {
-    public static void txtfieldbordercolor(TextField txtfield){
+    public static void txtfieldbordercolor(TextField txtfield) {
         txtfield.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
         txtfield.setOnMouseEntered((MouseEvent e) -> {
             txtfield.setStyle("-fx-border-color: #ff0000; -fx-border-width: 0 0 3 0;");
@@ -17,7 +17,7 @@ public class TextFieldBorderController {
         });
     }
 
-    public static void datepickerbordercolor(DatePicker datepicker){
+    public static void datepickerbordercolor(DatePicker datepicker) {
         datepicker.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
         datepicker.setOnMouseEntered((MouseEvent e) -> {
             datepicker.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
@@ -27,7 +27,7 @@ public class TextFieldBorderController {
         });
     }
 
-    public static void comboBoxbordercolor(ComboBox comboBox){
+    public static void comboBoxbordercolor(ComboBox comboBox) {
         comboBox.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
         comboBox.setOnMouseEntered((MouseEvent e) -> {
             comboBox.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");

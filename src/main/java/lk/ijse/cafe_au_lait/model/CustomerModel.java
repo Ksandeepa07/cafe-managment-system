@@ -2,42 +2,37 @@ package lk.ijse.cafe_au_lait.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lk.ijse.cafe_au_lait.db.DBConnection;
 import lk.ijse.cafe_au_lait.dto.Customer;
-import lk.ijse.cafe_au_lait.dto.Event;
 import lk.ijse.cafe_au_lait.dto.tm.CustomerTM;
-import lk.ijse.cafe_au_lait.dto.tm.EventTM;
+import lk.ijse.cafe_au_lait.util.CrudUtil;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerModel {
-    public static boolean save(Customer customer) throws SQLException {
-        String sql="INSERT INTO customer (custId,custName,phoneNumber,email)" +
+    public static boolean save(Customer customer) {
+        String sql = "INSERT INTO customer (custId,custName,phoneNumber,email)" +
                 "VALUES(?,?,?,?)";
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1,customer.getCustId());
-            pstm.setString(2,customer.getCustName());
-            pstm.setString(3,customer.getCustContact());
-            pstm.setString(4,customer.getCustEmail());
-
-            int rows=pstm.executeUpdate();
-            if(rows>0){
-                return true;
-            }
+        try {
+            return CrudUtil.execute(sql,
+                    customer.getCustId(),
+                    customer.getCustName(),
+                    customer.getCustContact(),
+                    customer.getCustEmail());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return false;
     }
 
     public static ObservableList<CustomerTM> getAll() throws SQLException {
-        String sql="SELECT * FROM customer";
-        PreparedStatement pstm=DBConnection.getInstance().getConnection().prepareStatement(sql);
-        ResultSet resultSet=pstm.executeQuery();
-        ObservableList<CustomerTM> customerData= FXCollections.observableArrayList();
+        String sql = "SELECT * FROM customer";
 
-        while(resultSet.next()){
+        ObservableList<CustomerTM> customerData = FXCollections.observableArrayList();
+        ResultSet resultSet = CrudUtil.execute(sql);
+
+        while (resultSet.next()) {
             customerData.add(new CustomerTM(
                     resultSet.getString(1),
                     resultSet.getString(2),
@@ -49,13 +44,12 @@ public class CustomerModel {
         return customerData;
     }
 
-    public static Customer searchById(String text) throws SQLException {
-        String sql="SELECT * FROM customer WHERE custId=?";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1,text);
-            ResultSet resultSet=pstm.executeQuery();
-
-            if(resultSet.next()){
+    public static Customer searchById(String text) {
+        String sql = "SELECT * FROM customer WHERE custId=?";
+        ResultSet resultSet = null;
+        try {
+            resultSet = CrudUtil.execute(sql, text);
+            if (resultSet.next()) {
                 return new Customer(
                         resultSet.getString(1),
                         resultSet.getString(2),
@@ -63,38 +57,51 @@ public class CustomerModel {
                         resultSet.getString(4)
                 );
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
+
         return null;
     }
 
     public static boolean update(Customer customer) throws SQLException {
-        String sql="UPDATE customer SET custName=?,phoneNumber=?,email=?" +
+        String sql = "UPDATE customer SET custName=?,phoneNumber=?,email=?" +
                 "WHERE custId=? ";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
 
-            pstm.setString(1,customer.getCustName());
-            pstm.setString(2,customer.getCustContact());
-            pstm.setString(3,customer.getCustEmail());
-            pstm.setString(4,customer.getCustId());
+        return CrudUtil.execute(sql,
 
-            int rows=pstm.executeUpdate();
-            if(rows>0){
-                return true;
-            }
-        }
-        return false;
+                customer.getCustName(),
+                customer.getCustContact(),
+                customer.getCustEmail(),
+                customer.getCustId());
     }
 
     public static boolean delete(String text) throws SQLException {
-        String sql="DELETE FROM customer WHERE custId=?";
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1,text);
-            int rows=pstm.executeUpdate();
-            if(rows>0){
-                return true;
+        String sql = "DELETE FROM customer WHERE custId=?";
+        return CrudUtil.execute(sql, text);
+    }
+
+    public static ObservableList<String> loadCustId() {
+        String sql = "SELECT * FROM customer";
+        ObservableList<String> custData = FXCollections.observableArrayList();
+        try {
+
+            ResultSet resultSet = CrudUtil.execute(sql);
+            while (resultSet.next()) {
+                custData.add(
+                        resultSet.getString(1)
+                );
             }
+            return custData;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return false;
+
+        return null;
     }
-    }
+
+
+}
 

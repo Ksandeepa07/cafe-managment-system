@@ -265,6 +265,21 @@
     -fx-background-color: #7B3927;
 }
 
+.qtyTxtField{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+//-fx-border-color: #2D033B;
+    -fx-border-color:#7B3927;
+    -fx-border-width: 0 0 3 0;
+    -fx-font-size: 15px;
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-prompt-text-fill:#7B3927 ;
+
+}
+.radio-button .radio {
+    -fx-background-color: #7B3927;
+}
+
 
 
 
