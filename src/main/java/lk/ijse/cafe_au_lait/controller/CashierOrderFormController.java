@@ -66,7 +66,6 @@ public class CashierOrderFormController {
     private RadioButton deliveryNo;
     @FXML
     private RadioButton deliveryYes;
-
     @FXML
     private ComboBox<String> itemId;
     @FXML
@@ -94,6 +93,8 @@ public class CashierOrderFormController {
     private Label balanceLbl;
     @FXML
     private TextField cashTxt;
+
+    Item item = null;
 
 
     @FXML
@@ -137,11 +138,16 @@ public class CashierOrderFormController {
 
     public void itemIdClick(ActionEvent actionEvent) {
         String id = itemId.getValue();
-        Item item = null;
+
         try {
             item = ItemModel.searchById(id);
             itemName.setText(item.getName());
-            quantityAvailable.setText(String.valueOf(item.getQuantity()));
+            if(item.getQuantity()<=0){
+                quantityAvailable.setText("Out Of Stock");
+                NotificationController.ErrorMasseage("Item "+item.getName() +" out of stock ");
+            }else{
+                quantityAvailable.setText(String.valueOf(item.getQuantity()));
+            }
             category.setText(item.getCategory());
             unitPrice.setText(String.valueOf(item.getPrice()));
         } catch (Exception throwables) {
@@ -161,30 +167,37 @@ public class CashierOrderFormController {
         Button btnRemove = new Button("Remove");
         btnRemove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
         setRemoveBtnOnAction(btnRemove);
+        if(item.getQuantity()<qty){
+            NotificationController.ErrorMasseage("Not sufficient quantity for "+item.getName());
 
-        if (!obList.isEmpty()) {
-            for (int i = 0; i < tblOrder.getItems().size(); i++) {
-                if (colId.getCellData(i).equals(id)) {
-                    qty += (int) colQuantity.getCellData(i);
-                    total = qty * price;
+        }else{
+            if (!obList.isEmpty()) {
+                for (int i = 0; i < tblOrder.getItems().size(); i++) {
+                    if (colId.getCellData(i).equals(id)) {
+                        qty += (int) colQuantity.getCellData(i);
+                        total = qty * price;
 
-                    obList.get(i).setQuantity(qty);
-                    obList.get(i).setTotalPrice(total);
+                        obList.get(i).setQuantity(qty);
+                        obList.get(i).setTotalPrice(total);
 
-                    tblOrder.refresh();
-                    calculateNetTotal();
-                    return;
+                        tblOrder.refresh();
+                        calculateNetTotal();
+                        return;
+                    }
                 }
             }
+
+            CartTM cartTm = new CartTM(id, itemName, type, qty, price, total, delivery, btnRemove);
+
+            obList.add(cartTm);
+            tblOrder.setItems(obList);
+            calculateNetTotal();
+
+            quantity.setText("");
+
         }
 
-        CartTM cartTm = new CartTM(id, itemName, type, qty, price, total, delivery, btnRemove);
 
-        obList.add(cartTm);
-        tblOrder.setItems(obList);
-        calculateNetTotal();
-
-        quantity.setText("");
 
 
     }
@@ -271,6 +284,7 @@ public class CashierOrderFormController {
                     deliveryYes.setSelected(false);
                     deliveryNo.setSelected(false);
                     tblOrder.getItems().clear();
+                    generateNextOrderId();
                 }
 
             } catch (Exception e) {
@@ -289,6 +303,10 @@ public class CashierOrderFormController {
         if (balance > 0) {
             placeOrderBtn.setDisable(false);
         }
+    }
+
+    public void newCustomerBtnClick(ActionEvent actionEvent) {
+        StageController.changeStage("/view/cashierCustomer.fxml","Add new customer");
     }
 
     @FXML

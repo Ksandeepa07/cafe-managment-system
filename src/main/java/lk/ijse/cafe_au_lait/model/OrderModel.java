@@ -63,4 +63,10 @@ public class OrderModel {
         return false;
 
     }
+
+    public static boolean updateDeliveyMode(String orderId, String message) throws SQLException {
+        String sql="UPDATE orders SET delivery=? WHERE orderId=?";
+        return  CrudUtil.execute(sql,
+              message,orderId  );
+    }
 }

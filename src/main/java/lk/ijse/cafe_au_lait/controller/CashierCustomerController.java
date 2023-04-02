@@ -86,6 +86,9 @@ public class CashierCustomerController {
     @FXML
     private Label contactCheckLb;
 
+    @FXML
+    private ImageView newCustomerAncPane;
+
 
     @FXML
     void deleteOnAction(ActionEvent event) {
@@ -282,6 +285,11 @@ public class CashierCustomerController {
         }
     }
 
+    public void backBtnClick(ActionEvent actionEvent) {
+        newCustomerAncPane.getScene().getWindow().hide();
+
+    }
+
     void getCellValueFactory() {
         colId.setCellValueFactory(new PropertyValueFactory<>("custId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("custName"));
@@ -299,5 +307,6 @@ public class CashierCustomerController {
         getAll();
 
     }
+
 
 }

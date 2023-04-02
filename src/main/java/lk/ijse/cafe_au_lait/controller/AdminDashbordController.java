@@ -63,6 +63,7 @@ public class AdminDashbordController {
     @FXML
     void inventoryBtnClick(ActionEvent event) throws IOException {
         StageController.changeScene("/view/adminInventoy.fxml", ancPane);
+
     }
 
     @FXML

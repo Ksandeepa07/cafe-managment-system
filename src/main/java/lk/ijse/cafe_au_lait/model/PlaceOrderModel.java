@@ -15,8 +15,9 @@ import java.util.List;
 public class PlaceOrderModel {
 
     static NewDeliverDto gotnewdelivery;
+
     public static void sendObject(NewDeliverDto newDelivery) {
-        gotnewdelivery= newDelivery;
+        gotnewdelivery = newDelivery;
     }
 
     public static boolean placeOrder(String oId, String customerId, Double orderPayment, CartTM cartTM, List<OrderDto> orderDtoList) {
@@ -32,15 +33,18 @@ public class PlaceOrderModel {
                 if (isUpdated) {
                     boolean isplaced = OrderDetailModel.save(oId, orderDtoList);
                     if (isplaced) {
-                        boolean isdeliverd = saveDeliver(gotnewdelivery);
-                        if (isdeliverd) {
+                        if(cartTM.getDelivery().equals("Yes")) {
+                            boolean isdeliverd = saveDeliver(gotnewdelivery);
+                            if (isdeliverd) {
+                                con.commit();
+                                return true;
+                            }
+                        }else{
                             con.commit();
                             return true;
                         }
                     }
                 }
-            } else {
-//                System.out.println("not saved");
             }
 
         } catch (Exception e) {

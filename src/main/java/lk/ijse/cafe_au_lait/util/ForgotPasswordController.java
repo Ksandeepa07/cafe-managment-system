@@ -50,6 +50,10 @@ public class ForgotPasswordController {
     private TextField usernametxt;
 
     @FXML
+    private Label usernameLbl;
+
+
+    @FXML
     void sendCodeClick(ActionEvent event) throws Exception {
 
         String username = usernametxt.getText();
@@ -63,6 +67,8 @@ public class ForgotPasswordController {
                     submitButton.setVisible(true);
                     otpLbl.setVisible(true);
                     otpTxt.setVisible(true);
+
+
 
                     Random random = new Random();
                     otp = random.nextInt(9000);
@@ -96,7 +102,9 @@ public class ForgotPasswordController {
             sendCodeBtn.setVisible(false);
             submitButton.setVisible(false);
             submitButton1.setVisible(true);
-            otpLbl.setVisible(false);
+
+            usernameLbl.setVisible(false);
+            countLbl.setVisible(false);
             otpTxt.setText("");
             Emailtxtt.setText("");
 

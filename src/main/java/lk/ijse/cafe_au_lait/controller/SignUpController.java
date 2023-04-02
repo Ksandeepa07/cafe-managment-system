@@ -68,7 +68,8 @@ public class SignUpController {
             try {
                 isSaved = UserModel.save(user);
                 if (isSaved) {
-                    System.out.println("saved");
+                    NotificationController.animationMesseage("/assets/tick.gif","sign up","" +
+                            "Sign Up Sucessfull !");
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
