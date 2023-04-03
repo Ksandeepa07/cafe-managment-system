@@ -1,14 +1,14 @@
 package lk.ijse.cafe_au_lait.model;
 
-import lk.ijse.cafe_au_lait.dto.OrderDto;
+import lk.ijse.cafe_au_lait.dto.Order;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class OrderDetailModel {
-    public static boolean save(String oId, List<OrderDto> orderDtoList) {
-        for (OrderDto orderDto : orderDtoList) {
+    public static boolean save(String oId, List<Order> orderDtoList) {
+        for (Order orderDto : orderDtoList) {
             if (!save(oId, orderDto)) {
                 return false;
             }
@@ -17,7 +17,7 @@ public class OrderDetailModel {
 
     }
 
-    public static boolean save(String oId, OrderDto orderDto) {
+    public static boolean save(String oId, Order orderDto) {
         String sql = "INSERT INTO orderDetail (orderId,itemId,orderQuantity)VALUES(?,?,?)";
         try {
             return CrudUtil.execute(sql,

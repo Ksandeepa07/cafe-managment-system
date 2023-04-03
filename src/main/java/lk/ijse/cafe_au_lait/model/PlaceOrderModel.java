@@ -1,8 +1,8 @@
 package lk.ijse.cafe_au_lait.model;
 
 import lk.ijse.cafe_au_lait.db.DBConnection;
-import lk.ijse.cafe_au_lait.dto.NewDeliverDto;
-import lk.ijse.cafe_au_lait.dto.OrderDto;
+import lk.ijse.cafe_au_lait.dto.Delivery;
+import lk.ijse.cafe_au_lait.dto.Order;
 import lk.ijse.cafe_au_lait.dto.tm.CartTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
 
@@ -14,13 +14,13 @@ import java.util.List;
 
 public class PlaceOrderModel {
 
-    static NewDeliverDto gotnewdelivery;
+    static Delivery gotnewdelivery;
 
-    public static void sendObject(NewDeliverDto newDelivery) {
+    public static void sendObject(Delivery newDelivery) {
         gotnewdelivery = newDelivery;
     }
 
-    public static boolean placeOrder(String oId, String customerId, Double orderPayment, CartTM cartTM, List<OrderDto> orderDtoList) {
+    public static boolean placeOrder(String oId, String customerId, Double orderPayment, CartTM cartTM, List<Order> orderDtoList) {
         Connection con = null;
 
         try {
@@ -54,7 +54,7 @@ public class PlaceOrderModel {
         return false;
     }
 
-    public static boolean saveDeliver(NewDeliverDto newDeliverDto) throws SQLException {
+    public static boolean saveDeliver(Delivery newDeliverDto) throws SQLException {
 
         String Sql = "INSERT INTO delivery(deliveryId,deliveryLocation,orderId,empId) VALUES(?,?,?,?)";
 

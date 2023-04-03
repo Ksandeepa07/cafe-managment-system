@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.Notifications;
 
 import java.util.Optional;
@@ -42,7 +43,9 @@ public class NotificationController {
                 .hideAfter(Duration.seconds(3));
         notificationBuilder.darkStyle();
         notificationBuilder.show();
+
     }
+
 
     public static boolean confirmationMasseage(String messeage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ancPane" prefHeight="693.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cafe_au_lait.controller.SupplierLoadController">
+   <children>
+      <ImageView fitHeight="705.0" fitWidth="1175.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/adminHome.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="37.0" layoutY="51.0" text="Supplier Id          : " textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="406.0" layoutY="51.0" text="Supply Load Id       : " textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="406.0" layoutY="103.0" text="Supply Load Date   : " textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="103.0" text="Supplier Name   :" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblSupplyLoads" layoutX="36.0" layoutY="364.0" onMousePressed="#tblClick" prefHeight="270.0" prefWidth="1087.0" stylesheets="@../style/style.css">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="174.0" text="Item Id" />
+            <TableColumn fx:id="colName" prefWidth="202.0" text="Item Name" />
+            <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="190.0" text="Category" />
+            <TableColumn fx:id="colQuantity" prefWidth="222.0" text="Quantity" />
+            <TableColumn fx:id="colAction" prefWidth="298.0" text="Action" />
+         </columns>
+      </TableView>
+      <Label layoutX="704.0" layoutY="51.0" text=" Item Id            : " textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="710.0" layoutY="103.0" text="Item Name      :" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="addSupplyLoad" buttonType="RAISED" layoutX="1007.0" layoutY="300.0" onAction="#addSupplyLoadClick" prefHeight="34.0" prefWidth="110.0" style="-fx-background-color: #7B3927;" text="Add Supply Load" textFill="#dfa47e" />
+      <Label fx:id="orderId" layoutX="523.0" layoutY="49.0" prefHeight="20.0" prefWidth="182.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="supplierName" layoutX="191.0" layoutY="103.0" prefHeight="23.0" prefWidth="175.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="itemName" layoutX="835.0" layoutY="103.0" prefHeight="20.0" prefWidth="143.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="709.0" layoutY="197.0" text="Qty.On hand   :" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="quantityAvailable" layoutX="835.0" layoutY="197.0" prefHeight="23.0" prefWidth="161.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="supplYLoadDate" layoutX="570.0" layoutY="101.0" prefHeight="23.0" prefWidth="135.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="404.0" layoutY="152.0" text="Supply Load Time   : " textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="supplyLoadTime" layoutX="577.0" layoutY="150.0" prefHeight="24.0" prefWidth="127.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="707.0" layoutY="154.0" text="Category          :" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="category" layoutX="833.0" layoutY="155.0" prefHeight="20.0" prefWidth="127.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="710.0" layoutY="307.0" prefHeight="20.0" prefWidth="135.0" text="Supply Qty       :" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="quantity" layoutX="841.0" layoutY="290.0" prefHeight="34.0" prefWidth="135.0" styleClass="qtyTxtField" stylesheets="@../style/style.css">
+         <font>
+            <Font name="Agency FB Bold" size="20.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="placeOrderBtn" buttonType="RAISED" layoutX="1008.0" layoutY="657.0" onAction="#placeOrderClick" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #7B3927;" text="Place Order" textFill="#dfa47e" />
+      <Label layoutX="36.0" layoutY="659.0" text="Total Payment :" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="itemId" layoutX="839.0" layoutY="49.0" onAction="#itemIdClick" prefWidth="150.0" styleClass="firstComboBox" stylesheets="@../style/style.css" />
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="43.0" layoutY="256.0" onAction="#newSupplierBrtnClick" prefHeight="34.0" prefWidth="135.0" style="-fx-background-color: #7B3927;" text="New supplier" textFill="#dfa47e">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="51.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/add.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="supplierId" layoutX="196.0" layoutY="49.0" onAction="#supllierIdClick" prefWidth="150.0" styleClass="firstComboBox" stylesheets="@../style/style.css" />
+      <TextField fx:id="netTotall" layoutX="168.0" layoutY="642.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <Label fx:id="supplyLoadTxt" layoutX="572.0" layoutY="50.0" prefHeight="23.0" prefWidth="161.0" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Label>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="198.0" layoutY="256.0" onAction="#checkSupplyLoadDetails" prefHeight="34.0" prefWidth="168.0" style="-fx-background-color: #7B3927;" text="Supply Load Details" textFill="#dfa47e">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="205.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/details.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="supplyQtyError" layoutX="844.0" layoutY="326.0" prefHeight="17.0" prefWidth="135.0" text="This filed can't be empty" textFill="#7b3927">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

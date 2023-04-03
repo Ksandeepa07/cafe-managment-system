@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +18,31 @@
             <Image url="@../assets/adminHome.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tblCheckOrders" layoutX="36.0" layoutY="148.0" onMousePressed="#tblClick" prefHeight="500.0" prefWidth="1087.0" stylesheets="@../style/style.css">
+      <Group fx:id="customerGroup" visible="false">
+         <children>
+            <Label fx:id="customerNameMainLbl" layoutX="44.0" layoutY="108.0" prefHeight="20.0" prefWidth="168.0" text="Customer Name       :" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalOrdersMailLbl" layoutX="44.0" layoutY="163.0" prefHeight="20.0" prefWidth="192.0" text="Total Orders Placed :" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="customerNameLbl" layoutX="222.0" layoutY="110.0" prefHeight="17.0" prefWidth="87.0" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="TototalOrderPlacedLbl" layoutX="222.0" layoutY="165.0" prefHeight="17.0" prefWidth="87.0" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <TableView fx:id="tblCheckOrders" layoutX="36.0" layoutY="244.0" onMousePressed="#tblClick" prefHeight="404.0" prefWidth="1087.0" stylesheets="@../style/style.css">
          <columns>
             <TableColumn fx:id="colOderId" prefWidth="169.0" text="Order Id" />
             <TableColumn fx:id="colCustomerId" prefWidth="213.0" text="Customer Id" />
@@ -38,13 +64,27 @@
          </font>
       </JFXButton>
       <TextField fx:id="searchCustId" layoutX="685.0" layoutY="42.0" onKeyTyped="#searchTableByCustId" prefHeight="25.0" prefWidth="192.0" promptText="search by customer Id" styleClass="searchBar" stylesheets="@../style/style.css" />
-      <ImageView fx:id="searchIcon1" fitHeight="25.0" fitWidth="28.0" layoutX="845.0" layoutY="47.0" onMouseClicked="#searchIconClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="searchIconCustomer" fitHeight="25.0" fitWidth="28.0" layoutX="845.0" layoutY="47.0" onMouseClicked="#searchIconCustomerClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons8-search-64.png" />
          </image>
       </ImageView>
+      <Group fx:id="dateGroup" layoutX="44.0" layoutY="108.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="123.0" text="Total Orders   :" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="tot6alOrderForDate" layoutX="133.0" prefHeight="20.0" prefWidth="123.0" textFill="#7b3927">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
       <TextField fx:id="searchByOrderDate" layoutX="451.0" layoutY="42.0" onKeyTyped="#searchTableByorderDate" prefHeight="25.0" prefWidth="192.0" promptText="search by order Date" styleClass="searchBar" stylesheets="@../style/style.css" />
-      <ImageView fx:id="searchIcon111" fitHeight="25.0" fitWidth="28.0" layoutX="609.0" layoutY="47.0" onMouseClicked="#searchIconClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="searchIconDate" fitHeight="25.0" fitWidth="28.0" layoutX="609.0" layoutY="47.0" onMouseClicked="#searchIconClickDate" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons8-search-64.png" />
          </image>

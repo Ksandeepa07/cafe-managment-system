@@ -52,6 +52,10 @@ public class CashierDashboardController {
     private AnchorPane ancPane;
 
     @FXML
+    private JFXButton supplyLoadBtn;
+
+
+    @FXML
     void customerBtnClick(ActionEvent event) {
         StageController.changeScene("/view/cashierCustomer.fxml", ancPane);
 
@@ -83,6 +87,14 @@ public class CashierDashboardController {
 
 
     }
+
+    @FXML
+    void supplyBtnClick(ActionEvent event) {
+        StageController.changeScene("/view/SupplierLoadForm.fxml",ancPane);
+
+
+    }
+
 
     @FXML
     void logoutClick(MouseEvent event) {

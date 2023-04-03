@@ -1,5 +1,7 @@
 package lk.ijse.cafe_au_lait.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lk.ijse.cafe_au_lait.dto.tm.CartTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
 
@@ -68,5 +70,19 @@ public class OrderModel {
         String sql="UPDATE orders SET delivery=? WHERE orderId=?";
         return  CrudUtil.execute(sql,
               message,orderId  );
+    }
+
+    public static ObservableList<String> loadOrderIds() throws SQLException {
+        String sql="SELECT * FROM ORDERS";
+        ResultSet resultSet=CrudUtil.execute(sql);
+        ObservableList<String> orderIds= FXCollections.observableArrayList();
+
+        while (resultSet.next()){
+            orderIds.add(
+                    resultSet.getString(1)
+            );
+
+        }
+        return orderIds;
     }
 }

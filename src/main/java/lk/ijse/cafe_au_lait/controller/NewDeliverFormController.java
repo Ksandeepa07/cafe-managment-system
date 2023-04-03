@@ -10,12 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.cafe_au_lait.dto.NewDeliverDto;
+import lk.ijse.cafe_au_lait.dto.Delivery;
 import lk.ijse.cafe_au_lait.model.EmployeeModel;
 import lk.ijse.cafe_au_lait.model.OrderModel;
 import lk.ijse.cafe_au_lait.model.PlaceOrderModel;
-import lk.ijse.cafe_au_lait.util.NotificationController;
-import lk.ijse.cafe_au_lait.util.StageController;
 
 public class NewDeliverFormController {
 
@@ -51,7 +49,7 @@ public class NewDeliverFormController {
         String empId= String.valueOf(empIdCOmbo.getValue());
         String location=locationTxt.getText();
 
-        NewDeliverDto newDeliverDto=new NewDeliverDto(deliverId,location,orderId,empId);
+        Delivery newDeliverDto=new Delivery(deliverId,location,orderId,empId);
 
 
         try {

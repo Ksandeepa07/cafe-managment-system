@@ -284,6 +284,25 @@
 
 
 
+.notification {
+    -fx-background-color: #99ccff;
+    -fx-border-color: #003366;
+    -fx-border-width: 2px;
+    -fx-text-fill: #003366;
+}
+
+.notification > .title {
+    -fx-font-weight: bold;
+}
+
+.notification > .text {
+    -fx-font-size: 1.2em;
+}
+
+
+
+
+
 
 
 

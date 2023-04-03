@@ -10,19 +10,22 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.cafe_au_lait.dto.CheckOrders;
+import lk.ijse.cafe_au_lait.dto.Customer;
 import lk.ijse.cafe_au_lait.dto.tm.CheckOrdersTM;
 import lk.ijse.cafe_au_lait.dto.tm.DeliveryTM;
 import lk.ijse.cafe_au_lait.dto.tm.SalaryTM;
 import lk.ijse.cafe_au_lait.model.CheckOrdersModel;
+import lk.ijse.cafe_au_lait.model.CustomerModel;
 import lk.ijse.cafe_au_lait.model.DeliveryModel;
 import lk.ijse.cafe_au_lait.model.SalaryModel;
+import lk.ijse.cafe_au_lait.util.CrudUtil;
 
 public class CheckOrderController {
 
@@ -75,7 +78,8 @@ public class CheckOrderController {
     @FXML
     private Label customerNameLbl;
     @FXML
-    private ImageView searchIcon11;
+    private ImageView searchIconDate;
+
 
     @FXML
     private TextField searchIdTxt;
@@ -87,7 +91,18 @@ public class CheckOrderController {
     private TableView<CheckOrdersTM> tblCheckOrders;
 
     @FXML
-    private DatePicker datePicker;
+    private Label totalOrdersMailLbl;
+    @FXML
+    private Label customerNameMainLbl;
+
+    @FXML
+    private Group customerGroup;
+
+    @FXML
+    private Label tot6alOrderForDate;
+
+    @FXML
+    private Group dateGroup;
 
     @FXML
     void checkdeliveryDetailsBtnCllick(ActionEvent event) {
@@ -99,10 +114,31 @@ public class CheckOrderController {
 
     }
 
+    @FXML
+    void searchIconClickDate(MouseEvent event) {
+        try {
+            customerGroup.setVisible(false);
+            dateGroup.setVisible(true);
+            String count=CheckOrdersModel.countOrdersOnDay(searchByOrderDate.getText());
+            tot6alOrderForDate.setText(count);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
     @FXML
     void searchIconCustomerClick(MouseEvent event) {
-         CheckOrders checkOrders=CheckOrdersModel.searchBtId(searchCustId.getText());
+        dateGroup.setVisible(false);
+     customerGroup.setVisible(true);
+        Customer customer= CustomerModel.searchById(searchCustId.getText());
+        customerNameLbl.setText(customer.getCustName());
+        try {
+            String id=CheckOrdersModel.countOrders(searchCustId.getText());
+            TototalOrderPlacedLbl.setText(String.valueOf(id));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
@@ -193,6 +229,8 @@ public class CheckOrderController {
 
     @FXML
     void initialize() {
+     customerGroup.setVisible(false);
+     dateGroup.setVisible(false);
 
         getAll();
         getCellValueFactory();

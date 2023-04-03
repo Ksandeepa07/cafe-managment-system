@@ -3,7 +3,8 @@ package lk.ijse.cafe_au_lait.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.cafe_au_lait.dto.Item;
-import lk.ijse.cafe_au_lait.dto.OrderDto;
+import lk.ijse.cafe_au_lait.dto.Order;
+import lk.ijse.cafe_au_lait.dto.SupplyLoad;
 import lk.ijse.cafe_au_lait.dto.tm.ItemTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
 
@@ -100,8 +101,8 @@ public class ItemModel {
         return null;
     }
 
-    public static boolean updateQty(List<OrderDto> orderDtoList) {
-        for (OrderDto orderDto : orderDtoList) {
+    public static boolean updateQty(List<Order> orderDtoList) {
+        for (Order orderDto : orderDtoList) {
             if (!updateQty(orderDto)) {
                 return false;
             }
@@ -110,7 +111,7 @@ public class ItemModel {
 
     }
 
-    public static boolean updateQty(OrderDto orderDto) {
+    public static boolean updateQty(Order orderDto) {
         String sql = "UPDATE item SET itemQuantity=(itemQuantity-?) WHERE itemId=?";
         try {
             return CrudUtil.execute(sql,
@@ -120,6 +121,22 @@ public class ItemModel {
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean updateSupplyQty(List<SupplyLoad> data) throws SQLException {
+        for(SupplyLoad supplyLoad:data){
+            if(!updateSupplyQty(supplyLoad)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean updateSupplyQty(SupplyLoad supplyLoad) throws SQLException {
+        String sql = "UPDATE item SET itemQuantity=(itemQuantity+?) WHERE itemId=?";
+        return CrudUtil.execute(sql,
+                supplyLoad.getQty(),
+                supplyLoad.getItemId());
     }
 }
 

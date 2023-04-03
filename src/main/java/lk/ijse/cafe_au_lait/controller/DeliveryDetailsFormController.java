@@ -1,15 +1,10 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -18,106 +13,80 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.cafe_au_lait.dto.NewDeliverDto;
+import lk.ijse.cafe_au_lait.dto.Delivery;
 import lk.ijse.cafe_au_lait.dto.tm.DeliveryTM;
-import lk.ijse.cafe_au_lait.dto.tm.EventTM;
 import lk.ijse.cafe_au_lait.model.DeliveryModel;
-import lk.ijse.cafe_au_lait.model.EventModel;
+import lk.ijse.cafe_au_lait.model.EmployeeModel;
 import lk.ijse.cafe_au_lait.model.OrderModel;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 import lk.ijse.cafe_au_lait.util.StageController;
 
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.function.Predicate;
+
 public class DeliveryDetailsFormController {
 
+    String orderId;
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private AnchorPane ancPane;
-
     @FXML
     private JFXButton checkOrederDetailsBtn;
-
     @FXML
     private TableColumn<?, ?> coiDeliveryId;
-
     @FXML
     private TableColumn<?, ?> colAction;
-
     @FXML
     private TableColumn<?, ?> colEmployeId;
-
     @FXML
     private TableColumn<?, ?> colLocattion;
-
     @FXML
     private TableColumn<?, ?> colOrderId;
-
     @FXML
     private ImageView searchIcon;
-
     @FXML
     private TextField searchIdTxt;
-
     @FXML
     private TextField searchDeliveryId;
-
     @FXML
     private TextField searchEmpId;
-
     @FXML
     private TextField deleiverIdTxt;
-
     @FXML
     private JFXButton deleteBtn;
-
     @FXML
     private JFXButton checkOrders;
-
     @FXML
     private JFXButton updateBtn;
 
     @FXML
-    private TextField employeeIdTxt;
-
+    private ComboBox<String> employeeIdTxt;
     @FXML
     private TextField locationTxt;
-
     @FXML
-    private TextField orderIdTxt;
-
-
-
-    String orderId;
-
-
-
-
-
+    private ComboBox<String> orderIdTxt;
     @FXML
     private TableView<DeliveryTM> tblDelivery;
 
 
-
     @FXML
     void checkOrederDetailsBtnCllick(ActionEvent event) {
-        StageController.changeScene("/view/orderDetailsForm.fxml",ancPane);
+        StageController.changeScene("/view/orderDetailsForm.fxml", ancPane);
 
     }
 
     @FXML
     void checkOrdersClick(ActionEvent event) {
-        StageController.changeScene("/view/checkOrders.fxml",ancPane);
+        StageController.changeScene("/view/checkOrders.fxml", ancPane);
 
     }
 
-    @FXML
-    void searchIconClick(MouseEvent event) {
 
-    }
 
     @FXML
     void searchTable(KeyEvent event) throws SQLException {
@@ -157,7 +126,6 @@ public class DeliveryDetailsFormController {
         }
 
 
-
     }
 
     @FXML
@@ -181,17 +149,17 @@ public class DeliveryDetailsFormController {
 
     @FXML
     void tblClick(MouseEvent event) {
-        DeliveryTM deliveryTM=tblDelivery.getSelectionModel().getSelectedItem();
+        DeliveryTM deliveryTM = tblDelivery.getSelectionModel().getSelectedItem();
         deleiverIdTxt.setText(deliveryTM.getDeliveryId());
-        orderIdTxt.setText(deliveryTM.getOrderId());
-        employeeIdTxt.setText(deliveryTM.getEmployeeId());
+        orderIdTxt.setValue(deliveryTM.getOrderId());
+        employeeIdTxt.setValue(deliveryTM.getEmployeeId());
         locationTxt.setText(deliveryTM.getLocation());
 
     }
 
-    void getAll(){
+    void getAll() {
         try {
-            ObservableList<DeliveryTM> deliveryData= DeliveryModel.getAll();
+            ObservableList<DeliveryTM> deliveryData = DeliveryModel.getAll();
 
             tblDelivery.setItems(deliveryData);
         } catch (SQLException throwables) {
@@ -201,6 +169,31 @@ public class DeliveryDetailsFormController {
 
     }
 
+    @FXML
+    void searchDeliveryIconClick(MouseEvent event) {
+
+        try {
+            Delivery delivery=DeliveryModel.searchByDeliveryId(searchDeliveryId.getText());
+                  orderIdTxt.setValue(delivery.getOrderId());
+                deleiverIdTxt.setText(delivery.getDeliverId());
+                locationTxt.setText(delivery.getLocation());
+                employeeIdTxt.setValue(delivery.getEmpId());
+
+        } catch (Exception throwables) {
+            System.out.println(throwables);
+        }
+
+    }
+
+    @FXML
+    void searchEmpIconClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void searchOrderIconClick(MouseEvent event) {
+
+    }
 
 
     void getCellValueFactory() {
@@ -214,12 +207,19 @@ public class DeliveryDetailsFormController {
 
     public void deleteBtnCLick(ActionEvent actionEvent) {
         try {
-            boolean isDeleted= DeliveryModel.deleteById(deleiverIdTxt.getText());
-            if (isDeleted){
-                String message="No";
-                boolean isUpdated= OrderModel.updateDeliveyMode(orderIdTxt.getText(),message);
+            boolean result = NotificationController.confirmationMasseage("Are you sure want to delete this delivery");
+            if (result) {
+                boolean isDeleted = DeliveryModel.deleteById(deleiverIdTxt.getText());
+                if (isDeleted) {
+                    getAll();
+                    NotificationController.animationMesseage("/assets/tick.gif", "delete", "Delivery deleted sucessfull !!");
 
+                    String message = "No";
+                    boolean isUpdated = OrderModel.updateDeliveyMode(orderIdTxt.getValue(), message);
+
+                }
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -228,25 +228,50 @@ public class DeliveryDetailsFormController {
 
     @FXML
     void updateBtnClicl(ActionEvent event) {
-        String deliveryId=deleiverIdTxt.getText();
-        String orderId=orderIdTxt.getText();
-        String empId=employeeIdTxt.getText();
-        String location=locationTxt.getText();
-        NewDeliverDto newDeliverDto=new NewDeliverDto(deliveryId,location,orderId,empId);
+        String deliveryId = deleiverIdTxt.getText();
+        String orderId = orderIdTxt.getValue();
+        String empId = String.valueOf(employeeIdTxt.getValue());
+        String location = locationTxt.getText();
+        Delivery newDeliverDto = new Delivery(deliveryId, location, orderId, empId);
+
         try {
-            boolean isUpdated=DeliveryModel.update(newDeliverDto);
-            if(isUpdated){
-                NotificationController.animationMesseage("/assets/tick.gif","update","Delivery updated sucessfull !!");
+            boolean result = NotificationController.confirmationMasseage("Are you sure want to update this delivery");
+            if (result) {
+                boolean isUpdated = DeliveryModel.update(newDeliverDto);
+                if (isUpdated) {
+                    getAll();
+                    NotificationController.animationMesseage("/assets/tick.gif", "update", "Delivery updated sucessfull !!");
+                }
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
     }
+    void loadEmpIds(){
+        try {
+            ObservableList<String> empIds=EmployeeModel.loadEmpIds();
+            employeeIdTxt.setItems(empIds);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    void loadOrderIds(){
+        try {
+            ObservableList<String> orderIds=OrderModel.loadOrderIds();
+            orderIdTxt.setItems(orderIds);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
 
     @FXML
     void initialize() {
+        loadEmpIds();
+        loadOrderIds();
         getAll();
         getCellValueFactory();
 

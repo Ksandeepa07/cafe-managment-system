@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class NewDeliverDto {
+public class Delivery {
     private String deliverId;
     private String location;
     private String orderId;

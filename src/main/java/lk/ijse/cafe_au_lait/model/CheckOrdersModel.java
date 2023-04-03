@@ -2,7 +2,6 @@ package lk.ijse.cafe_au_lait.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lk.ijse.cafe_au_lait.dto.CheckOrders;
 import lk.ijse.cafe_au_lait.dto.tm.CheckOrdersTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
 
@@ -30,6 +29,26 @@ public class CheckOrdersModel {
         return ordersData;
     }
 
-//    public static CheckOrders searchBtId(String text) {
-//    }
+
+    public static String countOrders(String custName) throws SQLException {
+        String sql="SELECT COUNT(orderId) from orders where custId=?";
+        ResultSet resultSet=CrudUtil.execute(sql,custName);
+        if(resultSet.next()){
+            String id=resultSet.getString(1);
+            return id;
+        }
+         return null;
+    }
+
+    public static String countOrdersOnDay(String text) throws SQLException {
+        String sql="SELECT COUNT(orderId) FROM orders WHERE orderDate=?";
+        ResultSet resultSet=CrudUtil.execute(sql,
+                text);
+
+        if(resultSet.next()){
+            String count=resultSet.getString(1);
+            return count;
+        }
+        return null;
+    }
 }

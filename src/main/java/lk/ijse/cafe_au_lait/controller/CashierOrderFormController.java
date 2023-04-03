@@ -12,8 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.cafe_au_lait.dto.Customer;
 import lk.ijse.cafe_au_lait.dto.Item;
-import lk.ijse.cafe_au_lait.dto.NewDeliverDto;
-import lk.ijse.cafe_au_lait.dto.OrderDto;
+import lk.ijse.cafe_au_lait.dto.Delivery;
+import lk.ijse.cafe_au_lait.dto.Order;
 import lk.ijse.cafe_au_lait.dto.tm.CartTM;
 import lk.ijse.cafe_au_lait.model.CustomerModel;
 import lk.ijse.cafe_au_lait.model.ItemModel;
@@ -257,11 +257,11 @@ public class CashierOrderFormController {
         Double orderPayment = Double.valueOf(netTotall.getText());
 
 
-        List<OrderDto> orderDtoList = new ArrayList<>();
+        List<Order> orderDtoList = new ArrayList<>();
 
         for (int i = 0; i < tblOrder.getItems().size(); i++) {
             CartTM cartTM = obList.get(i);
-            OrderDto orderDto = new OrderDto(
+            Order orderDto = new Order(
                     cartTM.getItemId(),
                     cartTM.getQuantity(),
                     cartTM.getDelivery()
@@ -270,7 +270,7 @@ public class CashierOrderFormController {
             try {
                 boolean isPlaced = PlaceOrderModel.placeOrder(oId, customerId, orderPayment, cartTM, orderDtoList);
 
-                NewDeliverDto newDeliverDto=new NewDeliverDto();
+                Delivery newDeliverDto=new Delivery();
                 if (isPlaced) {
                     NotificationController.confirmationMasseage("order placed sucesfull !!!");
                     custId.setValue(null);
@@ -300,7 +300,7 @@ public class CashierOrderFormController {
         Double total = Double.valueOf(netTotall.getText());
         Double balance = cash - total;
         balanceLbl.setText(String.valueOf(balance));
-        if (balance > 0) {
+        if (balance >= 0) {
             placeOrderBtn.setDisable(false);
         }
     }
