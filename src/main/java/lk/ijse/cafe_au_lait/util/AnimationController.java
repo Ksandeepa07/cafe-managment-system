@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class AnimationController {
@@ -79,4 +80,6 @@ public class AnimationController {
 
 
     }
+
+
 }

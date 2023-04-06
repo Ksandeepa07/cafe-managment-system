@@ -29,14 +29,14 @@
       <AnchorPane layoutX="101.0" layoutY="106.0" prefHeight="137.0" prefWidth="149.0" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css" />
       <AnchorPane layoutX="919.0" layoutY="104.0" prefHeight="137.0" prefWidth="149.0" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css" />
       <AnchorPane layoutX="515.0" layoutY="105.0" prefHeight="137.0" prefWidth="149.0" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css" />
-      <Label fx:id="dataLbl" layoutX="919.0" layoutY="22.0" onMouseClicked="#eventLblClicked" prefHeight="31.0" prefWidth="149.0" textFill="#7b3927">
+      <Label fx:id="dataLbl" layoutX="841.0" layoutY="26.0" onMouseClicked="#eventLblClicked" prefHeight="34.0" prefWidth="310.0" textFill="#7b3927">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="833.0" layoutY="26.0" text="Events :" textFill="#7b3927">
+      <Label layoutX="724.0" layoutY="22.0" prefHeight="40.0" prefWidth="117.0" text="Events :" textFill="#7b3927">
          <font>
-            <Font name="Times New Roman Bold" size="20.0" />
+            <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </Label>
    </children>

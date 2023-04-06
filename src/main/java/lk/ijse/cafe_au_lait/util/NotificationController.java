@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import java.awt.*;
 import java.util.Optional;
 
 
@@ -65,5 +66,14 @@ public class NotificationController {
 
         Optional<ButtonType> result = alert.showAndWait();
         return result.orElse(cancelButton) == okButton;
+    }
+    public static void notificationBar(String title, String massage) throws AWTException {
+        SystemTray tray = SystemTray.getSystemTray();
+        java.awt.Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
+        TrayIcon trayIcon = new TrayIcon(image, "Notification Example");
+        trayIcon.setImageAutoSize(true);
+        trayIcon.setToolTip("Click me to see the message");
+        tray.add(trayIcon);
+        trayIcon.displayMessage(title, massage, TrayIcon.MessageType.INFO);
     }
 }

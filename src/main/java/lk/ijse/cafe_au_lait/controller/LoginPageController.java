@@ -5,6 +5,9 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +19,7 @@ import lk.ijse.cafe_au_lait.util.AnimationController;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 import lk.ijse.cafe_au_lait.util.StageController;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -75,7 +79,7 @@ public class LoginPageController {
     }
 
     @FXML
-    void loginClick() throws IOException {
+    void loginClick() throws IOException, AWTException {
         username = usernameTxt.getText();
         selectJob = (String) chooseOption.getValue();
         password = null;
@@ -100,8 +104,9 @@ public class LoginPageController {
             }));
             timeline.play();
         } else if (passwordTxt.getText().equals(password) && selectJob.equals(jobTitle) && selectJob.equals("Admin")) {
-            NotificationController.animationMesseage("/assets/tick.gif", "Login", "Login " +
-                    "succesfull !!");
+//            NotificationController.animationMesseage("/assets/tick.gif", "Login", "Login " +
+//                    "succesfull !!");
+            NotificationController.notificationBar("login","Login Sucessfull!");
 
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 loginBtn.getScene().getWindow().hide();
