@@ -33,13 +33,13 @@ public class PlaceOrderModel {
                 if (isUpdated) {
                     boolean isplaced = OrderDetailModel.save(oId, orderDtoList);
                     if (isplaced) {
-                        if(cartTM.getDelivery().equals("Yes")) {
+                        if (cartTM.getDelivery().equals("Yes")) {
                             boolean isdeliverd = saveDeliver(gotnewdelivery);
                             if (isdeliverd) {
                                 con.commit();
                                 return true;
                             }
-                        }else{
+                        } else {
                             con.commit();
                             return true;
                         }

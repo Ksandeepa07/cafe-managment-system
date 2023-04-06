@@ -68,7 +68,7 @@ public class SignUpController {
             try {
                 isSaved = UserModel.save(user);
                 if (isSaved) {
-                    NotificationController.animationMesseage("/assets/tick.gif","sign up","" +
+                    NotificationController.animationMesseage("/assets/tick.gif", "sign up", "" +
                             "Sign Up Sucessfull !");
                 }
             } catch (SQLException throwables) {

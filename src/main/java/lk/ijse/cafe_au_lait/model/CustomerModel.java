@@ -5,9 +5,11 @@ import javafx.collections.ObservableList;
 import lk.ijse.cafe_au_lait.dto.Customer;
 import lk.ijse.cafe_au_lait.dto.tm.CustomerTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
+import lk.ijse.cafe_au_lait.util.NotificationController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class CustomerModel {
     public static boolean save(Customer customer) {
@@ -20,6 +22,8 @@ public class CustomerModel {
                     customer.getCustName(),
                     customer.getCustContact(),
                     customer.getCustEmail());
+        } catch (SQLIntegrityConstraintViolationException throwables) {
+            NotificationController.ErrorMasseage("This Customer Id is Already Exsits");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

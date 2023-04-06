@@ -67,17 +67,17 @@ public class OrderModel {
     }
 
     public static boolean updateDeliveyMode(String orderId, String message) throws SQLException {
-        String sql="UPDATE orders SET delivery=? WHERE orderId=?";
-        return  CrudUtil.execute(sql,
-              message,orderId  );
+        String sql = "UPDATE orders SET delivery=? WHERE orderId=?";
+        return CrudUtil.execute(sql,
+                message, orderId);
     }
 
     public static ObservableList<String> loadOrderIds() throws SQLException {
-        String sql="SELECT * FROM ORDERS";
-        ResultSet resultSet=CrudUtil.execute(sql);
-        ObservableList<String> orderIds= FXCollections.observableArrayList();
+        String sql = "SELECT * FROM ORDERS";
+        ResultSet resultSet = CrudUtil.execute(sql);
+        ObservableList<String> orderIds = FXCollections.observableArrayList();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             orderIds.add(
                     resultSet.getString(1)
             );

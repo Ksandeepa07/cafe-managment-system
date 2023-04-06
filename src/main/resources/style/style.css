@@ -92,13 +92,13 @@
 .dashbordBtns{
 //-fx-background-color: linear-gradient(to top right  , #1C82AD, #86E5FF);*/*/
     /*-fx-background-color:#dfa47e ;*/
-    -fx-background-color: linear-gradient(to top left  ,#7B3927 ,#dfa47e);
-    /*-fx-background-color: linear-gradient(from 0px 0px to 4px 30px, repeat, #dfa47e 60%, #7B3927  40%);*/
+    /*-fx-background-color: linear-gradient(to top left  ,#7B3927 ,#dfa47e);*/
+    /*!*-fx-background-color: linear-gradient(from 0px 0px to 4px 30px, repeat, #dfa47e 60%, #7B3927  40%);*!*/
 
-     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 8, 0, 0, 0);
-    -fx-background-radius: 10px;
-    -fx-text-fill: #7B3927;
-    -fx-font-weight: bold;
+    /* -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 8, 0, 0, 0);*/
+    -fx-background-radius: 20;
+    /*-fx-text-fill: #7B3927;*/
+    /*-fx-font-weight: bold;*/
 
 }
 .dashbordBtns:hover{
@@ -227,6 +227,22 @@
     -fx-text-fill: #7B3927;
     -fx-font-weight: bolder;
 }
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: #7B3927;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: #7B3927;
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color:  #dfa47e;
+}
+
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color:  #dfa47e;
+}
 /*.table-row-cell {*/
 /*    -fx-border-color: #7B3927;*/
 /*    -fx-table-cell-border-color: #7B3927;*/
@@ -277,29 +293,94 @@
 
 }
 .radio-button .radio {
-    -fx-background-color: black;
+    -fx-background-color:  #7B3927;
 
 }
 
-
-
-
-.notification {
-    -fx-background-color: #99ccff;
-    -fx-border-color: #003366;
-    -fx-border-width: 2px;
-    -fx-text-fill: #003366;
+.chart {
+    -fx-background-color: #dfa47e;
 }
 
-.notification > .title {
+ .chart-pie {
+    -fx-pie-color:#7B3927 ;
+}
+.chart-pie-label {
     -fx-font-weight: bold;
+
+}
+.chart-title {
+    -fx-text-fill: #7B3927;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px
+
 }
 
-.notification > .text {
-    -fx-font-size: 1.2em;
+.chart-legend {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7B3927;
+}
+
+.chart-pie {
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);*/
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-pie {
+    -fx-border-color: #dfa47e;
 }
 
 
+.chart-pie {
+    -fx-border-width: 1.5px;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: #7B3927;
+}
+
+.dashBoardAnchorPane{
+    -fx-background-color: #dfa47e;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 0, 0);
+    -fx-background-radius: 10px;
+
+
+}
+
+.chart-series-line {
+    -fx-stroke: #7B3927; /* Change line color */
+    -fx-stroke-width: 3px; /* Change line thickness */
+}
+
+.chart-symbol {
+    -fx-background-color: #dfa47e, blue; /* Change symbol fill color */
+    -fx-background-insets: 0, 2; /* Add padding around symbol */
+    -fx-background-radius: 5px; /* Round the corners of the symbol */
+    -fx-padding: 5px; /* Add padding inside symbol */
+    -fx-shape: "M 0 0 L 10 5 L 0 10 Z"; /* Change symbol shape */
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #dfa47e; /* Change vertical grid line color */
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #dfa47e; /* Change horizontal grid line color */
+}
+
+.chart-axis {
+    -fx-tick-length: 8px; /* Change tick length */
+    -fx-tick-label-fill: black; /* Change tick label color */
+    -fx-label-padding: 5px; /* Add padding around axis labels */
+}
+
+.chart-title {
+    -fx-font-size: 20px; /* Change title font size */
+    -fx-font-weight: bold; /* Add bold font weight to title */
+}
 
 
 

@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
+import static lk.ijse.cafe_au_lait.util.TextFieldBorderController.txtfieldbordercolor;
+
 public class CashierCustomerController {
 
     @FXML
@@ -103,7 +105,7 @@ public class CashierCustomerController {
                     contactTxt.setText("");
                     emailTxt.setText("");
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png", "Delete",
+                    NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Customer Deleted sucessfully !!");
 
 
@@ -139,7 +141,7 @@ public class CashierCustomerController {
                         nameTxt.setText("");
                         contactTxt.setText("");
                         emailTxt.setText("");
-                        NotificationController.animationMesseage("assets/tik.png", "Saved",
+                        NotificationController.animationMesseage("/assets/tick.gif", "Saved",
                                 "Customer Added sucessfully !!");
 
                     }
@@ -245,7 +247,7 @@ public class CashierCustomerController {
                                 emailTxt.setText(customer.getCustEmail());
 
                                 getAll();
-                                NotificationController.animationMesseage("assets/tik.png", "Update",
+                                NotificationController.animationMesseage("/assets/tick.gif", "Update",
                                         "customer Updated sucessfully !!");
                             }
                         }
@@ -301,6 +303,10 @@ public class CashierCustomerController {
 
     @FXML
     void initialize() {
+        txtfieldbordercolor(idTxt);
+        txtfieldbordercolor(nameTxt);
+        txtfieldbordercolor(contactTxt);
+        txtfieldbordercolor(emailTxt);
         contactCheckLb.setVisible(false);
         emailCheckLbl.setVisible(false);
         getCellValueFactory();

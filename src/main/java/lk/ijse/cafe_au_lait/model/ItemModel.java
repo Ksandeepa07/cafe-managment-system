@@ -124,8 +124,8 @@ public class ItemModel {
     }
 
     public static boolean updateSupplyQty(List<SupplyLoad> data) throws SQLException {
-        for(SupplyLoad supplyLoad:data){
-            if(!updateSupplyQty(supplyLoad)){
+        for (SupplyLoad supplyLoad : data) {
+            if (!updateSupplyQty(supplyLoad)) {
                 return false;
             }
         }

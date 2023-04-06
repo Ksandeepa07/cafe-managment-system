@@ -1,6 +1,7 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,8 +12,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.cafe_au_lait.dto.Customer;
-import lk.ijse.cafe_au_lait.dto.Item;
 import lk.ijse.cafe_au_lait.dto.Delivery;
+import lk.ijse.cafe_au_lait.dto.Item;
 import lk.ijse.cafe_au_lait.dto.Order;
 import lk.ijse.cafe_au_lait.dto.tm.CartTM;
 import lk.ijse.cafe_au_lait.model.CustomerModel;
@@ -29,9 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static lk.ijse.cafe_au_lait.util.TextFieldBorderController.txtfieldbordercolor;
+
 public class CashierOrderFormController {
 
     private final ObservableList<CartTM> obList = FXCollections.observableArrayList();
+    Item item = null;
     @FXML
     private ResourceBundle resources;
     @FXML
@@ -59,7 +63,7 @@ public class CashierOrderFormController {
     @FXML
     private TableColumn<?, ?> colUnitPrice;
     @FXML
-    private ComboBox<String> custId;
+    private JFXComboBox<String> custId;
     @FXML
     private Label custName;
     @FXML
@@ -67,7 +71,7 @@ public class CashierOrderFormController {
     @FXML
     private RadioButton deliveryYes;
     @FXML
-    private ComboBox<String> itemId;
+    private JFXComboBox<String> itemId;
     @FXML
     private Label itemName;
     @FXML
@@ -93,9 +97,8 @@ public class CashierOrderFormController {
     private Label balanceLbl;
     @FXML
     private TextField cashTxt;
-
-    Item item = null;
-
+    @FXML
+    private JFXButton checkOrders;
 
     @FXML
     void tblClick(MouseEvent event) {
@@ -142,10 +145,10 @@ public class CashierOrderFormController {
         try {
             item = ItemModel.searchById(id);
             itemName.setText(item.getName());
-            if(item.getQuantity()<=0){
+            if (item.getQuantity() <= 0) {
                 quantityAvailable.setText("Out Of Stock");
-                NotificationController.ErrorMasseage("Item "+item.getName() +" out of stock ");
-            }else{
+                NotificationController.ErrorMasseage("Item " + item.getName() + " out of stock ");
+            } else {
                 quantityAvailable.setText(String.valueOf(item.getQuantity()));
             }
             category.setText(item.getCategory());
@@ -167,10 +170,10 @@ public class CashierOrderFormController {
         Button btnRemove = new Button("Remove");
         btnRemove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
         setRemoveBtnOnAction(btnRemove);
-        if(item.getQuantity()<qty){
-            NotificationController.ErrorMasseage("Not sufficient quantity for "+item.getName());
+        if (item.getQuantity() < qty) {
+            NotificationController.ErrorMasseage("Not sufficient quantity for " + item.getName());
 
-        }else{
+        } else {
             if (!obList.isEmpty()) {
                 for (int i = 0; i < tblOrder.getItems().size(); i++) {
                     if (colId.getCellData(i).equals(id)) {
@@ -196,8 +199,6 @@ public class CashierOrderFormController {
             quantity.setText("");
 
         }
-
-
 
 
     }
@@ -229,7 +230,7 @@ public class CashierOrderFormController {
     }
 
     public void deliveryYesActionClick(ActionEvent actionEvent) {
-        StageController.changeStage("/view/newDeliverForm.fxml","deliver");
+        StageController.changeStage("/view/newDeliverForm.fxml", "deliver");
         delivery = deliveryYes.getText();
     }
 
@@ -270,9 +271,10 @@ public class CashierOrderFormController {
             try {
                 boolean isPlaced = PlaceOrderModel.placeOrder(oId, customerId, orderPayment, cartTM, orderDtoList);
 
-                Delivery newDeliverDto=new Delivery();
+                Delivery newDeliverDto = new Delivery();
                 if (isPlaced) {
-                    NotificationController.confirmationMasseage("order placed sucesfull !!!");
+                    NotificationController.animationMesseage("/assets/tick.gif", "placed", "Order Placed" +
+                            "sucessfully!!");
                     custId.setValue(null);
                     custName.setText("");
                     itemId.setValue(null);
@@ -306,11 +308,17 @@ public class CashierOrderFormController {
     }
 
     public void newCustomerBtnClick(ActionEvent actionEvent) {
-        StageController.changeStage("/view/cashierCustomer.fxml","Add new customer");
+        StageController.changeStage("/view/cashierCustomer.fxml", "Add new customer");
+    }
+
+    @FXML
+    void checkOrdersClick(ActionEvent event) {
+        StageController.changeScene("/view/checkOrders.fxml", ancPane);
     }
 
     @FXML
     void initialize() {
+        txtfieldbordercolor(quantity);
         placeOrderBtn.setDisable(true);
         TimeController.timeNow(orderTime, orderDate);
         generateNextOrderId();

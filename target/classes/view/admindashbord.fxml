@@ -7,24 +7,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" prefHeight="705.0" prefWidth="1374.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cafe_au_lait.controller.AdminDashbordController">
+<AnchorPane fx:id="anchorpane" prefHeight="705.0" prefWidth="1374.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cafe_au_lait.controller.AdminDashbordController">
    <children>
       <AnchorPane prefHeight="705.0" prefWidth="221.0" styleClass="dashbordForm" stylesheets="@../style/style.css">
          <children>
-            <JFXButton fx:id="homeBtn" buttonType="RAISED" layoutX="42.0" layoutY="122.0" onAction="#homeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="Home" textFill="#7b3927">
+            <JFXButton fx:id="homeBtn" buttonType="RAISED" layoutX="42.0" layoutY="122.0" onAction="#homeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="Home " textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="inventoryBtn" buttonType="RAISED" layoutX="42.0" layoutY="375.0" onAction="#inventoryBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text=" Inventory" textFill="#7b3927">
+            <JFXButton fx:id="inventoryBtn" buttonType="RAISED" layoutX="42.0" layoutY="375.0" onAction="#inventoryBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="    Inventory" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></JFXButton>
-            <JFXButton fx:id="supplierBtn" buttonType="RAISED" layoutX="42.0" layoutY="292.0" onAction="#supplierBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="   Suppliers" textFill="#7b3927">
+            <JFXButton fx:id="supplierBtn" buttonType="RAISED" layoutX="42.0" layoutY="292.0" onAction="#supplierBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="    Suppliers" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></JFXButton>
-            <JFXButton fx:id="employeeBtn" buttonType="RAISED" layoutX="42.0" layoutY="206.0" onAction="#employeeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="    Employee" textFill="#7b3927">
+            <JFXButton fx:id="employeeBtn" buttonType="RAISED" layoutX="42.0" layoutY="206.0" onAction="#employeeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 20;" text="     Employee" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></JFXButton>
@@ -69,7 +69,7 @@
                   <Image url="@../assets/icons8-logout.png" />
                </image>
             </ImageView>
-            <Label layoutX="43.0" layoutY="678.0" text="Logout" textFill="#dfa47e">
+            <Label layoutX="34.0" layoutY="678.0" text="Logout" textFill="#dfa47e">
                <font>
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>
@@ -81,6 +81,11 @@
             <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="627.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/reportIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="51.0" layoutY="546.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/orderIcon.png" />
                </image>
             </ImageView>
          </children>

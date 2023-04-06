@@ -1,10 +1,10 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,6 +25,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+
+import static lk.ijse.cafe_au_lait.util.TextFieldBorderController.txtfieldbordercolor;
 
 public class DeliveryDetailsFormController {
 
@@ -63,13 +65,14 @@ public class DeliveryDetailsFormController {
     private JFXButton checkOrders;
     @FXML
     private JFXButton updateBtn;
-
     @FXML
-    private ComboBox<String> employeeIdTxt;
+    private JFXComboBox<String> employeeIdTxt;
+
     @FXML
     private TextField locationTxt;
     @FXML
-    private ComboBox<String> orderIdTxt;
+    private JFXComboBox<String> orderIdTxt;
+
     @FXML
     private TableView<DeliveryTM> tblDelivery;
 
@@ -85,7 +88,6 @@ public class DeliveryDetailsFormController {
         StageController.changeScene("/view/checkOrders.fxml", ancPane);
 
     }
-
 
 
     @FXML
@@ -173,11 +175,11 @@ public class DeliveryDetailsFormController {
     void searchDeliveryIconClick(MouseEvent event) {
 
         try {
-            Delivery delivery=DeliveryModel.searchByDeliveryId(searchDeliveryId.getText());
-                  orderIdTxt.setValue(delivery.getOrderId());
-                deleiverIdTxt.setText(delivery.getDeliverId());
-                locationTxt.setText(delivery.getLocation());
-                employeeIdTxt.setValue(delivery.getEmpId());
+            Delivery delivery = DeliveryModel.searchByDeliveryId(searchDeliveryId.getText());
+            orderIdTxt.setValue(delivery.getOrderId());
+            deleiverIdTxt.setText(delivery.getDeliverId());
+            locationTxt.setText(delivery.getLocation());
+            employeeIdTxt.setValue(delivery.getEmpId());
 
         } catch (Exception throwables) {
             System.out.println(throwables);
@@ -249,18 +251,19 @@ public class DeliveryDetailsFormController {
         }
 
     }
-    void loadEmpIds(){
+
+    void loadEmpIds() {
         try {
-            ObservableList<String> empIds=EmployeeModel.loadEmpIds();
+            ObservableList<String> empIds = EmployeeModel.loadEmpIds();
             employeeIdTxt.setItems(empIds);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    void loadOrderIds(){
+    void loadOrderIds() {
         try {
-            ObservableList<String> orderIds=OrderModel.loadOrderIds();
+            ObservableList<String> orderIds = OrderModel.loadOrderIds();
             orderIdTxt.setItems(orderIds);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -270,6 +273,8 @@ public class DeliveryDetailsFormController {
 
     @FXML
     void initialize() {
+        txtfieldbordercolor(deleiverIdTxt);
+        txtfieldbordercolor(locationTxt);
         loadEmpIds();
         loadOrderIds();
         getAll();

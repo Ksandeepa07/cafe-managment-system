@@ -47,7 +47,7 @@ public class AdminDashbordController {
 
     public void homeBtnClick(javafx.event.ActionEvent actionEvent) throws IOException {
 //        btncolor(homeBtn,ancPane);
-        StageController.changeScene("/view/adminhome.fxml", ancPane);
+        StageController.changeScene("/view/cashierHomeForm.fxml", ancPane);
     }
 
     public void employeeBtnClick(ActionEvent actionEvent) throws IOException {

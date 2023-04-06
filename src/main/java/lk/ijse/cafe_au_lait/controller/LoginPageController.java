@@ -90,7 +90,7 @@ public class LoginPageController {
         }
 
         if (passwordTxt.getText().equals(password) && selectJob.equals(jobTitle) && selectJob.equals("Cashier")) {
-            NotificationController.animationMesseage("/assets/loginCoffeeCup.gif", "Login",
+            NotificationController.animationMesseage("/assets/tick.gif", "Login",
                     "Login succesfull !!");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 loginBtn.getScene().getWindow().hide();
@@ -100,7 +100,7 @@ public class LoginPageController {
             }));
             timeline.play();
         } else if (passwordTxt.getText().equals(password) && selectJob.equals(jobTitle) && selectJob.equals("Admin")) {
-            NotificationController.animationMesseage("/assets/loginCoffeeCup.gif", "Login", "Login " +
+            NotificationController.animationMesseage("/assets/tick.gif", "Login", "Login " +
                     "succesfull !!");
 
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {

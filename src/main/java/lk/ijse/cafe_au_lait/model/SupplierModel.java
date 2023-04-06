@@ -77,14 +77,14 @@ public class SupplierModel {
     }
 
     public static ObservableList<String> loadSupplierIds() throws SQLException {
-        String sql="SELECT * FROM supplier";
-        ResultSet resultSet=CrudUtil.execute(sql);
-        ObservableList<String>supplierData=FXCollections.observableArrayList();
-        while (resultSet.next()){
+        String sql = "SELECT * FROM supplier";
+        ResultSet resultSet = CrudUtil.execute(sql);
+        ObservableList<String> supplierData = FXCollections.observableArrayList();
+        while (resultSet.next()) {
             supplierData.add(
                     resultSet.getString(1)
             );
-            }
+        }
         return supplierData;
     }
 }

@@ -12,4 +12,4 @@ public class Delivery {
     private String location;
     private String orderId;
     private String empId;
- }
+}

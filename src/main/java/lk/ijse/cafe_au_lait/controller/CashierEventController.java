@@ -1,6 +1,7 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,7 +76,8 @@ public class CashierEventController {
     private TextField eventTypeTxt;
 
     @FXML
-    private ComboBox<String> idTxt;
+    private JFXComboBox<String> idTxt;
+
 
     @FXML
     private JFXButton saveBtn;
@@ -101,7 +103,7 @@ public class CashierEventController {
         if (result) {
             if (isDeleted) {
                 getAll();
-                NotificationController.animationMesseage("assets/tik.png", "Delete",
+                NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                         "Event Deleted sucessfully !!");
                 idTxt.setValue(null);
                 eventIdTxt.setText("");
@@ -135,7 +137,7 @@ public class CashierEventController {
             eventTypeTxt.setText("");
             eventDateTxt.setValue(null);
             eventTimeTxt.setLocalTime(null);
-            NotificationController.animationMesseage("assets/tik.png", "Saved",
+            NotificationController.animationMesseage("/assets/tick.gif", "Saved",
                     "Event Added sucessfully !!");
         }
 
@@ -223,7 +225,7 @@ public class CashierEventController {
                 eventTimeTxt.setLocalTime(null);
 
                 getAll();
-                NotificationController.animationMesseage("assets/tik.png", "Update",
+                NotificationController.animationMesseage("/assets/tick.gif", "Update",
                         "Event Updated sucessfully !!");
             }
         }

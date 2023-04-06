@@ -10,11 +10,11 @@ import java.sql.SQLException;
 
 public class CheckOrdersModel {
     public static ObservableList<CheckOrdersTM> getAll() throws SQLException {
-        String sql="SELECT * FROM orders";
-        ResultSet resultSet=CrudUtil.execute(sql);
-        ObservableList<CheckOrdersTM> ordersData= FXCollections.observableArrayList();
+        String sql = "SELECT * FROM orders";
+        ResultSet resultSet = CrudUtil.execute(sql);
+        ObservableList<CheckOrdersTM> ordersData = FXCollections.observableArrayList();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             ordersData.add(new CheckOrdersTM(
                     resultSet.getString(1),
                     resultSet.getString(2),
@@ -23,7 +23,7 @@ public class CheckOrdersModel {
                     resultSet.getString(5),
                     resultSet.getString(6)
 
-                    ));
+            ));
 
         }
         return ordersData;
@@ -31,22 +31,22 @@ public class CheckOrdersModel {
 
 
     public static String countOrders(String custName) throws SQLException {
-        String sql="SELECT COUNT(orderId) from orders where custId=?";
-        ResultSet resultSet=CrudUtil.execute(sql,custName);
-        if(resultSet.next()){
-            String id=resultSet.getString(1);
+        String sql = "SELECT COUNT(orderId) from orders where custId=?";
+        ResultSet resultSet = CrudUtil.execute(sql, custName);
+        if (resultSet.next()) {
+            String id = resultSet.getString(1);
             return id;
         }
-         return null;
+        return null;
     }
 
     public static String countOrdersOnDay(String text) throws SQLException {
-        String sql="SELECT COUNT(orderId) FROM orders WHERE orderDate=?";
-        ResultSet resultSet=CrudUtil.execute(sql,
+        String sql = "SELECT COUNT(orderId) FROM orders WHERE orderDate=?";
+        ResultSet resultSet = CrudUtil.execute(sql,
                 text);
 
-        if(resultSet.next()){
-            String count=resultSet.getString(1);
+        if (resultSet.next()) {
+            String count = resultSet.getString(1);
             return count;
         }
         return null;

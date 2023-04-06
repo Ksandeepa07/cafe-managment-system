@@ -5,11 +5,18 @@ import javafx.collections.ObservableList;
 import lk.ijse.cafe_au_lait.dto.Event;
 import lk.ijse.cafe_au_lait.dto.tm.EventTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
+import lk.ijse.cafe_au_lait.util.NotificationController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventModel {
+    private static String[] data;
+    private static final int currentIndex = 0;
+
     public static boolean save(Event event1) {
         String sql = "INSERT INTO event (eventId,empId,eventName,eventType,eventDate,eventTime)" +
                 "VALUES(?,?,?,?,?,?)";
@@ -22,6 +29,8 @@ public class EventModel {
                     event1.getEventType(),
                     event1.getEventDate(),
                     event1.getEventTime());
+        } catch (SQLIntegrityConstraintViolationException throwables) {
+            NotificationController.ErrorMasseage("This Supplier Id is Already Exsits");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -108,6 +117,21 @@ public class EventModel {
         }
         return false;
     }
+
+    public static List<String> eventData() throws SQLException {
+        String sql = "SELECT  eventName FROM event";
+        ResultSet resultSet = CrudUtil.execute(sql);
+        List<String> data = new ArrayList<>();
+        while (resultSet.next()) {
+            data.add(
+                    resultSet.getString(1)
+            );
+        }
+
+
+        return data;
+    }
+
 }
 
 

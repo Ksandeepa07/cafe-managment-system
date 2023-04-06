@@ -1,8 +1,13 @@
 package lk.ijse.cafe_au_lait.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import lk.ijse.cafe_au_lait.dto.Item;
 import lk.ijse.cafe_au_lait.dto.Order;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,4 +35,16 @@ public class OrderDetailModel {
         return false;
     }
 
+    public static ObservableList<PieChart.Data> getPieChartData() throws SQLException {
+        String sql = "select itemId,SUM(orderQuantity)as orderCount from orderDetail group by itemId order by ordercount desc limit 5";
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+        ResultSet resultSet = CrudUtil.execute(sql);
+        while (resultSet.next()) {
+            Item item = ItemModel.searchById(resultSet.getString(1));
+            data.add(
+                    new PieChart.Data(item.getName(), resultSet.getInt(2))
+            );
+        }
+        return data;
+    }
 }

@@ -1,19 +1,21 @@
 package lk.ijse.cafe_au_lait.controller;
 
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.cafe_au_lait.dto.Delivery;
 import lk.ijse.cafe_au_lait.model.EmployeeModel;
 import lk.ijse.cafe_au_lait.model.OrderModel;
 import lk.ijse.cafe_au_lait.model.PlaceOrderModel;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class NewDeliverFormController {
 
@@ -27,7 +29,8 @@ public class NewDeliverFormController {
     private TextField deliverIdTxt;
 
     @FXML
-    private ComboBox<String> empIdCOmbo;
+    private JFXComboBox<String> empIdCOmbo;
+
 
     @FXML
     private TextField locationTxt;
@@ -44,16 +47,16 @@ public class NewDeliverFormController {
 
     @FXML
     void saveBtnClick(ActionEvent event) {
-        String deliverId=deliverIdTxt.getText();
-        String orderId=orderIdLbl.getText();
-        String empId= String.valueOf(empIdCOmbo.getValue());
-        String location=locationTxt.getText();
+        String deliverId = deliverIdTxt.getText();
+        String orderId = orderIdLbl.getText();
+        String empId = String.valueOf(empIdCOmbo.getValue());
+        String location = locationTxt.getText();
 
-        Delivery newDeliverDto=new Delivery(deliverId,location,orderId,empId);
+        Delivery newDeliverDto = new Delivery(deliverId, location, orderId, empId);
 
 
         try {
-             PlaceOrderModel.sendObject(newDeliverDto);
+            PlaceOrderModel.sendObject(newDeliverDto);
 
         } catch (Exception throwables) {
 

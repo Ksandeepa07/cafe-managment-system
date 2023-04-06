@@ -1,6 +1,7 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,9 +20,12 @@ import lk.ijse.cafe_au_lait.util.NotificationController;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+
+import static lk.ijse.cafe_au_lait.util.TextFieldBorderController.txtfieldbordercolor;
 
 public class AdminSalaryController {
 
@@ -77,10 +81,10 @@ public class AdminSalaryController {
     private ImageView searchIcon;
 
     @FXML
-    private ComboBox<String> idTxt;
+    private JFXComboBox<String> idTxt;
 
     @FXML
-    private ComboBox methodTxt;
+    private JFXComboBox<String> methodTxt;
 
     @FXML
     void deleteOnAction(ActionEvent event) {
@@ -96,7 +100,7 @@ public class AdminSalaryController {
                     payamentTxt.setText("");
                     overTimeTxt.setText("");
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png", "Delete",
+                    NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Salary Deleted sucessfully !!");
                 }
             }
@@ -123,7 +127,7 @@ public class AdminSalaryController {
         Double overTyime;
         String id = idTxt.getValue();
         String salaryId = salaryTxt.getText();
-        String method = (String) methodTxt.getValue();
+        String method = methodTxt.getValue();
         Double payment = Double.valueOf(payamentTxt.getText());
         if (overTimeTxt.getText().isEmpty()) {
             overTyime = 0.0;
@@ -143,9 +147,11 @@ public class AdminSalaryController {
                 payamentTxt.setText("");
                 overTimeTxt.setText("");
                 getAll();
-                NotificationController.animationMesseage("assets/tik.png", "Saved",
+                NotificationController.animationMesseage("/assets/tick.gif", "Saved",
                         "Salary Added sucessfully !!");
             }
+        } catch (SQLIntegrityConstraintViolationException throwables) {
+            NotificationController.ErrorMasseage("This Salary Id is Already Exsits");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -181,7 +187,7 @@ public class AdminSalaryController {
         Double overTyime;
         String id = idTxt.getValue();
         String salaryId = salaryTxt.getText();
-        String method = (String) methodTxt.getValue();
+        String method = methodTxt.getValue();
         Double payment = Double.valueOf(payamentTxt.getText());
         if (overTimeTxt.getText().isEmpty()) {
             overTyime = 0.0;
@@ -201,7 +207,7 @@ public class AdminSalaryController {
                     payamentTxt.setText("");
                     overTimeTxt.setText("");
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png", "Update",
+                    NotificationController.animationMesseage("/assets/tick.gif", "Update",
                             "Salary Updated sucessfully !!");
 
                 }
@@ -295,6 +301,9 @@ public class AdminSalaryController {
 
     @FXML
     void initialize() {
+        txtfieldbordercolor(salaryTxt);
+        txtfieldbordercolor(payamentTxt);
+        txtfieldbordercolor(overTimeTxt);
         getAll();
         getCellValueFactory();
         loadEmployeeId();

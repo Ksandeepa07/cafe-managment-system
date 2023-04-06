@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ComboBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -67,7 +67,6 @@
             <Image url="@../assets/icons8-search-64.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="idTxt" layoutX="157.0" layoutY="133.0" prefHeight="25.0" prefWidth="192.0" promptText="E001" styleClass="firstComboBox" stylesheets="@../style/style.css" />
       <LocalTimeTextField fx:id="eventTimeTxt" layoutX="916.0" layoutY="224.0" prefHeight="25.0" prefWidth="192.0" styleClass="timePicker" stylesheets="@../style/style.css" />
       <Label layoutX="801.0" layoutY="226.0" text="Event Time :" textFill="#7b3927">
          <font>
@@ -75,5 +74,6 @@
          </font>
       </Label>
       <DatePicker fx:id="eventDateTxt" layoutX="531.0" layoutY="224.0" prefHeight="25.0" prefWidth="192.0" stylesheets="@../style/style.css" />
+      <JFXComboBox fx:id="idTxt" focusColor="RED" layoutX="157.0" layoutY="124.0" prefHeight="25.0" prefWidth="192.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
    </children>
 </AnchorPane>

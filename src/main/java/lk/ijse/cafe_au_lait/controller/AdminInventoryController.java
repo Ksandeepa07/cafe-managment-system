@@ -18,9 +18,12 @@ import lk.ijse.cafe_au_lait.util.NotificationController;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+
+import static lk.ijse.cafe_au_lait.util.TextFieldBorderController.txtfieldbordercolor;
 
 public class AdminInventoryController {
 
@@ -90,7 +93,7 @@ public class AdminInventoryController {
             if (result) {
                 if (isDeleted) {
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png", "Delete",
+                    NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Item Deleted sucessfully !!");
                     idTxt.setText("");
                     nameTxt.setText("");
@@ -124,9 +127,12 @@ public class AdminInventoryController {
                 priceTxt.setText("");
                 categoryTxt.setText("");
                 getAll();
-                NotificationController.animationMesseage("assets/tik.png", "Saved",
+                NotificationController.animationMesseage("/assets/tick.gif", "Saved",
                         "Item Added sucessfully !!");
             }
+
+        } catch (SQLIntegrityConstraintViolationException throwables) {
+            NotificationController.ErrorMasseage("This Item Id is Already Exsits");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -186,7 +192,7 @@ public class AdminInventoryController {
                     priceTxt.setText("");
                     categoryTxt.setText("");
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png", "Update",
+                    NotificationController.animationMesseage("/assets/tick.gif", "Update",
                             "Item Updated sucessfully !!");
 
                 }
@@ -255,6 +261,11 @@ public class AdminInventoryController {
 
     @FXML
     void initialize() {
+        txtfieldbordercolor(idTxt);
+        txtfieldbordercolor(nameTxt);
+        txtfieldbordercolor(categoryTxt);
+        txtfieldbordercolor(quantityTxt);
+        txtfieldbordercolor(priceTxt);
         getAll();
         getCellValueFactory();
 

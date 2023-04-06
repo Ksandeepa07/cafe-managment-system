@@ -64,7 +64,7 @@ public class CashierDashboardController {
 
     @FXML
     void deliveryBtnClick(ActionEvent event) {
-        StageController.changeScene("/view/deliveryDetailsForm.fxml",ancPane);
+        StageController.changeScene("/view/deliveryDetailsForm.fxml", ancPane);
 
     }
 
@@ -76,21 +76,21 @@ public class CashierDashboardController {
 
     @FXML
     void homeBtnClick(ActionEvent event) {
+        StageController.changeScene("/view/cashierHomeForm.fxml", ancPane);
 
     }
 
     @FXML
     void inventoryBtnClick(ActionEvent event) {
 
-        StageController.changeScene("/view/cashierInventory.fxml",ancPane);
-
+        StageController.changeScene("/view/cashierInventory.fxml", ancPane);
 
 
     }
 
     @FXML
     void supplyBtnClick(ActionEvent event) {
-        StageController.changeScene("/view/SupplierLoadForm.fxml",ancPane);
+        StageController.changeScene("/view/SupplierLoadForm.fxml", ancPane);
 
 
     }

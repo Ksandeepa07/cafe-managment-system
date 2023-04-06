@@ -69,7 +69,6 @@ public class ForgotPasswordController {
                     otpTxt.setVisible(true);
 
 
-
                     Random random = new Random();
                     otp = random.nextInt(9000);
                     otp += 1000;

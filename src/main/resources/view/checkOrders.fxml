@@ -58,7 +58,7 @@
             <Image url="@../assets/icons8-search-64.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="checkDeliveryDetailsBtn" buttonType="RAISED" layoutX="942.0" layoutY="665.0" onAction="#checkdeliveryDetailsBtnCllick" prefHeight="26.0" prefWidth="181.0" style="-fx-background-color: #7B3927;" text="Check Delivery Details" textFill="#dfa47e">
+      <JFXButton fx:id="backBtn" buttonType="RAISED" layoutX="1036.0" layoutY="665.0" onAction="#backBtnClick" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #7B3927;" text="Back" textFill="#dfa47e">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>

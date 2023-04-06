@@ -19,6 +19,7 @@ import lk.ijse.cafe_au_lait.util.NotificationController;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -145,11 +146,13 @@ public class AdminEmployeeCntroller {
                             contactTxt.setText("");
                             emailTxt.setText("");
 
-                            NotificationController.animationMesseage("assets/tik.png", "Saved",
+                            NotificationController.animationMesseage("/assets/tick.gif", "Saved",
                                     "Employee Added sucessfully !!");
                             getAll();
 
                         }
+                    } catch (SQLIntegrityConstraintViolationException throwables) {
+                        NotificationController.ErrorMasseage("This Employee Id is Already Exsits");
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -272,7 +275,7 @@ public class AdminEmployeeCntroller {
                                 emailTxt.setText("");
 
                                 getAll();
-                                NotificationController.animationMesseage("assets/tik.png", "Update",
+                                NotificationController.animationMesseage("/assets/tick.gif", "Update",
                                         "Employee Updated sucessfully !!");
                             }
                         }
@@ -309,7 +312,7 @@ public class AdminEmployeeCntroller {
             if (result) {
                 if (isDeleted) {
                     getAll();
-                    NotificationController.animationMesseage("assets/tik.png", "Delete",
+                    NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Employee Deleted sucessfully !!");
                     idTxt.setText("");
                     nameTxt.setText("");

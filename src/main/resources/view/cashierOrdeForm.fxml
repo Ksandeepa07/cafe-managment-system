@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ComboBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
@@ -61,7 +61,10 @@
                 <Font name="Times New Roman Bold" size="18.0" />
             </font>
         </Label>
-        <JFXButton fx:id="addToCart" buttonType="RAISED" layoutX="1009.0" layoutY="300.0" onAction="#addToCartClick" prefHeight="34.0" prefWidth="108.0" style="-fx-background-color: #7B3927;" text="Add to Cart" textFill="#dfa47e" />
+        <JFXButton fx:id="addToCart" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="996.0" layoutY="300.0" onAction="#addToCartClick" prefHeight="34.0" prefWidth="122.0" style="-fx-background-color: #7B3927;" text="Add to Cart" textFill="#dfa47e">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font></JFXButton>
         <Label fx:id="unitPrice" layoutX="877.0" layoutY="255.0" prefHeight="17.0" prefWidth="110.0" textFill="#7b3927">
             <font>
                 <Font name="Times New Roman Bold" size="20.0" />
@@ -127,18 +130,21 @@
                 <Font name="Times New Roman Bold" size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="quantity" layoutX="881.0" layoutY="300.0" prefHeight="34.0" prefWidth="96.0" styleClass="qtyTxtField" stylesheets="@../style/style.css">
+        <TextField fx:id="quantity" layoutX="881.0" layoutY="291.0" prefHeight="34.0" prefWidth="96.0" styleClass="qtyTxtField" stylesheets="@../style/style.css">
             <font>
                 <Font name="Agency FB Bold" size="20.0" />
             </font>
         </TextField>
-        <JFXButton fx:id="placeOrderBtn" buttonType="RAISED" layoutX="1008.0" layoutY="657.0" onAction="#placeOrderClick" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #7B3927;" text="Place Order" textFill="#dfa47e" />
+        <JFXButton fx:id="placeOrderBtn" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="996.0" layoutY="657.0" onAction="#placeOrderClick" prefHeight="34.0" prefWidth="122.0" style="-fx-background-color: #7B3927;" text="Place Order" textFill="#dfa47e">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font></JFXButton>
         <Label layoutX="36.0" layoutY="659.0" text="Net Total :" textFill="#7b3927">
             <font>
                 <Font name="Times New Roman Bold" size="18.0" />
             </font>
         </Label>
-        <Label fx:id="netTotall" layoutX="128.0" layoutY="659.0" prefHeight="23.0" prefWidth="104.0">
+        <Label fx:id="netTotall" layoutX="128.0" layoutY="659.0" prefHeight="23.0" prefWidth="104.0" textFill="#7b3927">
             <font>
                 <Font name="Times New Roman Bold" size="20.0" />
             </font>
@@ -173,17 +179,37 @@
                 <Font name="Times New Roman Bold" size="20.0" />
             </font>
         </Label>
-        <TextField fx:id="cashTxt" layoutX="332.0" layoutY="643.0" onKeyTyped="#cashTyped" prefHeight="34.0" prefWidth="145.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-        <ComboBox fx:id="custId" layoutX="197.0" layoutY="53.0" onAction="#custIdClick" prefHeight="25.0" prefWidth="150.0" styleClass="firstComboBox" stylesheets="@../style/style.css" />
-        <ComboBox fx:id="itemId" layoutX="881.0" layoutY="49.0" onAction="#itemIdClick" prefWidth="150.0" styleClass="firstComboBox" stylesheets="@../style/style.css" />
-      <JFXButton buttonType="RAISED" layoutX="237.0" layoutY="174.0" onAction="#newCustomerBtnClick" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #7B3927;" text="New customer" textFill="#dfa47e">
+        <TextField fx:id="cashTxt" layoutX="332.0" layoutY="643.0" onKeyTyped="#cashTyped" prefHeight="34.0" prefWidth="104.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="40.0" layoutY="254.0" onAction="#newCustomerBtnClick" prefHeight="34.0" prefWidth="127.0" style="-fx-background-color: #7B3927;" text="New customer" textFill="#dfa47e">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="28.0" fitWidth="36.0" layoutX="196.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="45.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/addNew.png" />
+            <Image url="@../assets/add.png" />
+         </image>
+      </ImageView>
+      <JFXComboBox fx:id="custId" focusColor="RED" layoutX="196.0" layoutY="43.0" onAction="#custIdClick" prefHeight="25.0" prefWidth="150.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
+      <JFXComboBox fx:id="itemId" focusColor="RED" layoutX="874.0" layoutY="38.0" onAction="#itemIdClick" prefHeight="25.0" prefWidth="150.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
+      <ImageView fitHeight="26.0" fitWidth="40.0" layoutX="1002.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/cart.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="40.0" layoutX="1002.0" layoutY="661.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/placeOrder.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="checkOrders" alignment="CENTER_RIGHT" buttonType="RAISED" layoutX="203.0" layoutY="255.0" onAction="#checkOrdersClick" prefHeight="34.0" prefWidth="127.0" style="-fx-background-color: #7B3927;" text="Check Orders" textFill="#dfa47e">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="209.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/details.png" />
          </image>
       </ImageView>
     </children>
