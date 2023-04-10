@@ -17,4 +17,18 @@ public class DataValidateController {
         Matcher matcher = pattern.matcher(contact);
         return matcher.matches();
     }
+
+    public static boolean customerIdValidate(String custId) {
+        String customerRegex = "^(C)[0-9]{3}$";
+        Pattern pattern = Pattern.compile(customerRegex);
+        Matcher matcher = pattern.matcher(custId);
+        return matcher.matches();
+    }
+
+    public static boolean customerNameValidate(String custName) {
+        String customerRegex = "^[A-z\\s]{4,15}$";
+        Pattern pattern = Pattern.compile(customerRegex);
+        Matcher matcher = pattern.matcher(custName);
+        return matcher.matches();
+    }
 }

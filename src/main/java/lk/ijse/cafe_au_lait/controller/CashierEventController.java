@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import jfxtras.scene.control.LocalTimeTextField;
 import lk.ijse.cafe_au_lait.dto.Event;
 import lk.ijse.cafe_au_lait.dto.tm.EventTM;
@@ -18,7 +19,12 @@ import lk.ijse.cafe_au_lait.model.EmployeeModel;
 import lk.ijse.cafe_au_lait.model.EventModel;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -95,6 +101,11 @@ public class CashierEventController {
     private JFXButton updateBtn;
 
     @FXML
+    private JFXButton addImageBtn;
+
+    String filePath;
+
+    @FXML
     void deleteOnAction(ActionEvent event) {
 
         boolean isDeleted = EventModel.delete(eventIdTxt.getText());
@@ -119,16 +130,25 @@ public class CashierEventController {
     }
 
     @FXML
-    void saveOnAction(ActionEvent event) {
+    void saveOnAction(ActionEvent event) throws FileNotFoundException {
         String id = idTxt.getValue();
         String eventId = eventIdTxt.getText();
         String eventName = eventNameTxt.getText();
         String eventType = eventTypeTxt.getText();
         String eventDate = String.valueOf(eventDateTxt.getValue());
         String eventTime = String.valueOf(eventTimeTxt.getLocalTime());
-
+        InputStream in = new FileInputStream(filePath);
         Event event1 = new Event(id, eventId, eventName, eventType, eventDate, eventTime);
         boolean isSaved = EventModel.save(event1);
+        try {
+            boolean isSavedIamge=EventModel.saveImage(eventId,in);
+            if (isSavedIamge){
+//                System.out.println("saves iamge");
+                filePath=null;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         if (isSaved) {
             getAll();
             idTxt.setValue(null);
@@ -263,6 +283,22 @@ public class CashierEventController {
 
 
     }
+
+    @FXML
+    void addImageBtnClick(ActionEvent event) {
+
+
+            FileChooser fileChooser = new FileChooser();
+            File selectedFile = fileChooser.showOpenDialog(null);
+            if (selectedFile != null) {
+                filePath = selectedFile.getAbsolutePath();
+                System.out.println(filePath);
+                // Do something with the selected file
+            }
+
+
+    }
+
 
     @FXML
     void initialize() {

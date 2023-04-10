@@ -2,6 +2,7 @@ package lk.ijse.cafe_au_lait.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import jfxtras.scene.layout.HBox;
 import lk.ijse.cafe_au_lait.dto.Customer;
 import lk.ijse.cafe_au_lait.dto.tm.CustomerTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
@@ -107,5 +108,15 @@ public class CustomerModel {
     }
 
 
+    public static int countId() throws SQLException {
+        String sql="SELECT COUNT(CUSTiD) FROM CUSTOMER";
+        ResultSet resultSet= CrudUtil.execute(sql);
+        int count=0;
+        while (resultSet.next()){
+             count=resultSet.getInt(1);
+        }
+        return count;
+
+    }
 }
 

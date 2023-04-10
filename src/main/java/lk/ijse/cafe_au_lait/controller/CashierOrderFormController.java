@@ -316,6 +316,8 @@ public class CashierOrderFormController {
         StageController.changeScene("/view/checkOrders.fxml", ancPane);
     }
 
+
+
     @FXML
     void initialize() {
         txtfieldbordercolor(quantity);

@@ -75,5 +75,6 @@
       </Label>
       <DatePicker fx:id="eventDateTxt" layoutX="531.0" layoutY="224.0" prefHeight="25.0" prefWidth="192.0" stylesheets="@../style/style.css" />
       <JFXComboBox fx:id="idTxt" focusColor="RED" layoutX="157.0" layoutY="124.0" prefHeight="25.0" prefWidth="192.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
+      <JFXButton fx:id="addImageBtn" buttonType="RAISED" layoutX="157.0" layoutY="306.0" onAction="#addImageBtnClick" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #7B3927;" text="Add Image" textFill="#dfa47e" />
    </children>
 </AnchorPane>

@@ -356,7 +356,7 @@
 }
 
 .chart-symbol {
-    -fx-background-color: #dfa47e, blue; /* Change symbol fill color */
+    -fx-background-color: #dfa47e; /* Change symbol fill color */
     -fx-background-insets: 0, 2; /* Add padding around symbol */
     -fx-background-radius: 5px; /* Round the corners of the symbol */
     -fx-padding: 5px; /* Add padding inside symbol */
@@ -364,22 +364,29 @@
 }
 
 .chart-vertical-grid-lines {
-    -fx-stroke: #dfa47e; /* Change vertical grid line color */
+    -fx-stroke: #7B3927; /* Change vertical grid line color */
 }
 
 .chart-horizontal-grid-lines {
-    -fx-stroke: #dfa47e; /* Change horizontal grid line color */
+    -fx-stroke: #7B3927; /* Change horizontal grid line color */
 }
+
 
 .chart-axis {
     -fx-tick-length: 8px; /* Change tick length */
-    -fx-tick-label-fill: black; /* Change tick label color */
+    -fx-tick-label-fill: #7B3927; /* Change tick label color */
     -fx-label-padding: 5px; /* Add padding around axis labels */
 }
 
+.chart-plot-background {
+    -fx-background-color: #dfa47e;
+}
 .chart-title {
     -fx-font-size: 20px; /* Change title font size */
     -fx-font-weight: bold; /* Add bold font weight to title */
+}
+.eventLbl{
+    -fx-border-radius: 20;
 }
 
 

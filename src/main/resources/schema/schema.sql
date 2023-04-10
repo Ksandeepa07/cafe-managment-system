@@ -145,6 +145,15 @@ create table if not exists SupplierLoadDetail(
     on delete cascade
     );
 
+create table eventImages(
+    EventId varchar(20),
+    EventImage longblob not null,
+        constraint foreign key (EventId) references event (EventId)
+        on update cascade
+        on delete cascade
+
+);
+
 
 
 

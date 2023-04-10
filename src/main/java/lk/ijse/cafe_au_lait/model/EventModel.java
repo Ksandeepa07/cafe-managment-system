@@ -2,11 +2,14 @@ package lk.ijse.cafe_au_lait.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import lk.ijse.cafe_au_lait.dto.Event;
 import lk.ijse.cafe_au_lait.dto.tm.EventTM;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -118,20 +121,40 @@ public class EventModel {
         return false;
     }
 
-    public static List<String> eventData() throws SQLException {
-        String sql = "SELECT  eventName FROM event";
+    public static List<Image> eventData() throws SQLException {
+//        String sql = "SELECT eventName FROM event";
+//        ResultSet resultSet = CrudUtil.execute(sql);
+//        List<String> data = new ArrayList<>();
+//        while (resultSet.next()) {
+//            data.add(
+//                    resultSet.getString(1)
+//            );
+//        }
+//
+//
+//        return data;
+        String sql = "SELECT eventImage FROM eventImages";
         ResultSet resultSet = CrudUtil.execute(sql);
-        List<String> data = new ArrayList<>();
+        List<Image> data = new ArrayList<>();
         while (resultSet.next()) {
-            data.add(
-                    resultSet.getString(1)
-            );
+           byte[]imageData=resultSet.getBytes(1);
+           Image image=new Image(new ByteArrayInputStream(imageData));
+           data.add(image);
         }
-
-
         return data;
     }
 
+//    public static boolean SaveImage(byte[] imageData) throws SQLException {
+//        String sql="insert into image(filePath)values(?)";
+//        return CrudUtil.execute(sql,imageData);
+//
+//    }
+
+    public static boolean saveImage(String eventId, InputStream filePath) throws SQLException {
+        String sql="INSERT INTO eventImages(eventId,eventImage)VALUES(?,?)";
+        return CrudUtil.execute(sql,
+                eventId,filePath);
+    }
 }
 
 

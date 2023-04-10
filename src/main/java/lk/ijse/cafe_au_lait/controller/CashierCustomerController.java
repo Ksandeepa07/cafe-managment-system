@@ -4,18 +4,26 @@ import com.jfoenix.controls.JFXButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cafe_au_lait.db.DBConnection;
 import lk.ijse.cafe_au_lait.dto.Customer;
 import lk.ijse.cafe_au_lait.dto.tm.CustomerTM;
 import lk.ijse.cafe_au_lait.model.CustomerModel;
 import lk.ijse.cafe_au_lait.util.DataValidateController;
 import lk.ijse.cafe_au_lait.util.NotificationController;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -90,6 +98,34 @@ public class CashierCustomerController {
 
     @FXML
     private ImageView newCustomerAncPane;
+
+    @FXML
+    private JFXButton reportBtn;
+
+    @FXML
+    private ImageView cutIdIcon;
+
+    @FXML
+    private ImageView custContactIcon;
+
+    @FXML
+    private ImageView custEmailIcon;
+
+    @FXML
+    private ImageView custNameIcon;
+
+    @FXML
+    void reportBtnClick(ActionEvent event) {
+        InputStream resource = this.getClass().getResourceAsStream("/reports/reportCutomerss.jrxml");
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(resource);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     @FXML
@@ -224,15 +260,15 @@ public class CashierCustomerController {
         String contact = contactTxt.getText();
         String email = emailTxt.getText();
 
-        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-            if (DataValidateController.contactCheck(contact)) {
-                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(false);
-                contactCheckLb.setText(" ");
-                if (DataValidateController.emailCheck(email)) {
-                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(false);
-                    emailCheckLbl.setText(" ");
+//        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
+//            if (DataValidateController.contactCheck(contact)) {
+//                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(false);
+//                contactCheckLb.setText(" ");
+//                if (DataValidateController.emailCheck(email)) {
+//                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(false);
+//                    emailCheckLbl.setText(" ");
 
                     Customer customer = new Customer(id, name, contact, email);
                     try {
@@ -255,25 +291,25 @@ public class CashierCustomerController {
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                } else {
-                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(true);
-                    emailCheckLbl.setText("Invalid Email");
-                }
-            } else {
-                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(true);
-                contactCheckLb.setText("Invalid Contact");
-            }
-        } else {
-            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            emailCheckLbl.setVisible(true);
-            emailCheckLbl.setText("Invalid Email");
-
-            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            contactCheckLb.setVisible(true);
-            contactCheckLb.setText("Invalid Contact");
-        }
+//                } else {
+//                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(true);
+//                    emailCheckLbl.setText("Invalid Email");
+//                }
+//            } else {
+//                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(true);
+//                contactCheckLb.setText("Invalid Contact");
+//            }
+//        } else {
+//            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            emailCheckLbl.setVisible(true);
+//            emailCheckLbl.setText("Invalid Email");
+//
+//            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            contactCheckLb.setVisible(true);
+//            contactCheckLb.setText("Invalid Contact");
+//        }
 
 
     }
@@ -301,12 +337,66 @@ public class CashierCustomerController {
 
     }
 
+
+    @FXML
+    void CusromerIdKeyTyped(KeyEvent event) {
+
+        boolean isValid=DataValidateController.customerIdValidate(idTxt.getText());
+        saveBtn.setDisable(!isValid|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        if (isValid){
+            cutIdIcon.setVisible(true);
+        }else{
+            cutIdIcon.setVisible(false);
+
+        }
+
+    }
+    @FXML
+    void customerContatctKeyTyped(KeyEvent event) {
+        boolean isValid=DataValidateController.contactCheck(contactTxt.getText());
+        saveBtn.setDisable(!isValid|idTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        if (isValid){
+            custContactIcon.setVisible(true);
+        }else{
+            custContactIcon.setVisible(false);
+
+        }
+
+    }
+
+    @FXML
+    void customerEmailKeyTyped(KeyEvent event) {
+        boolean isValid=DataValidateController.emailCheck(emailTxt.getText());
+        saveBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        if (isValid){
+            custEmailIcon.setVisible(true);
+        }else{
+            custEmailIcon.setVisible(false);
+
+        }
+
+
+    }
+
+    @FXML
+    void customerNameKeyTyped(KeyEvent event) {
+        boolean isValid=DataValidateController.customerNameValidate(nameTxt.getText());
+        saveBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty());
+        if (isValid){
+            custNameIcon.setVisible(true);
+        }else{
+            custNameIcon.setVisible(false);
+
+        }
+
+    }
+
+
+
+
     @FXML
     void initialize() {
-        txtfieldbordercolor(idTxt);
-        txtfieldbordercolor(nameTxt);
-        txtfieldbordercolor(contactTxt);
-        txtfieldbordercolor(emailTxt);
+        saveBtn.setDisable(true);
         contactCheckLb.setVisible(false);
         emailCheckLbl.setVisible(false);
         getCellValueFactory();
