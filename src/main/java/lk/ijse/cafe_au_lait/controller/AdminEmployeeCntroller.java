@@ -1,6 +1,7 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,71 +112,87 @@ public class AdminEmployeeCntroller {
     private Label emailCheckLbl;
 
     @FXML
+    private ImageView adressIcon;
+
+    @FXML
+    private ImageView dobIcon;
+
+    @FXML
+    private ImageView contactIcon;
+
+    @FXML
+    private ImageView emailIcon;
+
+    @FXML
+    private ImageView empIdIcon;
+
+    @FXML
+    private ImageView empNameIcon;
+
+    @FXML
+    private ImageView jobTitleIcon;
+
+    @FXML
+    private ImageView nicIcon;
+
+
+    @FXML
     void saveOnAction(ActionEvent event) {
-        String id = idTxt.getText();
-        String name = nameTxt.getText();
-        String address = addressTxt.getText();
-        String dob = String.valueOf(dobTxt.getValue());
-        String nic = nicTxt.getText();
-        String jobTitle = (String) jobTitileTxt.getValue();
-        String contact = contactTxt.getText();
-        String email = emailTxt.getText();
+        if (jobTitileTxt.getSelectionModel().isEmpty() & dobTxt.getEditor().getText().isEmpty()) {
+            NotificationController.ErrorMasseage("Job title and date of birth can't be empty");
+        } else if (jobTitileTxt.getSelectionModel().isEmpty()) {
+            NotificationController.ErrorMasseage("Job title can't be empty");
 
-        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-            if (DataValidateController.contactCheck(contact)) {
-                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(false);
-                contactCheckLb.setText(" ");
-                if (DataValidateController.emailCheck(email)) {
-                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(false);
-                    emailCheckLbl.setText(" ");
-                    Customer customer = new Customer(id, name, contact, email);
-                    Employee employee = new Employee(id, name, address, dob, nic, jobTitle, contact, email);
+        } else if (dobTxt.getEditor().getText().isEmpty()) {
+            NotificationController.ErrorMasseage("dob can't be empty");
 
-                    Boolean isSaved = null;
-                    try {
-                        isSaved = EmployeeModel.save(employee);
-                        if (isSaved) {
-                            idTxt.setText(" ");
-                            nameTxt.setText(" ");
-                            addressTxt.setText(" ");
-                            jobTitileTxt.setValue(null);
-                            dobTxt.setValue(null);
-                            nicTxt.setText("");
-                            contactTxt.setText("");
-                            emailTxt.setText("");
-
-                            NotificationController.animationMesseage("/assets/tick.gif", "Saved",
-                                    "Employee Added sucessfully !!");
-                            getAll();
-
-                        }
-                    } catch (SQLIntegrityConstraintViolationException throwables) {
-                        NotificationController.ErrorMasseage("This Employee Id is Already Exsits");
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-
-                } else {
-                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(true);
-                    emailCheckLbl.setText("Invalid Email");
-                }
-            } else {
-                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(true);
-                contactCheckLb.setText("Invalid Contact");
-            }
         } else {
-            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            emailCheckLbl.setVisible(true);
-            emailCheckLbl.setText("Invalid Email");
+            String id = idTxt.getText();
+            String name = nameTxt.getText();
+            String address = addressTxt.getText();
+            String dob = String.valueOf(dobTxt.getValue());
+            String nic = nicTxt.getText();
+            String jobTitle = (String) jobTitileTxt.getValue();
+            String contact = contactTxt.getText();
+            String email = emailTxt.getText();
 
-            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            contactCheckLb.setVisible(true);
-            contactCheckLb.setText("Invalid Contact");
+            Customer customer = new Customer(id, name, contact, email);
+            Employee employee = new Employee(id, name, address, dob, nic, jobTitle, contact, email);
+
+            Boolean isSaved = null;
+            try {
+                isSaved = EmployeeModel.save(employee);
+                if (isSaved) {
+                    empIdIcon.setVisible(false);
+                    empNameIcon.setVisible(false);
+                    adressIcon.setVisible(false);
+                    contactIcon.setVisible(false);
+                    emailIcon.setVisible(false);
+                    nicIcon.setVisible(false);
+                    idTxt.setText(" ");
+                    nameTxt.setText(" ");
+                    addressTxt.setText(" ");
+                    jobTitileTxt.setValue(null);
+                    dobTxt.setValue(null);
+                    nicTxt.setText("");
+                    contactTxt.setText("");
+                    emailTxt.setText("");
+
+                    NotificationController.animationMesseage("/assets/tick.gif", "Saved",
+                            "Employee Added sucessfully !!");
+                    getAll();
+
+                }
+            } catch (SQLIntegrityConstraintViolationException throwables) {
+                NotificationController.ErrorMasseage("This Employee Id is Already Exsits");
+            } catch (MysqlDataTruncation throwables) {
+                System.out.println();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
+
     }
 
     void getAll() {
@@ -239,69 +256,59 @@ public class AdminEmployeeCntroller {
     }
 
     public void updateOnAction(ActionEvent actionEvent) {
-        String id = idTxt.getText();
-        String name = nameTxt.getText();
-        String address = addressTxt.getText();
-        String dob = String.valueOf(dobTxt.getValue());
-        String nic = nicTxt.getText();
-        String jobTitle = (String) jobTitileTxt.getValue();
-        String contact = contactTxt.getText();
-        String email = emailTxt.getText();
+        if (jobTitileTxt.getSelectionModel().isEmpty() & dobTxt.getEditor().getText().isEmpty()) {
+            NotificationController.ErrorMasseage("Job title and date of birth can't be empty");
+        } else if (jobTitileTxt.getSelectionModel().isEmpty()) {
+            NotificationController.ErrorMasseage("Job title can't be empty");
 
-        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-            if (DataValidateController.contactCheck(contact)) {
-                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(false);
-                contactCheckLb.setText(" ");
-                if (DataValidateController.emailCheck(email)) {
-                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(false);
-                    emailCheckLbl.setText("");
-
-                    Employee employee = new Employee(id, name, address, dob, nic, jobTitle, contact, email);
-                    try {
-                        boolean isUpdated = EmployeeModel.update(employee);
-                        boolean result = NotificationController.confirmationMasseage("Are you sure you want update this " +
-                                "employee ?");
-                        if (result) {
-                            if (isUpdated) {
-                                idTxt.setText("");
-                                nameTxt.setText("");
-                                addressTxt.setText("");
-                                jobTitileTxt.setValue(null);
-                                dobTxt.setValue(null);
-                                nicTxt.setText("");
-                                contactTxt.setText("");
-                                emailTxt.setText("");
-
-                                getAll();
-                                NotificationController.animationMesseage("/assets/tick.gif", "Update",
-                                        "Employee Updated sucessfully !!");
-                            }
-                        }
-
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                } else {
-                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(true);
-                    emailCheckLbl.setText("Invalid Email");
-                }
-            } else {
-                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(true);
-                contactCheckLb.setText("Invalid Contact");
-            }
+        } else if (dobTxt.getEditor().getText().isEmpty()) {
+            NotificationController.ErrorMasseage("dob can't be empty");
         } else {
-            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            emailCheckLbl.setVisible(true);
-            emailCheckLbl.setText("Invalid Email");
+            String id = idTxt.getText();
+            String name = nameTxt.getText();
+            String address = addressTxt.getText();
+            String dob = String.valueOf(dobTxt.getValue());
+            String nic = nicTxt.getText();
+            String jobTitle = (String) jobTitileTxt.getValue();
+            String contact = contactTxt.getText();
+            String email = emailTxt.getText();
 
-            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            contactCheckLb.setVisible(true);
-            contactCheckLb.setText("Invalid Contact");
+
+            Employee employee = new Employee(id, name, address, dob, nic, jobTitle, contact, email);
+            try {
+                boolean isUpdated = EmployeeModel.update(employee);
+                boolean result = NotificationController.confirmationMasseage("Are you sure you want update this " +
+                        "employee ?");
+                if (result) {
+                    if (isUpdated) {
+                        empIdIcon.setVisible(false);
+                        empNameIcon.setVisible(false);
+                        adressIcon.setVisible(false);
+                        contactIcon.setVisible(false);
+                        emailIcon.setVisible(false);
+                        nicIcon.setVisible(false);
+                        idTxt.setText("");
+                        nameTxt.setText("");
+                        addressTxt.setText("");
+                        jobTitileTxt.setValue(null);
+                        dobTxt.setValue(null);
+                        nicTxt.setText("");
+                        contactTxt.setText("");
+                        emailTxt.setText("");
+
+                        getAll();
+                        NotificationController.animationMesseage("/assets/tick.gif", "Update",
+                                "Employee Updated sucessfully !!");
+                    }
+                }
+
+            } catch (MysqlDataTruncation throwables) {
+                System.out.println();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
+
     }
 
     public void deleteOnAction(ActionEvent actionEvent) {
@@ -314,6 +321,12 @@ public class AdminEmployeeCntroller {
                     getAll();
                     NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Employee Deleted sucessfully !!");
+                    empIdIcon.setVisible(false);
+                    empNameIcon.setVisible(false);
+                    adressIcon.setVisible(false);
+                    contactIcon.setVisible(false);
+                    emailIcon.setVisible(false);
+                    nicIcon.setVisible(false);
                     idTxt.setText("");
                     nameTxt.setText("");
                     addressTxt.setText("");
@@ -332,11 +345,20 @@ public class AdminEmployeeCntroller {
     }
 
     public void tblClick(MouseEvent mouseEvent) {
+        empIdIcon.setVisible(true);
+        nicIcon.setVisible(true);
+        empNameIcon.setVisible(true);
+        contactIcon.setVisible(true);
+        emailIcon.setVisible(true);
+        adressIcon.setVisible(true);
+
+        saveBtn.setDisable(false);
+        updateBtn.setDisable(false);
+        deleteBtn.setDisable(false);
         TablePosition pos = tblEmployee.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
         // Get the data from the selected row
         ObservableList<TableColumn<EmployeeTM, ?>> columns = tblEmployee.getColumns();
-
         idTxt.setText(columns.get(0).getCellData(row).toString());
         nameTxt.setText(columns.get(1).getCellData(row).toString());
         addressTxt.setText(columns.get(2).getCellData(row).toString());
@@ -347,22 +369,132 @@ public class AdminEmployeeCntroller {
         emailTxt.setText(columns.get(7).getCellData(row).toString());
     }
 
+    @FXML
+    void adressKeyTyped(KeyEvent event) {
+        boolean isValidate = DataValidateController.addressValidate(addressTxt.getText());
+        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        adressIcon.setVisible(isValidate);
+    }
+
+    @FXML
+    void contactKeyTyped(KeyEvent event) {
+        boolean isValidate = DataValidateController.contactCheck(contactTxt.getText());
+        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        contactIcon.setVisible(isValidate);
+
+    }
+
+
+    @FXML
+    void emailKeyTyped(KeyEvent event) {
+        boolean isValidate = DataValidateController.emailCheck(emailTxt.getText());
+        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        emailIcon.setVisible(isValidate);
+
+    }
+
+    @FXML
+    void empIdKeyTyped(KeyEvent event) {
+        boolean isValidate = DataValidateController.empIdValidate(idTxt.getText());
+        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        empIdIcon.setVisible(isValidate);
+
+    }
+
+    @FXML
+    void empNameKeyTyped(KeyEvent event) {
+        boolean isValidate = DataValidateController.customerNameValidate(nameTxt.getText());
+        saveBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nicTxt.getText().isEmpty());
+        empNameIcon.setVisible(isValidate);
+
+    }
+
+
+    @FXML
+    void nicKeyTyped(KeyEvent event) {
+        boolean isValidate = DataValidateController.nicValidate(nicTxt.getText());
+        saveBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                nameTxt.getText().isEmpty());
+        nicIcon.setVisible(isValidate);
+
+    }
+
+    @FXML
+    void jobTitleOnAction(ActionEvent event) {
+        jobTitleIcon.setVisible(!jobTitileTxt.getSelectionModel().isEmpty());
+
+    }
+
+    public void dobOnAction(ActionEvent actionEvent) {
+        dobIcon.setVisible(dobTxt.getValue() != null);
+    }
 
     @FXML
     void initialize() {
+        saveBtn.setDisable(true);
+        updateBtn.setDisable(true);
+        deleteBtn.setDisable(true);
         txtfieldbordercolor(idTxt);
         txtfieldbordercolor(nameTxt);
         txtfieldbordercolor(addressTxt);
         txtfieldbordercolor(contactTxt);
         txtfieldbordercolor(emailTxt);
         txtfieldbordercolor(nicTxt);
-
-
         getCellValueFactory();
         getAll();
         jobTitileTxt.getItems().addAll("Admin", "Cashier");
 
     }
 
+    public void dobKeyTyped(KeyEvent keyEvent) {
 
+
+    }
 }

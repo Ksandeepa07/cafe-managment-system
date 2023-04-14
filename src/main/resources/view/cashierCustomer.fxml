@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -56,7 +57,13 @@
             <Image url="@../assets/icons8-search-64.png" />
          </image>
       </ImageView>
-      <TextField fx:id="idTxt" layoutX="195.0" layoutY="119.0" onKeyTyped="#CusromerIdKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="idTxt" layoutX="195.0" layoutY="119.0" onKeyTyped="#CusromerIdKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css">
+         <tooltip>
+            <Tooltip fx:id="idToolTip" text="C001">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Tooltip>
+         </tooltip></TextField>
       <TextField fx:id="emailTxt" layoutX="645.0" layoutY="210.0" onKeyTyped="#customerEmailKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <Label fx:id="emailCheckLbl" layoutX="645.0" layoutY="247.0" prefHeight="17.0" prefWidth="192.0" textFill="#7b3927">
          <font>
@@ -68,7 +75,6 @@
             <Font name="Times New Roman Bold Italic" size="13.0" />
          </font>
       </Label>
-      <JFXButton fx:id="reportBtn" buttonType="RAISED" layoutX="1034.0" layoutY="235.0" onAction="#reportBtnClick" prefHeight="25.0" prefWidth="74.0" style="-fx-background-color: #7B3927;" text="report" textFill="#dfa47e" />
       <ImageView fx:id="cutIdIcon" fitHeight="20.0" fitWidth="25.0" layoutX="393.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/brownCheckMark.png" />

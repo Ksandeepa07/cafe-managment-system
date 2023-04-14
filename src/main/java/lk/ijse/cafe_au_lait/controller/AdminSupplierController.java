@@ -93,6 +93,27 @@ public class AdminSupplierController {
     private Label contactCheckLb;
 
     @FXML
+    private ImageView adressIcon;
+
+    @FXML
+    private ImageView contactIcon;
+
+    @FXML
+    private ImageView spplierNameIcon;
+
+    @FXML
+    private ImageView supplierIdIcon;
+
+    @FXML
+    private ImageView emailIcon;
+
+    @FXML
+    private Tooltip supplierIdToolTip;
+
+
+
+
+    @FXML
     void deleteOnAction(ActionEvent event) {
         try {
             boolean isDeleted = SupplierModel.delete(idTxt.getText());
@@ -101,6 +122,11 @@ public class AdminSupplierController {
             if (result) {
 
                 if (isDeleted) {
+                    supplierIdIcon.setVisible(false);
+                    spplierNameIcon.setVisible(false);
+                    adressIcon.setVisible(false);
+                    emailIcon.setVisible(false);
+                    contactIcon.setVisible(false);
                     idTxt.setText(" ");
                     nameTxt.setText(" ");
                     addressTxt.setText(" ");
@@ -126,15 +152,15 @@ public class AdminSupplierController {
         String address = addressTxt.getText();
         String email = emailTxt.getText();
 
-        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-            if (DataValidateController.contactCheck(contact)) {
-                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(false);
-                contactCheckLb.setText(" ");
-                if (DataValidateController.emailCheck(email)) {
-                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(false);
-                    emailCheckLbl.setText(" ");
+//        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
+//            if (DataValidateController.contactCheck(contact)) {
+//                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(false);
+//                contactCheckLb.setText(" ");
+//                if (DataValidateController.emailCheck(email)) {
+//                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(false);
+//                    emailCheckLbl.setText(" ");
 
                     Supplier supplier = new Supplier(id, name, contact, address, email);
                     try {
@@ -145,6 +171,11 @@ public class AdminSupplierController {
                             addressTxt.setText("");
                             contactTxt.setText("");
                             emailTxt.setText("");
+                            supplierIdIcon.setVisible(false);
+                            spplierNameIcon.setVisible(false);
+                            adressIcon.setVisible(false);
+                            emailIcon.setVisible(false);
+                            contactIcon.setVisible(false);
                             getAll();
                             NotificationController.animationMesseage("/assets/tick.gif", "Saved",
                                     "Supplier Added sucessfully !!");
@@ -155,25 +186,25 @@ public class AdminSupplierController {
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                } else {
-                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(true);
-                    emailCheckLbl.setText("Invalid Email");
-                }
-            } else {
-                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(true);
-                contactCheckLb.setText("Invalid Contact");
-            }
-        } else {
-            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            emailCheckLbl.setVisible(true);
-            emailCheckLbl.setText("Invalid Email");
-
-            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            contactCheckLb.setVisible(true);
-            contactCheckLb.setText("Invalid Contact");
-        }
+//                } else {
+//                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(true);
+//                    emailCheckLbl.setText("Invalid Email");
+//                }
+//            } else {
+//                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(true);
+//                contactCheckLb.setText("Invalid Contact");
+//            }
+//        } else {
+//            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            emailCheckLbl.setVisible(true);
+//            emailCheckLbl.setText("Invalid Email");
+//
+//            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            contactCheckLb.setVisible(true);
+//            contactCheckLb.setText("Invalid Contact");
+//        }
 
     }
 
@@ -224,15 +255,15 @@ public class AdminSupplierController {
         String address = addressTxt.getText();
         String email = emailTxt.getText();
 
-        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-            if (DataValidateController.contactCheck(contact)) {
-                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(false);
-                contactCheckLb.setText(" ");
-                if (DataValidateController.emailCheck(email)) {
-                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(false);
-                    emailCheckLbl.setText(" ");
+//        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
+//            if (DataValidateController.contactCheck(contact)) {
+//                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(false);
+//                contactCheckLb.setText(" ");
+//                if (DataValidateController.emailCheck(email)) {
+//                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(false);
+//                    emailCheckLbl.setText(" ");
 
                     Supplier supplier = new Supplier(id, name, contact, address, email);
                     boolean result = NotificationController.confirmationMasseage("Are you sure you want update this " +
@@ -246,6 +277,12 @@ public class AdminSupplierController {
                                 addressTxt.setText("");
                                 contactTxt.setText("");
                                 emailTxt.setText("");
+                                supplierIdIcon.setVisible(false);
+                                spplierNameIcon.setVisible(false);
+                                adressIcon.setVisible(false);
+                                emailIcon.setVisible(false);
+                                contactIcon.setVisible(false);
+
                                 getAll();
                                 NotificationController.animationMesseage("/assets/tick.gif", "Update",
                                         "Suplier Updated sucessfully !!");
@@ -254,25 +291,25 @@ public class AdminSupplierController {
                             throwables.printStackTrace();
                         }
                     }
-                } else {
-                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(true);
-                    emailCheckLbl.setText("Invalid Email");
-                }
-            } else {
-                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(true);
-                contactCheckLb.setText("Invalid Contact");
-            }
-        } else {
-            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            emailCheckLbl.setVisible(true);
-            emailCheckLbl.setText("Invalid Email");
-
-            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            contactCheckLb.setVisible(true);
-            contactCheckLb.setText("Invalid Contact");
-        }
+//                } else {
+//                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(true);
+//                    emailCheckLbl.setText("Invalid Email");
+//                }
+//            } else {
+//                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(true);
+//                contactCheckLb.setText("Invalid Contact");
+//            }
+//        } else {
+//            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            emailCheckLbl.setVisible(true);
+//            emailCheckLbl.setText("Invalid Email");
+//
+//            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            contactCheckLb.setVisible(true);
+//            contactCheckLb.setText("Invalid Contact");
+//        }
     }
 
     void getAll() {
@@ -294,7 +331,16 @@ public class AdminSupplierController {
     }
 
     public void tblClick(MouseEvent mouseEvent) {
-        TablePosition pos = tblSupplier.getSelectionModel().getSelectedCells().get(0);
+        supplierIdIcon.setVisible(true);
+        spplierNameIcon.setVisible(true);
+        adressIcon.setVisible(true);
+        emailIcon.setVisible(true);
+        contactIcon.setVisible(true);
+
+        saveBtn.setDisable(false);
+        updateBtn.setDisable(false);
+        deleteBtn.setDisable(false);
+         TablePosition pos = tblSupplier.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
         // Get the data from the selected row
         ObservableList<TableColumn<SupplierTM, ?>> columns = tblSupplier.getColumns();
@@ -306,16 +352,111 @@ public class AdminSupplierController {
         emailTxt.setText(columns.get(4).getCellData(row).toString());
     }
 
+    @FXML
+    void addressKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.addressValidate(addressTxt.getText());
+        saveBtn.setDisable(!isValidate|emailTxt.getText().isEmpty()|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|emailTxt.getText().isEmpty()|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|emailTxt.getText().isEmpty()|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        if (isValidate){
+            addressTxt.setOnAction((e) -> {
+                emailTxt.requestFocus();
+            });
+            adressIcon.setVisible(true);
+        }else {
+            adressIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void contactKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.contactCheck(contactTxt.getText());
+        saveBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|idTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|idTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|idTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        if (isValidate){
+            contactTxt.setOnAction((e) -> {
+                addressTxt.requestFocus();
+            });
+            contactIcon.setVisible(true);
+        }else {
+            contactIcon.setVisible(false);
+        }
+
+    }
+    @FXML
+    void emailKeyTYped(KeyEvent event) {
+        boolean isValidate= DataValidateController.emailCheck(emailTxt.getText());
+        saveBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        if (isValidate){
+
+            emailIcon.setVisible(true);
+        }else {
+            emailIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void idKeyTyped(KeyEvent event) {
+        idTxt.setTooltip(supplierIdToolTip);
+       boolean isValidate= DataValidateController.supplierIdValidate(idTxt.getText());
+       saveBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+               nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                nameTxt.getText().isEmpty());
+        if (isValidate){
+            idTxt.setOnAction((e) -> {
+                nameTxt.requestFocus();
+            });
+            supplierIdIcon.setVisible(true);
+        }else {
+            supplierIdIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void nameKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.customerNameValidate(nameTxt.getText());
+        saveBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                idTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                idTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|addressTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|
+                idTxt.getText().isEmpty());
+
+        if (isValidate){
+            nameTxt.setOnAction((e) -> {
+                contactTxt.requestFocus();
+            });
+            spplierNameIcon.setVisible(true);
+        }else {
+            spplierNameIcon.setVisible(false);
+        }
+
+    }
+
 
     @FXML
     void initialize() {
-        txtfieldbordercolor(idTxt);
-        txtfieldbordercolor(nameTxt);
-        txtfieldbordercolor(addressTxt);
-        txtfieldbordercolor(contactTxt);
-        txtfieldbordercolor(emailTxt);
-
-
+        deleteBtn.setDisable(true);
+        updateBtn.setDisable(true);
+        saveBtn.setDisable(true);
         getAll();
         getCellValueFactory();
     }

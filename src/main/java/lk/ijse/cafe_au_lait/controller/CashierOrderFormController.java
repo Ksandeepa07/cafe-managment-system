@@ -126,7 +126,7 @@ public class CashierOrderFormController {
             customer = CustomerModel.searchById(custId.getValue());
             custName.setText(customer.getCustName());
         } catch (Exception throwables) {
-            System.out.println(throwables);
+
         }
 
 
@@ -154,49 +154,56 @@ public class CashierOrderFormController {
             category.setText(item.getCategory());
             unitPrice.setText(String.valueOf(item.getPrice()));
         } catch (Exception throwables) {
-            System.out.println(throwables);
+
         }
 
     }
 
     @FXML
     void addToCartClick(ActionEvent event) {
-        String id = itemId.getValue();
-        String itemName = custName.getText();
-        Double price = Double.valueOf(unitPrice.getText());
-        Integer qty = Integer.valueOf(quantity.getText());
-        String type = category.getText();
-        Double total = price * qty;
-        Button btnRemove = new Button("Remove");
-        btnRemove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
-        setRemoveBtnOnAction(btnRemove);
-        if (item.getQuantity() < qty) {
-            NotificationController.ErrorMasseage("Not sufficient quantity for " + item.getName());
+        if (itemId.getSelectionModel().isEmpty()|custId.getSelectionModel().isEmpty()|quantity.getText().isEmpty()
+        |!deliveryYes.isSelected()&!deliveryNo.isSelected()){
+            NotificationController.ErrorMasseage("Insufficient details to add to cart.please check your details again");
+        }
+        else {
+            String id = itemId.getValue();
+            String itemName = custName.getText();
+            Double price = Double.valueOf(unitPrice.getText());
+            Integer qty = Integer.valueOf(quantity.getText());
+            String type = category.getText();
+            Double total = price * qty;
+            Button btnRemove = new Button("Remove");
+            btnRemove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
+            setRemoveBtnOnAction(btnRemove);
+            if (item.getQuantity() < qty) {
+                NotificationController.ErrorMasseage("Not sufficient quantity for " + item.getName());
 
-        } else {
-            if (!obList.isEmpty()) {
-                for (int i = 0; i < tblOrder.getItems().size(); i++) {
-                    if (colId.getCellData(i).equals(id)) {
-                        qty += (int) colQuantity.getCellData(i);
-                        total = qty * price;
+            } else {
+                if (!obList.isEmpty()) {
+                    for (int i = 0; i < tblOrder.getItems().size(); i++) {
+                        if (colId.getCellData(i).equals(id)) {
+                            qty += (int) colQuantity.getCellData(i);
+                            total = qty * price;
 
-                        obList.get(i).setQuantity(qty);
-                        obList.get(i).setTotalPrice(total);
+                            obList.get(i).setQuantity(qty);
+                            obList.get(i).setTotalPrice(total);
 
-                        tblOrder.refresh();
-                        calculateNetTotal();
-                        return;
+                            tblOrder.refresh();
+                            calculateNetTotal();
+                            return;
+                        }
                     }
                 }
+
+                CartTM cartTm = new CartTM(id, itemName, type, qty, price, total, delivery, btnRemove);
+
+                obList.add(cartTm);
+                tblOrder.setItems(obList);
+                calculateNetTotal();
+
+                quantity.setText("");
+
             }
-
-            CartTM cartTm = new CartTM(id, itemName, type, qty, price, total, delivery, btnRemove);
-
-            obList.add(cartTm);
-            tblOrder.setItems(obList);
-            calculateNetTotal();
-
-            quantity.setText("");
 
         }
 
@@ -285,12 +292,15 @@ public class CashierOrderFormController {
                     quantityAvailable.setText("");
                     deliveryYes.setSelected(false);
                     deliveryNo.setSelected(false);
+                    netTotall.setText("");
+                    cashTxt.setText("");
+                    balanceLbl.setText("");
                     tblOrder.getItems().clear();
                     generateNextOrderId();
                 }
 
             } catch (Exception e) {
-                System.out.println(e);
+
 
             }
 

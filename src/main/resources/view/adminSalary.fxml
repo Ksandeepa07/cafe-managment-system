@@ -18,14 +18,14 @@
             <Image url="@../assets/adminHome.png" />
          </image>
       </ImageView>
-      <TextField fx:id="payamentTxt" layoutX="157.0" layoutY="209.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <TextField fx:id="salaryTxt" layoutX="538.0" layoutY="119.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="payamentTxt" layoutX="157.0" layoutY="209.0" onKeyTyped="#paymentKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="salaryTxt" layoutX="522.0" layoutY="119.0" onKeyTyped="#salaryIdKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <Label layoutX="36.0" layoutY="135.0" text="Employee Id : " textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="435.0" layoutY="135.0" text="Salary Id : " textFill="#7b3927">
+      <Label layoutX="419.0" layoutY="135.0" text="Salary Id : " textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -49,8 +49,8 @@
             <TableColumn fx:id="colOverTime" prefWidth="334.0" text="Over Time" />
          </columns>
       </TableView>
-      <TextField fx:id="overTimeTxt" layoutX="538.0" layoutY="209.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <Label layoutX="426.0" layoutY="226.0" text="Over Time:" textFill="#7b3927">
+      <TextField fx:id="overTimeTxt" layoutX="522.0" layoutY="209.0" onKeyTyped="#overTimeKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <Label layoutX="410.0" layoutY="226.0" text="Over Time:" textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -66,5 +66,30 @@
       </ImageView>
       <JFXComboBox fx:id="idTxt" focusColor="RED" layoutX="157.0" layoutY="125.0" onAction="#idTxtClick" prefHeight="25.0" prefWidth="192.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
       <JFXComboBox fx:id="methodTxt" focusColor="RED" layoutX="912.0" layoutY="126.0" onAction="#methodTxtClick" prefHeight="25.0" prefWidth="192.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
+      <ImageView fx:id="paymentICon" fitHeight="25.0" fitWidth="25.0" layoutX="356.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="overTimeIcon" fitHeight="25.0" fitWidth="25.0" layoutX="720.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="salaryIdIcon" fitHeight="25.0" fitWidth="25.0" layoutX="720.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="emplyeeIdIcon" fitHeight="25.0" fitWidth="25.0" layoutX="356.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="paymentMethodIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1112.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

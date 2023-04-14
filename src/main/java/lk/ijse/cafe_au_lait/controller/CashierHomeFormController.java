@@ -197,8 +197,13 @@ public class CashierHomeFormController {
     void countTodayIncome(){
         try {
             int count=OrderModel.countIncome();
-            todayIncomeLbl.setText(String.valueOf(count));
-        } catch (SQLException throwables) {
+            if (count==0){
+                todayIncomeLbl.setText("0"+String.valueOf(count));
+            }else{
+                todayIncomeLbl.setText(String.valueOf(count));
+
+            }
+         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }

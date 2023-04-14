@@ -16,6 +16,7 @@ import lk.ijse.cafe_au_lait.dto.Salary;
 import lk.ijse.cafe_au_lait.dto.tm.SalaryTM;
 import lk.ijse.cafe_au_lait.model.EmployeeModel;
 import lk.ijse.cafe_au_lait.model.SalaryModel;
+import lk.ijse.cafe_au_lait.util.DataValidateController;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 
 import java.net.URL;
@@ -87,6 +88,22 @@ public class AdminSalaryController {
     private JFXComboBox<String> methodTxt;
 
     @FXML
+    private ImageView paymentICon;
+
+    @FXML
+    private ImageView paymentMethodIcon;
+
+    @FXML
+    private ImageView salaryIdIcon;
+
+    @FXML
+    private ImageView emplyeeIdIcon;
+
+    @FXML
+    private ImageView overTimeIcon;
+
+
+    @FXML
     void deleteOnAction(ActionEvent event) {
         try {
             boolean isDeleted = SalaryModel.delete(salaryTxt.getText());
@@ -94,6 +111,11 @@ public class AdminSalaryController {
                     "salary ?");
             if (result) {
                 if (isDeleted) {
+                    emplyeeIdIcon.setVisible(false);
+                    salaryIdIcon.setVisible(false);
+                    paymentMethodIcon.setVisible(false);
+                    paymentICon.setVisible(false);
+                    overTimeIcon.setVisible(false);
                     idTxt.setValue(null);
                     salaryTxt.setText("");
                     methodTxt.setValue(null);
@@ -113,48 +135,70 @@ public class AdminSalaryController {
 
     @FXML
     void idTxtClick(ActionEvent event) {
+        if (!idTxt.getSelectionModel().isEmpty()){
+            emplyeeIdIcon.setVisible(true);
+        }else{
+            emplyeeIdIcon.setVisible(false);
+        }
 
 
     }
 
     @FXML
     void methodTxtClick(ActionEvent event) {
-
+        if (!methodTxt.getSelectionModel().isEmpty()){
+            paymentMethodIcon.setVisible(true);
+        }
     }
 
     @FXML
     void saveOnAction(ActionEvent event) {
-        Double overTyime;
-        String id = idTxt.getValue();
-        String salaryId = salaryTxt.getText();
-        String method = methodTxt.getValue();
-        Double payment = Double.valueOf(payamentTxt.getText());
-        if (overTimeTxt.getText().isEmpty()) {
-            overTyime = 0.0;
-        } else {
-            overTyime = Double.valueOf(overTimeTxt.getText());
-        }
+        if (idTxt.getSelectionModel().isEmpty() & methodTxt.getSelectionModel().isEmpty()) {
+            NotificationController.ErrorMasseage("Employee Id and payment method can't be empty");
+        } else if (idTxt.getSelectionModel().isEmpty()) {
+            NotificationController.ErrorMasseage("Employee Id can't be empty");
 
-
-        Salary salary = new Salary(id, salaryId, method, payment, overTyime);
-
-        try {
-            boolean isSaved = SalaryModel.save(salary);
-            if (isSaved) {
-                idTxt.setValue(null);
-                salaryTxt.setText("");
-                methodTxt.setValue(null);
-                payamentTxt.setText("");
-                overTimeTxt.setText("");
-                getAll();
-                NotificationController.animationMesseage("/assets/tick.gif", "Saved",
-                        "Salary Added sucessfully !!");
+        } else if (methodTxt.getSelectionModel().isEmpty()) {
+            NotificationController.ErrorMasseage("Payment method can't be empty");
+        }else{
+            Double overTyime;
+            String id = idTxt.getValue();
+            String salaryId = salaryTxt.getText();
+            String method = methodTxt.getValue();
+            Double payment = Double.valueOf(payamentTxt.getText());
+            if (overTimeTxt.getText().isEmpty()) {
+                overTyime = 0.0;
+            } else {
+                overTyime = Double.valueOf(overTimeTxt.getText());
             }
-        } catch (SQLIntegrityConstraintViolationException throwables) {
-            NotificationController.ErrorMasseage("This Salary Id is Already Exsits");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+
+
+            Salary salary = new Salary(id, salaryId, method, payment, overTyime);
+
+            try {
+                boolean isSaved = SalaryModel.save(salary);
+                if (isSaved) {
+                    emplyeeIdIcon.setVisible(false);
+                    salaryIdIcon.setVisible(false);
+                    paymentMethodIcon.setVisible(false);
+                    paymentICon.setVisible(false);
+                    overTimeIcon.setVisible(false);
+                    idTxt.setValue(null);
+                    salaryTxt.setText("");
+                    methodTxt.setValue(null);
+                    payamentTxt.setText("");
+                    overTimeTxt.setText("");
+                    getAll();
+                    NotificationController.animationMesseage("/assets/tick.gif", "Saved",
+                            "Salary Added sucessfully !!");
+                }
+            } catch (SQLIntegrityConstraintViolationException throwables) {
+                NotificationController.ErrorMasseage("This Salary Id is Already Exsits");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
+
 
     }
 
@@ -201,6 +245,11 @@ public class AdminSalaryController {
                     "salary ?");
             if (result) {
                 if (isUpdated) {
+                    emplyeeIdIcon.setVisible(false);
+                    salaryIdIcon.setVisible(false);
+                    paymentMethodIcon.setVisible(false);
+                    paymentICon.setVisible(false);
+                    overTimeIcon.setVisible(false);
                     idTxt.setValue(null);
                     salaryTxt.setText("");
                     methodTxt.setValue(null);
@@ -277,6 +326,13 @@ public class AdminSalaryController {
     }
 
     public void tblClick(MouseEvent mouseEvent) {
+        salaryIdIcon.setVisible(true);
+        overTimeIcon.setVisible(true);
+        paymentICon.setVisible(true);
+
+        saveBtn.setDisable(false);
+        updateBtn.setDisable(false);
+        deleteBtn.setDisable(false);
         TablePosition pos = tbllsalary.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
         // Get the data from the selected row
@@ -300,14 +356,58 @@ public class AdminSalaryController {
     }
 
     @FXML
+    void overTimeKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.priceValidate(overTimeTxt.getText());
+        saveBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        if (isValidate){
+            overTimeIcon.setVisible(true);
+        }else {
+            overTimeIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void paymentKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.priceValidate(payamentTxt.getText());
+        saveBtn.setDisable(!isValidate|overTimeTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|overTimeTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|overTimeTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        if (isValidate){
+            paymentICon.setVisible(true);
+        }else {
+            paymentICon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void salaryIdKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.salaryIdValidate(salaryTxt.getText());
+        saveBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        if (isValidate){
+            salaryIdIcon.setVisible(true);
+        }else {
+            salaryIdIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
     void initialize() {
+        saveBtn.setDisable(true);
+        updateBtn.setDisable(true);
+        deleteBtn.setDisable(true);
         txtfieldbordercolor(salaryTxt);
         txtfieldbordercolor(payamentTxt);
         txtfieldbordercolor(overTimeTxt);
         getAll();
         getCellValueFactory();
         loadEmployeeId();
-
         methodTxt.getItems().addAll("Card", "Cash");
 
 

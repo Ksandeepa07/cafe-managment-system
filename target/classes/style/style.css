@@ -389,6 +389,10 @@
     -fx-border-radius: 20;
 }
 
+.tooltip{
+    -fx-background-color: #7B3927;
+}
+
 
 
 

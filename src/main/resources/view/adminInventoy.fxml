@@ -5,19 +5,23 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancPane" prefHeight="693.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cafe_au_lait.controller.AdminInventoryController">
+<AnchorPane fx:id="ancPane" prefHeight="693.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cafe_au_lait.controller.AdminInventoryController">
    <children>
       <ImageView fitHeight="705.0" fitWidth="1179.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/adminHome.png" />
          </image>
       </ImageView>
-      <TextField fx:id="idTxt" layoutX="157.0" layoutY="119.0" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="idTxt" layoutX="157.0" layoutY="119.0" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css">
+         <tooltip>
+            <Tooltip text="I001" />
+         </tooltip></TextField>
       <TextField fx:id="quantityTxt" layoutX="916.0" layoutY="119.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <TextField fx:id="priceTxt" layoutX="157.0" layoutY="209.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <TextField fx:id="nameTxt" layoutX="538.0" layoutY="119.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />

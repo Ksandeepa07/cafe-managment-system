@@ -19,16 +19,16 @@
             <Image url="@../assets/adminHome.png" />
          </image>
       </ImageView>
-      <TextField fx:id="idTxt" layoutX="157.0" layoutY="119.0" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <TextField fx:id="addressTxt" layoutX="916.0" layoutY="119.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <TextField fx:id="nicTxt" layoutX="551.0" layoutY="202.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <TextField fx:id="nameTxt" layoutX="551.0" layoutY="117.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <Label layoutX="32.0" layoutY="134.0" text="Employee Id : " textFill="#7b3927">
+      <TextField fx:id="idTxt" layoutX="149.0" layoutY="119.0" onKeyTyped="#empIdKeyTyped" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="addressTxt" layoutX="916.0" layoutY="119.0" onKeyTyped="#adressKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="nicTxt" layoutX="551.0" layoutY="202.0" onKeyTyped="#nicKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="nameTxt" layoutX="551.0" layoutY="117.0" onKeyTyped="#empNameKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <Label layoutX="24.0" layoutY="134.0" text="Employee Id : " textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="29.0" layoutY="224.0" text=" Date of birth : " textFill="#7b3927">
+      <Label layoutX="21.0" layoutY="224.0" text=" Date of birth : " textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -53,7 +53,7 @@
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tblEmployee" layoutX="36.0" layoutY="364.0" onMousePressed="#tblClick" prefHeight="335.0" prefWidth="1087.0" stylesheets="@../style/style.css">
+      <TableView fx:id="tblEmployee" layoutX="14.0" layoutY="356.0" onMousePressed="#tblClick" prefHeight="335.0" prefWidth="1087.0" stylesheets="@../style/style.css">
         <columns>
           <TableColumn fx:id="colId" prefWidth="94.0" text="Employee Id" />
           <TableColumn fx:id="colName" prefWidth="145.00003051757812" text="Employee Name" />
@@ -65,20 +65,20 @@
             <TableColumn fx:id="colEmail" prefWidth="216.0" text="Email" />
         </columns>
       </TableView>
-      <TextField fx:id="contactTxt" layoutX="157.0" layoutY="280.0" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <Label layoutX="64.0" layoutY="295.0" text=" Contact : " textFill="#7b3927">
+      <TextField fx:id="contactTxt" layoutX="149.0" layoutY="280.0" onKeyTyped="#contactKeyTyped" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <Label layoutX="56.0" layoutY="295.0" text=" Contact : " textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="emailTxt" layoutX="551.0" layoutY="278.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="emailTxt" layoutX="551.0" layoutY="278.0" onKeyTyped="#emailKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <Label layoutX="392.0" layoutY="295.0" text="Employee Email : " textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="jobTitileTxt" layoutX="916.0" layoutY="219.0" prefHeight="25.0" prefWidth="129.0" promptText="Admin" styleClass="firstComboBox" stylesheets="@../style/style.css" />
-      <DatePicker fx:id="dobTxt" layoutX="157.0" layoutY="219.0" prefHeight="27.0" prefWidth="192.0" styleClass="date-picker" stylesheets="@../style/style.css" />
+      <ComboBox fx:id="jobTitileTxt" layoutX="916.0" layoutY="219.0" onAction="#jobTitleOnAction" prefHeight="25.0" prefWidth="129.0" promptText="Admin" styleClass="firstComboBox" stylesheets="@../style/style.css" />
+      <DatePicker fx:id="dobTxt" layoutX="149.0" layoutY="219.0" onAction="#dobOnAction" onKeyTyped="#dobKeyTyped" prefHeight="27.0" prefWidth="192.0" styleClass="date-picker" stylesheets="@../style/style.css" />
       <JFXButton fx:id="saveBtn" buttonType="RAISED" layoutX="813.0" layoutY="292.0" onAction="#saveOnAction" prefHeight="25.0" prefWidth="74.0" style="-fx-background-color: #7B3927;" text="Save" textFill="#dfa47e" />
       <JFXButton fx:id="updateBtn" buttonType="RAISED" layoutX="931.0" layoutY="293.0" onAction="#updateOnAction" prefHeight="25.0" prefWidth="74.0" style="-fx-background-color: #7B3927;" text="Update" textFill="#dfa47e" />
       <JFXButton fx:id="deleteBtn" buttonType="RAISED" layoutX="1045.0" layoutY="292.0" onAction="#deleteOnAction" prefHeight="25.0" prefWidth="74.0" style="-fx-background-color: #7B3927;" text="Delete" textFill="#dfa47e" />
@@ -98,5 +98,45 @@
             <Font name="Times New Roman Bold Italic" size="13.0" />
          </font>
       </Label>
+      <ImageView fx:id="empIdIcon" fitHeight="25.0" fitWidth="25.0" layoutX="344.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dobIcon" fitHeight="25.0" fitWidth="25.0" layoutX="344.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="adressIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1111.0" layoutY="128.0" onKeyTyped="#adressKeyTyped" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="empNameIcon" fitHeight="25.0" fitWidth="25.0" layoutX="747.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="nicIcon" fitHeight="25.0" fitWidth="25.0" layoutX="746.0" layoutY="212.0" onKeyTyped="#nicKeyTyped" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="emailIcon" fitHeight="25.0" fitWidth="25.0" layoutX="747.0" layoutY="287.0" onKeyTyped="#emailKeyTyped" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="jobTitleIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1049.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="contactIcon" fitHeight="25.0" fitWidth="25.0" layoutX="344.0" layoutY="288.0" onKeyTyped="#contactKeyTyped" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

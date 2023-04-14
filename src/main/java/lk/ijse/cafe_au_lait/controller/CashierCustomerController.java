@@ -115,18 +115,7 @@ public class CashierCustomerController {
     private ImageView custNameIcon;
 
     @FXML
-    void reportBtnClick(ActionEvent event) {
-        InputStream resource = this.getClass().getResourceAsStream("/reports/reportCutomerss.jrxml");
-        try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(resource);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
+    private Tooltip idToolTip;
 
     @FXML
     void deleteOnAction(ActionEvent event) {
@@ -136,6 +125,10 @@ public class CashierCustomerController {
                     "customer ?");
             if (result) {
                 if (isDeleted) {
+                    cutIdIcon.setVisible(false);
+                    custNameIcon.setVisible(false);
+                    custEmailIcon.setVisible(false);
+                    custContactIcon.setVisible(false);
                     idTxt.setText("");
                     nameTxt.setText("");
                     contactTxt.setText("");
@@ -143,8 +136,6 @@ public class CashierCustomerController {
                     getAll();
                     NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Customer Deleted sucessfully !!");
-
-
                 }
             }
         } catch (SQLException throwables) {
@@ -160,15 +151,15 @@ public class CashierCustomerController {
         String contact = contactTxt.getText();
         String email = emailTxt.getText();
 
-        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-            if (DataValidateController.contactCheck(contact)) {
-                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(false);
-                contactCheckLb.setText(" ");
-                if (DataValidateController.emailCheck(email)) {
-                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(false);
-                    emailCheckLbl.setText(" ");
+//        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
+//            if (DataValidateController.contactCheck(contact)) {
+//                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(false);
+//                contactCheckLb.setText(" ");
+//                if (DataValidateController.emailCheck(email)) {
+//                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(false);
+//                    emailCheckLbl.setText(" ");
                     Customer customer = new Customer(id, name, contact, email);
                     boolean isSaved = CustomerModel.save(customer);
                     if (isSaved) {
@@ -177,30 +168,34 @@ public class CashierCustomerController {
                         nameTxt.setText("");
                         contactTxt.setText("");
                         emailTxt.setText("");
+                        cutIdIcon.setVisible(false);
+                        custNameIcon.setVisible(false);
+                        custEmailIcon.setVisible(false);
+                        custContactIcon.setVisible(false);
                         NotificationController.animationMesseage("/assets/tick.gif", "Saved",
                                 "Customer Added sucessfully !!");
 
                     }
 
-                } else {
-                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                    emailCheckLbl.setVisible(true);
-                    emailCheckLbl.setText("Invalid Email");
-                }
-            } else {
-                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-                contactCheckLb.setVisible(true);
-                contactCheckLb.setText("Invalid Contact");
-            }
-        } else {
-            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            emailCheckLbl.setVisible(true);
-            emailCheckLbl.setText("Invalid Email");
-
-            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            contactCheckLb.setVisible(true);
-            contactCheckLb.setText("Invalid Contact");
-        }
+//                } else {
+//                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                    emailCheckLbl.setVisible(true);
+//                    emailCheckLbl.setText("Invalid Email");
+//                }
+//            } else {
+//                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//                contactCheckLb.setVisible(true);
+//                contactCheckLb.setText("Invalid Contact");
+//            }
+//        } else {
+//            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            emailCheckLbl.setVisible(true);
+//            emailCheckLbl.setText("Invalid Email");
+//
+//            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+//            contactCheckLb.setVisible(true);
+//            contactCheckLb.setText("Invalid Contact");
+//        }
     }
 
     @FXML
@@ -241,6 +236,9 @@ public class CashierCustomerController {
 
     @FXML
     void tblClick(MouseEvent event) {
+        saveBtn.setDisable(false);
+        updateBtn.setDisable(false);
+        deleteBtn.setDisable(false);
         TablePosition pos = tblCustomer.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
         // Get the data from the selected row
@@ -281,6 +279,10 @@ public class CashierCustomerController {
                                 nameTxt.setText(customer.getCustName());
                                 contactTxt.setText(customer.getCustContact());
                                 emailTxt.setText(customer.getCustEmail());
+                                cutIdIcon.setVisible(false);
+                                custNameIcon.setVisible(false);
+                                custEmailIcon.setVisible(false);
+                                custContactIcon.setVisible(false);
 
                                 getAll();
                                 NotificationController.animationMesseage("/assets/tick.gif", "Update",
@@ -340,10 +342,17 @@ public class CashierCustomerController {
 
     @FXML
     void CusromerIdKeyTyped(KeyEvent event) {
-
+        idTxt.setTooltip(idToolTip);
         boolean isValid=DataValidateController.customerIdValidate(idTxt.getText());
         saveBtn.setDisable(!isValid|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValid|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValid|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+
+
         if (isValid){
+            idTxt.setOnAction((e) -> {
+                nameTxt.requestFocus();
+            });
             cutIdIcon.setVisible(true);
         }else{
             cutIdIcon.setVisible(false);
@@ -355,7 +364,14 @@ public class CashierCustomerController {
     void customerContatctKeyTyped(KeyEvent event) {
         boolean isValid=DataValidateController.contactCheck(contactTxt.getText());
         saveBtn.setDisable(!isValid|idTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValid|idTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValid|idTxt.getText().isEmpty()|emailTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+
+
         if (isValid){
+            contactTxt.setOnAction((e) -> {
+                emailTxt.requestFocus();
+            });
             custContactIcon.setVisible(true);
         }else{
             custContactIcon.setVisible(false);
@@ -368,6 +384,10 @@ public class CashierCustomerController {
     void customerEmailKeyTyped(KeyEvent event) {
         boolean isValid=DataValidateController.emailCheck(emailTxt.getText());
         saveBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|nameTxt.getText().isEmpty());
+
+
         if (isValid){
             custEmailIcon.setVisible(true);
         }else{
@@ -382,7 +402,14 @@ public class CashierCustomerController {
     void customerNameKeyTyped(KeyEvent event) {
         boolean isValid=DataValidateController.customerNameValidate(nameTxt.getText());
         saveBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValid|idTxt.getText().isEmpty()|contactTxt.getText().isEmpty()|emailTxt.getText().isEmpty());
+
+
         if (isValid){
+            nameTxt.setOnAction((e) -> {
+                contactTxt.requestFocus();
+            });
             custNameIcon.setVisible(true);
         }else{
             custNameIcon.setVisible(false);
@@ -396,6 +423,8 @@ public class CashierCustomerController {
 
     @FXML
     void initialize() {
+        deleteBtn.setDisable(true);
+        updateBtn.setDisable(true);
         saveBtn.setDisable(true);
         contactCheckLb.setVisible(false);
         emailCheckLbl.setVisible(false);

@@ -48,7 +48,12 @@ public class PlaceOrderModel {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            try {
+                con.rollback();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
 
         }
         return false;

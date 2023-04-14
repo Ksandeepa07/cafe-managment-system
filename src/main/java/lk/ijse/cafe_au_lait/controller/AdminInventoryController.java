@@ -14,6 +14,7 @@ import javafx.util.Callback;
 import lk.ijse.cafe_au_lait.dto.Item;
 import lk.ijse.cafe_au_lait.dto.tm.ItemTM;
 import lk.ijse.cafe_au_lait.model.ItemModel;
+import lk.ijse.cafe_au_lait.util.DataValidateController;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 
 import java.net.URL;
@@ -85,6 +86,24 @@ public class AdminInventoryController {
     private ImageView searchIcon;
 
     @FXML
+    private ImageView itemCategoryIcon;
+
+    @FXML
+    private ImageView itemIdIcon;
+
+    @FXML
+    private ImageView itemNameIcon;
+
+    @FXML
+    private ImageView itemQuantityIcon;
+
+    @FXML
+    private ImageView itemUnitPriceIcon;
+
+
+
+
+    @FXML
     void deleteOnAction(ActionEvent event) {
         try {
             boolean isDeleted = ItemModel.delete(idTxt.getText());
@@ -92,6 +111,11 @@ public class AdminInventoryController {
                     "item ?");
             if (result) {
                 if (isDeleted) {
+                    itemIdIcon.setVisible(false);
+                    itemNameIcon.setVisible(false);
+                    itemCategoryIcon.setVisible(false);
+                    itemQuantityIcon.setVisible(false);
+                    itemUnitPriceIcon.setVisible(false);
                     getAll();
                     NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Item Deleted sucessfully !!");
@@ -121,6 +145,13 @@ public class AdminInventoryController {
         try {
             boolean isSaved = ItemModel.save(item);
             if (isSaved) {
+                itemIdIcon.setVisible(false);
+                itemNameIcon.setVisible(false);
+                itemCategoryIcon.setVisible(false);
+                itemQuantityIcon.setVisible(false);
+                itemUnitPriceIcon.setVisible(false);
+
+
                 idTxt.setText("");
                 nameTxt.setText("");
                 quantityTxt.setText("");
@@ -186,6 +217,11 @@ public class AdminInventoryController {
                     "item ?");
             if (result) {
                 if (isUpdated) {
+                    itemIdIcon.setVisible(false);
+                    itemNameIcon.setVisible(false);
+                    itemCategoryIcon.setVisible(false);
+                    itemQuantityIcon.setVisible(false);
+                    itemUnitPriceIcon.setVisible(false);
                     idTxt.setText("");
                     nameTxt.setText("");
                     quantityTxt.setText("");
@@ -246,6 +282,15 @@ public class AdminInventoryController {
     }
 
     public void tblClick(MouseEvent mouseEvent) {
+        itemIdIcon.setVisible(true);
+        itemNameIcon.setVisible(true);
+        itemCategoryIcon.setVisible(true);
+        itemQuantityIcon.setVisible(true);
+        itemUnitPriceIcon.setVisible(true);
+
+        saveBtn.setDisable(false);
+        updateBtn.setDisable(false);
+        deleteBtn.setDisable(false);
         TablePosition pos = tblItem.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
         // Get the data from the selected row
@@ -258,9 +303,96 @@ public class AdminInventoryController {
         categoryTxt.setText(columns.get(4).getCellData(row).toString());
     }
 
+    @FXML
+    void itemCategoreyKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.customerNameValidate(categoryTxt.getText());
+        saveBtn.setDisable(!isValidate|nameTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|idTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|nameTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|idTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|nameTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|idTxt.getText().isEmpty());
+        if (isValidate){
+            itemCategoryIcon.setVisible(true);
+        }else {
+            itemCategoryIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void itemIdKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.itemIdValidate(idTxt.getText());
+        saveBtn.setDisable(!isValidate|nameTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|nameTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|nameTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        if (isValidate){
+            itemIdIcon.setVisible(true);
+        }else {
+            itemIdIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void itemNameKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.customerNameValidate(nameTxt.getText());
+        saveBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|quantityTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        if (isValidate){
+            itemNameIcon.setVisible(true);
+        }else {
+            itemNameIcon.setVisible(false);
+        }
+
+    }
+
+    @FXML
+    void itemQuantityKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.quantityValidate(quantityTxt.getText());
+        saveBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|nameTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|nameTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|nameTxt.getText().isEmpty()
+                |priceTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        if (isValidate){
+            itemQuantityIcon.setVisible(true);
+        }else {
+            itemQuantityIcon.setVisible(false);
+        }
+    }
+
+    @FXML
+    void itemunitPriceKeyTyped(KeyEvent event) {
+        boolean isValidate= DataValidateController.priceValidate(priceTxt.getText());
+        saveBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|nameTxt.getText().isEmpty()
+                |quantityTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|nameTxt.getText().isEmpty()
+                |quantityTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|idTxt.getText().isEmpty()|nameTxt.getText().isEmpty()
+                |quantityTxt.getText().isEmpty()|categoryTxt.getText().isEmpty());
+        if (isValidate){
+            itemUnitPriceIcon.setVisible(true);
+        }else {
+            itemUnitPriceIcon.setVisible(false);
+        }
+
+    }
+
 
     @FXML
     void initialize() {
+        saveBtn.setDisable(true);
+        updateBtn.setDisable(true);
+        deleteBtn.setDisable(true);
         txtfieldbordercolor(idTxt);
         txtfieldbordercolor(nameTxt);
         txtfieldbordercolor(categoryTxt);

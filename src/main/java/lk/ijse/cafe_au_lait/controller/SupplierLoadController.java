@@ -128,7 +128,7 @@ public class SupplierLoadController {
             Integer qty = Integer.valueOf(quantity.getText());
             Button remove = new Button("Remove");
             setRemoveAction(remove);
-
+            remove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
             if (!obList.isEmpty()) {
                 for (int i = 0; i < tblSupplyLoads.getItems().size(); i++) {
                     if (colId.getCellData(i).equals(id)) {
@@ -263,6 +263,7 @@ public class SupplierLoadController {
         supplyQtyError.setVisible(false);
         TimeController.timeNow(supplyLoadTime, supplYLoadDate);
         setCellValueFactory();
+        placeOrderBtn.setDisable(true);
         generateNextSupplyOrderId();
         loadSupplierIds();
         loadItemIds();

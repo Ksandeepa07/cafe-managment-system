@@ -62,13 +62,13 @@ public class AdminDashbordController {
 
     @FXML
     void inventoryBtnClick(ActionEvent event) throws IOException {
-        StageController.changeScene("/view/adminInventoy.fxml", ancPane);
+        StageController.changeScene("/view/cashierInventory.fxml", ancPane);
 
     }
 
     @FXML
     void ordersBtnClick(ActionEvent event) throws IOException {
-        StageController.changeScene("/view/adminOrders.fxml", ancPane);
+        StageController.changeScene("/view/checkOrders.fxml", ancPane);
     }
 
     @FXML
