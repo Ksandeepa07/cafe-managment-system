@@ -94,6 +94,13 @@ public class DataValidateController {
         return matcher.matches();
     }
 
+    public static boolean eventIdValidate(String custId) {
+        String customerRegex = "^(E)[0-9]{3}$";
+        Pattern pattern = Pattern.compile(customerRegex);
+        Matcher matcher = pattern.matcher(custId);
+        return matcher.matches();
+    }
+
 
 
 

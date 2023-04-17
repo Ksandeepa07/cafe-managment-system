@@ -68,6 +68,9 @@ public class SignUpController {
             try {
                 isSaved = UserModel.save(user);
                 if (isSaved) {
+                    emailTxt.setText("");
+                    usernameTxt.setText("");
+                    passwordTxt.setText("");
                     NotificationController.animationMesseage("/assets/tick.gif", "sign up", "" +
                             "Sign Up Sucessfull !");
                 }

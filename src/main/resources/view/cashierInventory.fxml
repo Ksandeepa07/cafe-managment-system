@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +18,10 @@
             <Image url="@../assets/adminHome.png" />
          </image>
       </ImageView>
-      <TextField fx:id="idTxt" layoutX="157.0" layoutY="119.0" onKeyTyped="#itemIdKeyTyped" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="idTxt" layoutX="157.0" layoutY="119.0" onKeyTyped="#itemIdKeyTyped" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css">
+         <tooltip>
+            <Tooltip text="Ex : I001" />
+         </tooltip></TextField>
       <TextField fx:id="quantityTxt" layoutX="916.0" layoutY="119.0" onKeyTyped="#itemQuantityKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <TextField fx:id="priceTxt" layoutX="157.0" layoutY="209.0" onKeyTyped="#itemunitPriceKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <TextField fx:id="nameTxt" layoutX="538.0" layoutY="119.0" onKeyTyped="#itemNameKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />

@@ -20,7 +20,7 @@
       </ImageView>
       <TextField fx:id="idTxt" layoutX="157.0" layoutY="119.0" prefHeight="34.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css">
          <tooltip>
-            <Tooltip text="I001" />
+            <Tooltip text="Ex : I001" />
          </tooltip></TextField>
       <TextField fx:id="quantityTxt" layoutX="916.0" layoutY="119.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <TextField fx:id="priceTxt" layoutX="157.0" layoutY="209.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />

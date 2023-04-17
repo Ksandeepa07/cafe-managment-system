@@ -33,8 +33,9 @@ public class EventModel {
                     event1.getEventDate(),
                     event1.getEventTime());
         } catch (SQLIntegrityConstraintViolationException throwables) {
-            NotificationController.ErrorMasseage("This Supplier Id is Already Exsits");
-        } catch (SQLException throwables) {
+            NotificationController.ErrorMasseage("This Event Id is Already Exsits");
+        }
+        catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return false;
@@ -154,6 +155,18 @@ public class EventModel {
         String sql="INSERT INTO eventImages(eventId,eventImage)VALUES(?,?)";
         return CrudUtil.execute(sql,
                 eventId,filePath);
+    }
+
+    public static ObservableList<String> loadEventIds() throws SQLException {
+        String sql="SELECT * FROM event";
+        ResultSet resultSet=CrudUtil.execute(sql);
+        ObservableList<String>eventData=FXCollections.observableArrayList();
+        while (resultSet.next()){
+            eventData.add(
+                    resultSet.getString(1)
+            );
+        }
+        return eventData;
     }
 }
 

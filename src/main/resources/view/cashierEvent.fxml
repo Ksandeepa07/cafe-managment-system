@@ -20,9 +20,9 @@
             <Image url="@../assets/adminHome.png" />
          </image>
       </ImageView>
-      <TextField fx:id="eventNameTxt" layoutX="916.0" layoutY="119.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <TextField fx:id="eventTypeTxt" layoutX="157.0" layoutY="209.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
-      <TextField fx:id="eventIdTxt" layoutX="538.0" layoutY="119.0" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="eventNameTxt" layoutX="916.0" layoutY="119.0" onKeyTyped="#eventNameKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="eventTypeTxt" layoutX="157.0" layoutY="209.0" onKeyTyped="#eventTypeKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
+      <TextField fx:id="eventIdTxt" layoutX="538.0" layoutY="117.0" onKeyTyped="#eventIdKeyTyped" prefHeight="25.0" prefWidth="192.0" styleClass="dashBoardTextField" stylesheets="@../style/style.css" />
       <Label layoutX="36.0" layoutY="135.0" text="Employee Id :" textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
@@ -67,14 +67,44 @@
             <Image url="@../assets/icons8-search-64.png" />
          </image>
       </ImageView>
-      <LocalTimeTextField fx:id="eventTimeTxt" layoutX="916.0" layoutY="224.0" prefHeight="25.0" prefWidth="192.0" styleClass="timePicker" stylesheets="@../style/style.css" />
+      <LocalTimeTextField fx:id="eventTimeTxt" layoutX="916.0" layoutY="224.0" onMouseClicked="#dateOnAction" prefHeight="25.0" prefWidth="192.0" styleClass="timePicker" stylesheets="@../style/style.css" />
       <Label layoutX="801.0" layoutY="226.0" text="Event Time :" textFill="#7b3927">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="eventDateTxt" layoutX="531.0" layoutY="224.0" prefHeight="25.0" prefWidth="192.0" stylesheets="@../style/style.css" />
-      <JFXComboBox fx:id="idTxt" focusColor="RED" layoutX="157.0" layoutY="124.0" prefHeight="25.0" prefWidth="192.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
-      <JFXButton fx:id="addImageBtn" buttonType="RAISED" layoutX="157.0" layoutY="306.0" onAction="#addImageBtnClick" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #7B3927;" text="Add Image" textFill="#dfa47e" />
+      <DatePicker fx:id="eventDateTxt" layoutX="531.0" layoutY="224.0" onAction="#eventDateOnAction" prefHeight="25.0" prefWidth="192.0" stylesheets="@../style/style.css" />
+      <JFXComboBox fx:id="idTxt" focusColor="RED" layoutX="157.0" layoutY="124.0" onAction="#empIdOnAction" prefHeight="25.0" prefWidth="192.0" styleClass="firstComboBox" stylesheets="@../style/style.css" unFocusColor="#7b3927" />
+      <JFXButton fx:id="addImageBtn" buttonType="RAISED" layoutX="538.0" layoutY="163.0" onAction="#addImageBtnClick" prefHeight="25.0" prefWidth="192.0" style="-fx-background-color: #7B3927;" text="Add event Image" textFill="#dfa47e" />
+      <ImageView fx:id="empIdIcon" fitHeight="25.0" fitWidth="25.0" layoutX="353.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dateIcon" fitHeight="25.0" fitWidth="25.0" layoutX="726.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="eventIdIcon" fitHeight="25.0" fitWidth="25.0" layoutX="730.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="typeIcon" fitHeight="25.0" fitWidth="25.0" layoutX="353.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="timeIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1111.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="nameIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1110.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/brownCheckMark.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
