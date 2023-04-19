@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cafe_au_lait.db.DBConnection;
 import lk.ijse.cafe_au_lait.dto.Customer;
 import lk.ijse.cafe_au_lait.dto.Delivery;
 import lk.ijse.cafe_au_lait.dto.Item;
@@ -20,15 +21,20 @@ import lk.ijse.cafe_au_lait.model.CustomerModel;
 import lk.ijse.cafe_au_lait.model.ItemModel;
 import lk.ijse.cafe_au_lait.model.OrderModel;
 import lk.ijse.cafe_au_lait.model.PlaceOrderModel;
+import lk.ijse.cafe_au_lait.util.EmailController;
 import lk.ijse.cafe_au_lait.util.NotificationController;
 import lk.ijse.cafe_au_lait.util.StageController;
 import lk.ijse.cafe_au_lait.util.TimeController;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static lk.ijse.cafe_au_lait.util.TextFieldBorderController.txtfieldbordercolor;
 
@@ -181,17 +187,29 @@ public class CashierOrderFormController {
             } else {
                 if (!obList.isEmpty()) {
                     for (int i = 0; i < tblOrder.getItems().size(); i++) {
-                        if (colId.getCellData(i).equals(id)) {
-                            qty += (int) colQuantity.getCellData(i);
-                            total = qty * price;
-
-                            obList.get(i).setQuantity(qty);
-                            obList.get(i).setTotalPrice(total);
-
-                            tblOrder.refresh();
-                            calculateNetTotal();
+                        int quantity= (int) colQuantity.getCellData(i);
+                        if (quantity+qty>item.getQuantity()) {
+                            NotificationController.ErrorMasseage("Not sufficient quantity for " + item.getName());
                             return;
+
                         }
+                        if(quantity+qty<=item.getQuantity()){
+                            if (colId.getCellData(i).equals(id)) {
+
+
+                                qty += (int) colQuantity.getCellData(i);
+                                total = qty * price;
+
+                                obList.get(i).setQuantity(qty);
+                                obList.get(i).setTotalPrice(total);
+
+                                tblOrder.refresh();
+                                calculateNetTotal();
+                                return;
+                            }
+
+                        }
+
                     }
                 }
 
@@ -260,6 +278,10 @@ public class CashierOrderFormController {
 
     @FXML
     void placeOrderClick(ActionEvent event) {
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("textFieldValue", cashTxt.getText());
+        parameters.put("textFieldValue1",balanceLbl.getText());
+
         String oId = orderId.getText();
         String customerId = custId.getValue();
         Double orderPayment = Double.valueOf(netTotall.getText());
@@ -282,7 +304,21 @@ public class CashierOrderFormController {
                 if (isPlaced) {
                     NotificationController.animationMesseage("/assets/tick.gif", "placed", "Order Placed" +
                             "sucessfully!!");
-                    custId.setValue(null);
+                    InputStream resource = this.getClass().getResourceAsStream("/reports/orderPaymentBill.jrxml");
+                    try {
+                        JasperReport jasperReport = JasperCompileManager.compileReport(resource);
+                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+                        JasperViewer.viewReport(jasperPrint, false);
+                        Map<String, Object> parameterss = new HashMap<String, Object>();
+                        parameters.put("startDate", "2023-01-01");
+                        parameters.put("endDate", "2024-12-31");
+                        EmailController.sendReport("ksandeepa512@gmail.com","src/main/resources/reports/orderPaymentBill.jrxml",parameterss);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                      custId.setValue(null);
                     custName.setText("");
                     itemId.setValue(null);
                     itemName.setText("");
