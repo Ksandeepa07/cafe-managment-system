@@ -101,6 +101,13 @@ public class DataValidateController {
         return matcher.matches();
     }
 
+    public static boolean passwordValidate(String password) {
+        String customerRegex = "^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[#?!@$ %^&*-]).{8,}$";
+        Pattern pattern = Pattern.compile(customerRegex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
 
 
 

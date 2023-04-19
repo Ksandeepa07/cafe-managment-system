@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.cafe_au_lait.dto.Item;
+import lk.ijse.cafe_au_lait.dto.Supplier;
 import lk.ijse.cafe_au_lait.dto.SupplyLoad;
 import lk.ijse.cafe_au_lait.dto.tm.SupplyLoadTM;
 import lk.ijse.cafe_au_lait.model.ItemModel;
@@ -24,85 +25,62 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static lk.ijse.cafe_au_lait.util.TextFieldBorderController.txtfieldbordercolor;
 
 public class SupplierLoadController {
     ObservableList<SupplyLoadTM> obList = FXCollections.observableArrayList();
+    Button remove;
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private JFXButton addSupplyLoad;
-
     @FXML
     private AnchorPane ancPane;
-
     @FXML
     private Label category;
-
     @FXML
     private TableColumn<?, ?> colAction;
-
     @FXML
     private TableColumn<?, ?> colCategory;
-
     @FXML
     private TableColumn<?, ?> colId;
-
     @FXML
     private TableColumn<?, ?> colName;
-
     @FXML
     private TableColumn<?, ?> colQuantity;
-
     @FXML
     private JFXComboBox<String> itemId;
-
     @FXML
     private Label itemName;
-
     @FXML
     private TextField netTotall;
-
     @FXML
     private Label orderId;
-
     @FXML
     private JFXButton placeOrderBtn;
-
     @FXML
     private TextField quantity;
-
     @FXML
     private Label quantityAvailable;
-
     @FXML
     private Label supplYLoadDate;
-
     @FXML
     private JFXComboBox<String> supplierId;
-
     @FXML
     private Label supplierName;
-
     @FXML
     private Label supplyLoadTime;
-
     @FXML
     private Label supplyLoadTxt;
-
     @FXML
     private Label supplyQtyError;
-
     @FXML
     private Label itemIdError;
-
-
     @FXML
     private TableView<SupplyLoadTM> tblSupplyLoads;
 
@@ -110,24 +88,17 @@ public class SupplierLoadController {
     void addSupplyLoadClick(ActionEvent event) {
 
 
-        if (quantity.getText().isEmpty() & itemId.getSelectionModel().isEmpty()) {
-            supplyQtyError.setVisible(true);
-            itemIdError.setVisible(true);
-        } else if (quantity.getText().isEmpty()) {
-            supplyQtyError.setVisible(true);
-            itemIdError.setVisible(false);
-
-        } else if (itemId.getSelectionModel().isEmpty()) {
-            supplyQtyError.setVisible(false);
-            itemIdError.setVisible(true);
+        if (quantity.getText().isEmpty() | itemId.getSelectionModel().isEmpty() | supplierId.getSelectionModel().isEmpty()) {
+            NotificationController.ErrorMasseage("Insufficient details to add to cart.please check your details again");
 
         } else {
+            placeOrderBtn.setDisable(false);
             String id = itemId.getValue();
             String name = itemName.getText();
             String type = category.getText();
             Integer qty = Integer.valueOf(quantity.getText());
-            Button remove = new Button("Remove");
-            setRemoveAction(remove);
+            remove = new Button("Remove");
+//            setRemoveAction(remove);
             remove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
             if (!obList.isEmpty()) {
                 for (int i = 0; i < tblSupplyLoads.getItems().size(); i++) {
@@ -144,6 +115,25 @@ public class SupplierLoadController {
             tblSupplyLoads.setItems(obList);
             quantity.setText("");
         }
+        remove.setOnAction(e -> {
+            // Get the row that contains the button
+            TableRow row = (TableRow) remove.getParent().getParent();
+            int index = tblSupplyLoads.getItems().indexOf(row.getItem());
+            tblSupplyLoads.getSelectionModel().select(index);
+
+            ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            Optional<ButtonType> result = new Alert(Alert.AlertType.INFORMATION, "Are you sure to remove?", yes, no).showAndWait();
+
+            if (result.orElse(no) == yes) {
+                int index1 = tblSupplyLoads.getSelectionModel().getSelectedIndex();
+                obList.remove(index1);
+
+                tblSupplyLoads.refresh();
+            }
+
+        });
 
 
     }
@@ -180,11 +170,16 @@ public class SupplierLoadController {
 
     @FXML
     void itemIdClick(ActionEvent event) {
-        String id = itemId.getValue();
-        Item item = ItemModel.searchById(id);
-        itemName.setText(item.getName());
-        category.setText(item.getCategory());
-        quantityAvailable.setText(String.valueOf(item.getQuantity()));
+        try {
+            String id = itemId.getValue();
+            Item item = ItemModel.searchById(id);
+            itemName.setText(item.getName());
+            category.setText(item.getCategory());
+            quantityAvailable.setText(String.valueOf(item.getQuantity()));
+        } catch (Exception e) {
+
+        }
+
 
     }
 
@@ -214,9 +209,18 @@ public class SupplierLoadController {
             boolean isPlaced = SupplyLoadModel.PlaceSupplyLoad(supId, supLoadId, payment, data);
             if (isPlaced) {
                 NotificationController.animationMesseage("/assets/tick.gif", "Supply Load", "Supply load added sucessfully!!");
+                netTotall.setText("");
+                itemName.setText("");
+                category.setText("");
+                quantityAvailable.setText("");
+                itemId.setValue(null);
+                supplierId.setValue(null);
+                supplierName.setText("");
+                tblSupplyLoads.getItems().clear();
+                generateNextSupplyOrderId();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
 
@@ -224,6 +228,13 @@ public class SupplierLoadController {
 
     @FXML
     void supllierIdClick(ActionEvent event) {
+        String id = supplierId.getValue();
+        try {
+            Supplier supplier = SupplierModel.searchById(id);
+            supplierName.setText(supplier.getName());
+        } catch (Exception throwables) {
+        }
+
 
     }
 
@@ -231,6 +242,7 @@ public class SupplierLoadController {
     void tblClick(MouseEvent event) {
 
     }
+
 
     void loadSupplierIds() {
         try {

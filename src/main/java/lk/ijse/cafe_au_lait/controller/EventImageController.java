@@ -70,7 +70,7 @@ public class EventImageController {
 
     @FXML
     void saveOnAction(ActionEvent event) throws FileNotFoundException {
-        String eventId=idTxt.getText();
+        String eventId=eventIdCOmboBox.getValue();
         InputStream in = new FileInputStream(filePath);
         try {
             boolean isSavedIamge= EventModel.saveImage(eventId,in);
