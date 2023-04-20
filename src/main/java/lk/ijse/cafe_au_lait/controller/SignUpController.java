@@ -1,6 +1,7 @@
 package lk.ijse.cafe_au_lait.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -60,20 +61,16 @@ public class SignUpController {
     }
 
     public void signClick(ActionEvent actionEvent) {
-        if(emailTxt.getText().isEmpty()|passwordTxt.getText().isEmpty()|confirmPassword.getText().isEmpty()|usernameTxt.getText().isEmpty()){
+
+        if(jobTitlte.getSelectionModel().isEmpty()|emailTxt.getText().isEmpty()|passwordTxt.getText().isEmpty()|confirmPassword.getText().isEmpty()|usernameTxt.getText().isEmpty()){
             NotificationController.ErrorMasseage("Please fill all empty fields before sign up for a account");
         }else if (!DataValidateController.customerNameValidate(usernameTxt.getText())|
-        !DataValidateController.emailCheck(emailTxt.getText())|!DataValidateController.passwordValidate(passwordTxt.getText())|
-        DataValidateController.passwordValidate(confirmPassword.getText())){
+        !DataValidateController.emailCheck(emailTxt.getText())){
             NotificationController.ErrorMasseage("Invalid type password,email or username.");
 
-//        }
-//        else if(!DataValidateController.emailCheck(emailTxt.getText())){
-//            NotificationController.ErrorMasseage("Invalid email address");
-//        }else if (!DataValidateController.customerNameValidate(usernameTxt.getText())){
-//            NotificationController.ErrorMasseage("Invalid username");
-//        }else if (!DataValidateController.passwordValidate(passwordTxt.getText())){
-//            NotificationController.ErrorMasseage("Invalid password");
+
+//        }else if (){
+//
         }
         else {
             String username = usernameTxt.getText();
@@ -97,8 +94,6 @@ public class SignUpController {
                         NotificationController.animationMesseage("/assets/tick.gif", "sign up", "" +
                                 "Sign Up Sucessfull !");
                     }
-                } catch (SQLIntegrityConstraintViolationException e){
-                    NotificationController.ErrorMasseage("This email is used to sign up for another account.try again!");
                 }
                 catch (Exception throwables) {
                     throwables.printStackTrace();

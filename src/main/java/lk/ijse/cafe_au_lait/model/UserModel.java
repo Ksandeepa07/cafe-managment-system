@@ -1,5 +1,7 @@
 package lk.ijse.cafe_au_lait.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lk.ijse.cafe_au_lait.db.DBConnection;
 import lk.ijse.cafe_au_lait.dto.User;
 import lk.ijse.cafe_au_lait.util.CrudUtil;
@@ -70,4 +72,5 @@ public class UserModel {
         }
         return false;
     }
+
 }

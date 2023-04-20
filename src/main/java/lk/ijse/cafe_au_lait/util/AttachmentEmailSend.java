@@ -1,32 +1,17 @@
 package lk.ijse.cafe_au_lait.util;
 
-
-//import javax.mail.*;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeMessage;
-//import java.util.Properties;
-
-
-import net.sf.jasperreports.engine.*;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
-
-import java.io.File;
-import java.util.Map;
 import java.util.Properties;
 
-
-public class EmailController {
-    public static void sendEmail(String recipient, String subject, String body) throws MessagingException {
+public class AttachmentEmailSend {
+    public static void EmailSend(String recipient, String subject, String body, String attachmentPath) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -46,16 +31,31 @@ public class EmailController {
         message.setFrom(new InternetAddress(username));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
         message.setSubject(subject);
-        message.setText(body);
 
+        // Create a multipart message
+        Multipart multipart = new MimeMultipart();
+
+        // Create the message body part
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setText(body);
+
+        // Add the message body part to the multipart message
+        multipart.addBodyPart(messageBodyPart);
+
+        // Create the PDF attachment body part
+        BodyPart pdfBodyPart = new MimeBodyPart();
+        DataSource source = new FileDataSource(attachmentPath);
+        pdfBodyPart.setDataHandler(new DataHandler(source));
+        pdfBodyPart.setFileName(source.getName());
+
+        // Add the PDF attachment body part to the multipart message
+        multipart.addBodyPart(pdfBodyPart);
+
+        // Set the content of the message as the multipart message
+        message.setContent(multipart);
+
+        // Send the email
         Transport.send(message);
     }
 
-
-
-//////////////
-
-
 }
-
-

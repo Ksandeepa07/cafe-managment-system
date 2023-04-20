@@ -21,14 +21,8 @@ import lk.ijse.cafe_au_lait.model.CustomerModel;
 import lk.ijse.cafe_au_lait.model.ItemModel;
 import lk.ijse.cafe_au_lait.model.OrderModel;
 import lk.ijse.cafe_au_lait.model.PlaceOrderModel;
-import lk.ijse.cafe_au_lait.util.EmailController;
-import lk.ijse.cafe_au_lait.util.NotificationController;
-import lk.ijse.cafe_au_lait.util.StageController;
-import lk.ijse.cafe_au_lait.util.TimeController;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import lk.ijse.cafe_au_lait.util.*;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.InputStream;
@@ -106,6 +100,8 @@ public class CashierOrderFormController {
     @FXML
     private JFXButton checkOrders;
 
+    Customer customer = null;
+
     @FXML
     void tblClick(MouseEvent event) {
 
@@ -127,7 +123,7 @@ public class CashierOrderFormController {
     }
 
     public void custIdClick(ActionEvent actionEvent) {
-        Customer customer = null;
+
         try {
             customer = CustomerModel.searchById(custId.getValue());
             custName.setText(customer.getCustName());
@@ -306,19 +302,18 @@ public class CashierOrderFormController {
                             "sucessfully!!");
                     InputStream resource = this.getClass().getResourceAsStream("/reports/orderPaymentBill.jrxml");
                     try {
+                        String outputFilePath = "C:/Users/User/Final Project/src/main/resources/generated bills/output.pdf";
                         JasperReport jasperReport = JasperCompileManager.compileReport(resource);
-                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DBConnection.getInstance().getConnection());
                         JasperViewer.viewReport(jasperPrint, false);
-                        Map<String, Object> parameterss = new HashMap<String, Object>();
-                        parameters.put("startDate", "2023-01-01");
-                        parameters.put("endDate", "2024-12-31");
-                        EmailController.sendReport("ksandeepa512@gmail.com","src/main/resources/reports/orderPaymentBill.jrxml",parameterss);
+                        JasperExportManager.exportReportToPdfFile(jasperPrint, outputFilePath);
+                        AttachmentEmailSend.EmailSend(customer.getCustEmail(), "cafe au lait",  "RECEIPT",outputFilePath);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                      custId.setValue(null);
+                    custId.setValue(null);
                     custName.setText("");
                     itemId.setValue(null);
                     itemName.setText("");
