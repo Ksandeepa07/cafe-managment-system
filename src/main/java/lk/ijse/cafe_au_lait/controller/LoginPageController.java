@@ -80,8 +80,10 @@ public class LoginPageController {
 
     @FXML
     void loginClick() throws IOException, AWTException {
+
         username = usernameTxt.getText();
         selectJob = (String) chooseOption.getValue();
+        System.out.println(selectJob);
         password = null;
         jobTitle = null;
         try {
@@ -116,7 +118,8 @@ public class LoginPageController {
             }));
             timeline.play();
 
-        } else if (usernameTxt.getText().isEmpty() && passwordTxt.getText().isEmpty()) {
+        }
+        else if (usernameTxt.getText().isEmpty() && passwordTxt.getText().isEmpty()) {
             invlidLbl.setVisible(true);
             invlidLbl1.setVisible(true);
             invlidLbl.setText("Username can't be empty");

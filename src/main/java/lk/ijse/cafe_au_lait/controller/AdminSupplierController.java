@@ -152,15 +152,6 @@ public class AdminSupplierController {
         String address = addressTxt.getText();
         String email = emailTxt.getText();
 
-//        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-//            if (DataValidateController.contactCheck(contact)) {
-//                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-//                contactCheckLb.setVisible(false);
-//                contactCheckLb.setText(" ");
-//                if (DataValidateController.emailCheck(email)) {
-//                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-//                    emailCheckLbl.setVisible(false);
-//                    emailCheckLbl.setText(" ");
 
                     Supplier supplier = new Supplier(id, name, contact, address, email);
                     try {
@@ -186,25 +177,6 @@ public class AdminSupplierController {
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-//                } else {
-//                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//                    emailCheckLbl.setVisible(true);
-//                    emailCheckLbl.setText("Invalid Email");
-//                }
-//            } else {
-//                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//                contactCheckLb.setVisible(true);
-//                contactCheckLb.setText("Invalid Contact");
-//            }
-//        } else {
-//            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//            emailCheckLbl.setVisible(true);
-//            emailCheckLbl.setText("Invalid Email");
-//
-//            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//            contactCheckLb.setVisible(true);
-//            contactCheckLb.setText("Invalid Contact");
-//        }
 
     }
 
@@ -255,16 +227,6 @@ public class AdminSupplierController {
         String address = addressTxt.getText();
         String email = emailTxt.getText();
 
-//        if (DataValidateController.contactCheck(contact) | DataValidateController.emailCheck(email)) {
-//            if (DataValidateController.contactCheck(contact)) {
-//                contactTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-//                contactCheckLb.setVisible(false);
-//                contactCheckLb.setText(" ");
-//                if (DataValidateController.emailCheck(email)) {
-//                    emailTxt.setStyle("-fx-border-color: #7B3927; -fx-border-width: 0 0 3 0;");
-//                    emailCheckLbl.setVisible(false);
-//                    emailCheckLbl.setText(" ");
-
                     Supplier supplier = new Supplier(id, name, contact, address, email);
                     boolean result = NotificationController.confirmationMasseage("Are you sure you want update this " +
                             "employee ?");
@@ -291,25 +253,7 @@ public class AdminSupplierController {
                             throwables.printStackTrace();
                         }
                     }
-//                } else {
-//                    emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//                    emailCheckLbl.setVisible(true);
-//                    emailCheckLbl.setText("Invalid Email");
-//                }
-//            } else {
-//                contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//                contactCheckLb.setVisible(true);
-//                contactCheckLb.setText("Invalid Contact");
-//            }
-//        } else {
-//            emailTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//            emailCheckLbl.setVisible(true);
-//            emailCheckLbl.setText("Invalid Email");
-//
-//            contactTxt.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-//            contactCheckLb.setVisible(true);
-//            contactCheckLb.setText("Invalid Contact");
-//        }
+
     }
 
     void getAll() {

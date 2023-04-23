@@ -332,6 +332,7 @@ public class CashierEventController {
     @FXML
     void eventIdKeyTyped(KeyEvent event) {
         boolean isValidate= DataValidateController.eventIdValidate(eventIdTxt.getText());
+
         saveBtn.setDisable(!isValidate|eventNameTxt.getText().isEmpty()|eventTypeTxt.getText().isEmpty());
         updateBtn.setDisable(!isValidate|eventNameTxt.getText().isEmpty()|eventTypeTxt.getText().isEmpty());
         deleteBtn.setDisable(!isValidate|eventNameTxt.getText().isEmpty()|eventTypeTxt.getText().isEmpty());
