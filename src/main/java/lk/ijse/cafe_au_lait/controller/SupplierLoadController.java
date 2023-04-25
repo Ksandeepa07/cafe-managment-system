@@ -98,7 +98,7 @@ public class SupplierLoadController {
             String type = category.getText();
             Integer qty = Integer.valueOf(quantity.getText());
             remove = new Button("Remove");
-//            setRemoveAction(remove);
+            setRemoveAction(remove);
             remove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
             if (!obList.isEmpty()) {
                 for (int i = 0; i < tblSupplyLoads.getItems().size(); i++) {
@@ -115,25 +115,6 @@ public class SupplierLoadController {
             tblSupplyLoads.setItems(obList);
             quantity.setText("");
         }
-        remove.setOnAction(e -> {
-            // Get the row that contains the button
-            TableRow row = (TableRow) remove.getParent().getParent();
-            int index = tblSupplyLoads.getItems().indexOf(row.getItem());
-            tblSupplyLoads.getSelectionModel().select(index);
-
-            ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-            Optional<ButtonType> result = new Alert(Alert.AlertType.INFORMATION, "Are you sure to remove?", yes, no).showAndWait();
-
-            if (result.orElse(no) == yes) {
-                int index1 = tblSupplyLoads.getSelectionModel().getSelectedIndex();
-                obList.remove(index1);
-
-                tblSupplyLoads.refresh();
-            }
-
-        });
 
 
     }

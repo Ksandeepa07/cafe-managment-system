@@ -176,7 +176,7 @@ public class CashierOrderFormController {
             Double total = price * qty;
             Button btnRemove = new Button("Remove");
             btnRemove.setStyle("-fx-background-color: #7B3927;-fx-text-fill: #dfa47e");
-//            setRemoveBtnOnAction(btnRemove);
+            setRemoveBtnOnAction(btnRemove);
             if (item.getQuantity() < qty) {
                 NotificationController.ErrorMasseage("Not sufficient quantity for " + item.getName());
 
