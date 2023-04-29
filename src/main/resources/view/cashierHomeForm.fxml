@@ -26,7 +26,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <AnchorPane layoutX="31.0" layoutY="36.0" prefHeight="166.0" prefWidth="156.0" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css">
+      <AnchorPane layoutX="31.0" layoutY="36.0" prefHeight="166.0" prefWidth="172.0" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css">
          <children>
             <Label layoutX="18.0" layoutY="69.0" prefHeight="30.0" prefWidth="133.0" text="Total Customers" textFill="#7b3927">
                <font>
@@ -45,7 +45,7 @@
                </image>
             </ImageView>
          </children></AnchorPane>
-      <AnchorPane layoutX="262.0" layoutY="34.0" prefHeight="166.0" prefWidth="172.0" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css">
+      <AnchorPane layoutX="268.0" layoutY="34.0" prefHeight="166.0" prefWidth="172.0" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css">
          <children>
             <Label layoutX="35.0" layoutY="70.0" prefHeight="30.0" prefWidth="113.0" text="Today Orders" textFill="#7b3927">
                <font>
@@ -86,5 +86,6 @@
                </image>
             </ImageView>
          </children></AnchorPane>
+      <AnchorPane layoutX="33.0" layoutY="237.0" prefHeight="112.0" prefWidth="1113.0" style="-fx-background-radius: 10;" styleClass="dashBoardAnchorPane" stylesheets="@../style/style.css" />
    </children>
 </AnchorPane>

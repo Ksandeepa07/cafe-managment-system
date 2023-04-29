@@ -122,6 +122,9 @@ public class AdminSupplierController {
             if (result) {
 
                 if (isDeleted) {
+                    deleteBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    saveBtn.setDisable(true);
                     supplierIdIcon.setVisible(false);
                     spplierNameIcon.setVisible(false);
                     adressIcon.setVisible(false);
@@ -157,6 +160,9 @@ public class AdminSupplierController {
                     try {
                         boolean isSaved = SupplierModel.save(supplier);
                         if (isSaved) {
+                            deleteBtn.setDisable(true);
+                            updateBtn.setDisable(true);
+                            saveBtn.setDisable(true);
                             idTxt.setText("");
                             nameTxt.setText("");
                             addressTxt.setText("");
@@ -234,6 +240,9 @@ public class AdminSupplierController {
                         try {
                             boolean isUpdated = SupplierModel.update(supplier);
                             if (isUpdated) {
+                                deleteBtn.setDisable(true);
+                                updateBtn.setDisable(true);
+                                saveBtn.setDisable(true);
                                 idTxt.setText("");
                                 nameTxt.setText("");
                                 addressTxt.setText("");

@@ -129,6 +129,13 @@ public class CashierEventController {
                 "event ?");
         if (result) {
             if (isDeleted) {
+                saveBtn.setDisable(true);
+                updateBtn.setDisable(true);
+                deleteBtn.setDisable(true);
+                nameIcon.setVisible(false);
+                typeIcon.setVisible(false);
+                timeIcon.setVisible(false);
+                eventIdIcon.setVisible(false);
                 getAll();
                 NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                         "Event Deleted sucessfully !!");
@@ -147,12 +154,15 @@ public class CashierEventController {
 
     @FXML
     void saveOnAction(ActionEvent event) throws FileNotFoundException {
-        if (idTxt.getSelectionModel().isEmpty()&eventDateTxt.getEditor().getText().isEmpty()){
+        String time= String.valueOf(eventTimeTxt.getLocalTime());
+        if (idTxt.getSelectionModel().isEmpty()&eventDateTxt.getEditor().getText().isEmpty()&time.isEmpty()){
             NotificationController.ErrorMasseage("Employee Id and Event date can't be empty");
         }else if (idTxt.getSelectionModel().isEmpty()){
             NotificationController.ErrorMasseage("Employee Id can't be empty");
         }else if (eventDateTxt.getEditor().getText().isEmpty()){
             NotificationController.ErrorMasseage("Event date can't be empty");
+        }else if (time.isEmpty()){
+            NotificationController.ErrorMasseage("Event time can't be empty");
         }
         else{
 
@@ -168,8 +178,12 @@ public class CashierEventController {
             boolean isSaved = EventModel.save(event1);
 
             if (isSaved) {
+                saveBtn.setDisable(true);
+                updateBtn.setDisable(true);
+                deleteBtn.setDisable(true);
                 nameIcon.setVisible(false);
                 typeIcon.setVisible(false);
+                timeIcon.setVisible(false);
                 eventIdIcon.setVisible(false);
                 getAll();
                 idTxt.setValue(null);
@@ -232,17 +246,29 @@ public class CashierEventController {
         eventIdIcon.setVisible(true);
         typeIcon.setVisible(true);
         timeIcon.setVisible(true);
-        TablePosition pos = tblEvent.getSelectionModel().getSelectedCells().get(0);
-        int row = pos.getRow();
-        // Get the data from the selected row
-        ObservableList<TableColumn<EventTM, ?>> columns = tblEvent.getColumns();
+        nameIcon.setVisible(true);
+        try{
+            TablePosition pos = tblEvent.getSelectionModel().getSelectedCells().get(0);
+            int row = pos.getRow();
+            // Get the data from the selected row
+            ObservableList<TableColumn<EventTM, ?>> columns = tblEvent.getColumns();
 
-        idTxt.setValue(columns.get(0).getCellData(row).toString());
-        eventIdTxt.setText(columns.get(1).getCellData(row).toString());
-        eventNameTxt.setText(columns.get(2).getCellData(row).toString());
-        eventTypeTxt.setText(columns.get(3).getCellData(row).toString());
-        eventDateTxt.setValue(LocalDate.parse(columns.get(4).getCellData(row).toString()));
-        eventTimeTxt.setLocalTime(LocalTime.parse(columns.get(5).getCellData(row).toString()));
+            idTxt.setValue(columns.get(0).getCellData(row).toString());
+            eventIdTxt.setText(columns.get(1).getCellData(row).toString());
+            eventNameTxt.setText(columns.get(2).getCellData(row).toString());
+            eventTypeTxt.setText(columns.get(3).getCellData(row).toString());
+            eventDateTxt.setValue(LocalDate.parse(columns.get(4).getCellData(row).toString()));
+            eventTimeTxt.setLocalTime(LocalTime.parse(columns.get(5).getCellData(row).toString()));
+
+        }catch (Exception e){
+            saveBtn.setDisable(true);
+            updateBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+            eventIdIcon.setVisible(false);
+            typeIcon.setVisible(false);
+            timeIcon.setVisible(false);
+            nameIcon.setVisible(false);
+        }
 
 
     }
@@ -270,8 +296,12 @@ public class CashierEventController {
                     "event ?");
             if (result) {
                 if (isUpdated) {
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     nameIcon.setVisible(false);
                     typeIcon.setVisible(false);
+                    timeIcon.setVisible(false);
                     eventIdIcon.setVisible(false);
                     idTxt.setValue(null);
                     eventIdTxt.setText("");

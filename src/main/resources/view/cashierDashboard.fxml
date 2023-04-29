@@ -11,32 +11,32 @@
    <children>
       <AnchorPane prefHeight="680.0" prefWidth="221.0" styleClass="dashbordForm" stylesheets="@../style/style.css">
          <children>
-            <JFXButton fx:id="homeBtn" buttonType="RAISED" layoutX="42.0" layoutY="122.0" onAction="#homeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="Home" textFill="#7b3927">
+            <JFXButton fx:id="homeBtn" buttonType="RAISED" layoutX="42.0" layoutY="122.0" onAction="#homeBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 0 50 50 50;" text="Home" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="inventoryBtn" buttonType="RAISED" layoutX="42.0" layoutY="375.0" onAction="#inventoryBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="     Inventory" textFill="#7b3927">
+            <JFXButton fx:id="inventoryBtn" buttonType="RAISED" layoutX="42.0" layoutY="375.0" onAction="#inventoryBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 0 50 50 50;" text="     Inventory" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="deliveryBtn" buttonType="RAISED" layoutX="42.0" layoutY="288.0" onAction="#deliveryBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="   Delivery" textFill="#7b3927">
+            <JFXButton fx:id="deliveryBtn" buttonType="RAISED" layoutX="42.0" layoutY="288.0" onAction="#deliveryBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 0 50 50 50;" text="   Delivery" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="customerBtn" buttonType="RAISED" layoutX="42.0" layoutY="206.0" onAction="#customerBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="    Customer" textFill="#7b3927">
+            <JFXButton fx:id="customerBtn" buttonType="RAISED" layoutX="42.0" layoutY="206.0" onAction="#customerBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 0 50 50 50;" text="    Customer" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="ordersBtn" buttonType="RAISED" layoutX="42.0" layoutY="459.0" onAction="#ordersBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="Orders" textFill="#7b3927">
+            <JFXButton fx:id="ordersBtn" buttonType="RAISED" layoutX="42.0" layoutY="459.0" onAction="#ordersBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 0 50 50 50;" text="Orders" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="eventBtn" buttonType="RAISED" layoutX="42.0" layoutY="541.0" onAction="#eventBttnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="Event" textFill="#7b3927">
+            <JFXButton fx:id="eventBtn" buttonType="RAISED" layoutX="42.0" layoutY="541.0" onAction="#eventBttnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 0 50 50 50;" text="Event" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Image url="@../assets/reportIcon.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="supplyLoadBtn" buttonType="RAISED" layoutX="42.0" layoutY="624.0" onAction="#supplyBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 10;" text="           Supply Load" textFill="#7b3927">
+            <JFXButton fx:id="supplyLoadBtn" buttonType="RAISED" layoutX="42.0" layoutY="624.0" onAction="#supplyBtnClick" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #dfa47e; -fx-background-radius: 0 50 50 50;" text="           Supply Load" textFill="#7b3927">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font>

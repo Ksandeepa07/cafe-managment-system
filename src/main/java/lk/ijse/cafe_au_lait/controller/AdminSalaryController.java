@@ -111,6 +111,9 @@ public class AdminSalaryController {
                     "salary ?");
             if (result) {
                 if (isDeleted) {
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     emplyeeIdIcon.setVisible(false);
                     salaryIdIcon.setVisible(false);
                     paymentMethodIcon.setVisible(false);
@@ -178,6 +181,9 @@ public class AdminSalaryController {
             try {
                 boolean isSaved = SalaryModel.save(salary);
                 if (isSaved) {
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     emplyeeIdIcon.setVisible(false);
                     salaryIdIcon.setVisible(false);
                     paymentMethodIcon.setVisible(false);
@@ -245,6 +251,9 @@ public class AdminSalaryController {
                     "salary ?");
             if (result) {
                 if (isUpdated) {
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     emplyeeIdIcon.setVisible(false);
                     salaryIdIcon.setVisible(false);
                     paymentMethodIcon.setVisible(false);
@@ -386,9 +395,9 @@ public class AdminSalaryController {
     @FXML
     void salaryIdKeyTyped(KeyEvent event) {
         boolean isValidate= DataValidateController.salaryIdValidate(salaryTxt.getText());
-        saveBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
-        updateBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
-        deleteBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|salaryTxt.getText().isEmpty());
+        saveBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|overTimeTxt.getText().isEmpty());
+        updateBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|overTimeTxt.getText().isEmpty());
+        deleteBtn.setDisable(!isValidate|payamentTxt.getText().isEmpty()|overTimeTxt.getText().isEmpty());
         if (isValidate){
             salaryIdIcon.setVisible(true);
         }else {

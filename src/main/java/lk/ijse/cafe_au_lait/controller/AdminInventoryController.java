@@ -111,6 +111,9 @@ public class AdminInventoryController {
                     "item ?");
             if (result) {
                 if (isDeleted) {
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     itemIdIcon.setVisible(false);
                     itemNameIcon.setVisible(false);
                     itemCategoryIcon.setVisible(false);
@@ -145,6 +148,9 @@ public class AdminInventoryController {
         try {
             boolean isSaved = ItemModel.save(item);
             if (isSaved) {
+                saveBtn.setDisable(true);
+                updateBtn.setDisable(true);
+                deleteBtn.setDisable(true);
                 itemIdIcon.setVisible(false);
                 itemNameIcon.setVisible(false);
                 itemCategoryIcon.setVisible(false);
@@ -217,6 +223,9 @@ public class AdminInventoryController {
                     "item ?");
             if (result) {
                 if (isUpdated) {
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     itemIdIcon.setVisible(false);
                     itemNameIcon.setVisible(false);
                     itemCategoryIcon.setVisible(false);

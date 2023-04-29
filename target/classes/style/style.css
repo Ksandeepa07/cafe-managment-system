@@ -345,7 +345,7 @@
     -fx-background-color: #dfa47e;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 0, 0);
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 0, 0, 0);
-    -fx-background-radius: 10px;
+    -fx-background-radius: 0 50 50 50;
 
 
 }

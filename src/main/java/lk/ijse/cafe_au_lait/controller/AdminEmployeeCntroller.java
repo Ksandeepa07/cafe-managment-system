@@ -135,6 +135,13 @@ public class AdminEmployeeCntroller {
     @FXML
     private ImageView nicIcon;
 
+    boolean isEmpValidate;
+    boolean isNameValidate;
+    boolean isAddressValidate;
+    boolean isNicValidate;
+    boolean isPhoneNumberValidate;
+    boolean isEmailValidate;
+
 
     @FXML
     void saveOnAction(ActionEvent event) {
@@ -163,6 +170,9 @@ public class AdminEmployeeCntroller {
             try {
                 isSaved = EmployeeModel.save(employee);
                 if (isSaved) {
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     empIdIcon.setVisible(false);
                     empNameIcon.setVisible(false);
                     adressIcon.setVisible(false);
@@ -281,6 +291,9 @@ public class AdminEmployeeCntroller {
                         "employee ?");
                 if (result) {
                     if (isUpdated) {
+                        saveBtn.setDisable(true);
+                        updateBtn.setDisable(true);
+                        deleteBtn.setDisable(true);
                         empIdIcon.setVisible(false);
                         empNameIcon.setVisible(false);
                         adressIcon.setVisible(false);
@@ -321,6 +334,9 @@ public class AdminEmployeeCntroller {
                     getAll();
                     NotificationController.animationMesseage("/assets/tick.gif", "Delete",
                             "Employee Deleted sucessfully !!");
+                    saveBtn.setDisable(true);
+                    updateBtn.setDisable(true);
+                    deleteBtn.setDisable(true);
                     empIdIcon.setVisible(false);
                     empNameIcon.setVisible(false);
                     adressIcon.setVisible(false);
@@ -355,114 +371,182 @@ public class AdminEmployeeCntroller {
         saveBtn.setDisable(false);
         updateBtn.setDisable(false);
         deleteBtn.setDisable(false);
-        TablePosition pos = tblEmployee.getSelectionModel().getSelectedCells().get(0);
-        int row = pos.getRow();
-        // Get the data from the selected row
-        ObservableList<TableColumn<EmployeeTM, ?>> columns = tblEmployee.getColumns();
-        idTxt.setText(columns.get(0).getCellData(row).toString());
-        nameTxt.setText(columns.get(1).getCellData(row).toString());
-        addressTxt.setText(columns.get(2).getCellData(row).toString());
-        dobTxt.setValue(LocalDate.parse(columns.get(3).getCellData(row).toString()));
-        nicTxt.setText(columns.get(4).getCellData(row).toString());
-        jobTitileTxt.setValue(columns.get(5).getCellData(row).toString());
-        contactTxt.setText(columns.get(6).getCellData(row).toString());
-        emailTxt.setText(columns.get(7).getCellData(row).toString());
+        try{
+            TablePosition pos = tblEmployee.getSelectionModel().getSelectedCells().get(0);
+            int row = pos.getRow();
+            // Get the data from the selected row
+            ObservableList<TableColumn<EmployeeTM, ?>> columns = tblEmployee.getColumns();
+            idTxt.setText(columns.get(0).getCellData(row).toString());
+            nameTxt.setText(columns.get(1).getCellData(row).toString());
+            addressTxt.setText(columns.get(2).getCellData(row).toString());
+            dobTxt.setValue(LocalDate.parse(columns.get(3).getCellData(row).toString()));
+            nicTxt.setText(columns.get(4).getCellData(row).toString());
+            jobTitileTxt.setValue(columns.get(5).getCellData(row).toString());
+            contactTxt.setText(columns.get(6).getCellData(row).toString());
+            emailTxt.setText(columns.get(7).getCellData(row).toString());
+        }catch ( Exception e){
+            empIdIcon.setVisible(false);
+            nicIcon.setVisible(false);
+            empNameIcon.setVisible(false);
+            contactIcon.setVisible(false);
+            emailIcon.setVisible(false);
+            adressIcon.setVisible(false);
+
+            saveBtn.setDisable(true);
+            updateBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+        }
+
     }
 
     @FXML
     void adressKeyTyped(KeyEvent event) {
-        boolean isValidate = DataValidateController.addressValidate(addressTxt.getText());
-        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        adressIcon.setVisible(isValidate);
+        isAddressValidate = DataValidateController.addressValidate(addressTxt.getText());
+
+            saveBtn.setDisable(!isAddressValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            updateBtn.setDisable(!isAddressValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            deleteBtn.setDisable(!isAddressValidate | nameTxt.getText().isEmpty() | contactTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+
+
+        if (isAddressValidate) {
+            adressIcon.setVisible(true);
+
+        }else{
+            adressIcon.setVisible(false);
+
+
+        }
+
+
     }
 
     @FXML
     void contactKeyTyped(KeyEvent event) {
-        boolean isValidate = DataValidateController.contactCheck(contactTxt.getText());
-        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        contactIcon.setVisible(isValidate);
+        isPhoneNumberValidate= DataValidateController.contactCheck(contactTxt.getText());
+
+            saveBtn.setDisable(!isPhoneNumberValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            updateBtn.setDisable(!isPhoneNumberValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            deleteBtn.setDisable(!isPhoneNumberValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | emailTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+        if (isPhoneNumberValidate){
+            contactIcon.setVisible(true);
+        }else {
+            contactIcon.setVisible(false);
+
+        }
+
+
 
     }
 
 
     @FXML
     void emailKeyTyped(KeyEvent event) {
-        boolean isValidate = DataValidateController.emailCheck(emailTxt.getText());
-        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        emailIcon.setVisible(isValidate);
+        isEmailValidate = DataValidateController.emailCheck(emailTxt.getText());
+
+            saveBtn.setDisable(!isEmailValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            updateBtn.setDisable(!isEmailValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            deleteBtn.setDisable(!isEmailValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | idTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+
+        if (isEmailValidate){
+            emailIcon.setVisible(true);
+        }else{
+            emailIcon.setVisible(false);
+
+        }
+
+
 
     }
 
     @FXML
     void empIdKeyTyped(KeyEvent event) {
-        boolean isValidate = DataValidateController.empIdValidate(idTxt.getText());
-        saveBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        updateBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        deleteBtn.setDisable(!isValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        empIdIcon.setVisible(isValidate);
+        isEmpValidate= DataValidateController.empIdValidate(idTxt.getText());
+
+            saveBtn.setDisable(!isEmpValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            updateBtn.setDisable(!isEmpValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            deleteBtn.setDisable(!isEmpValidate | nameTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+
+
+        if (isEmpValidate){
+            empIdIcon.setVisible(true);
+        }else {
+            empIdIcon.setVisible(false);
+        }
+
+
 
     }
 
     @FXML
     void empNameKeyTyped(KeyEvent event) {
-        boolean isValidate = DataValidateController.customerNameValidate(nameTxt.getText());
-        saveBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        updateBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        deleteBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nicTxt.getText().isEmpty());
-        empNameIcon.setVisible(isValidate);
+        isNameValidate= DataValidateController.customerNameValidate(nameTxt.getText());
+
+            saveBtn.setDisable(!isNameValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            updateBtn.setDisable(!isNameValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+            deleteBtn.setDisable(!isNameValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                    | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                    nicTxt.getText().isEmpty());
+
+        if (isNameValidate){
+            empNameIcon.setVisible(true);
+        }else{
+            empNameIcon.setVisible(false);
+
+        }
+
+
 
     }
 
 
     @FXML
     void nicKeyTyped(KeyEvent event) {
-        boolean isValidate = DataValidateController.nicValidate(nicTxt.getText());
-        saveBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nameTxt.getText().isEmpty());
-        updateBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nameTxt.getText().isEmpty());
-        deleteBtn.setDisable(!isValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
-                | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
-                nameTxt.getText().isEmpty());
-        nicIcon.setVisible(isValidate);
+       isNicValidate = DataValidateController.nicValidate(nicTxt.getText());
+            saveBtn.setDisable(!isNicValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                   | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                   nameTxt.getText().isEmpty());
+           updateBtn.setDisable(!isNicValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                   | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                   nameTxt.getText().isEmpty());
+           deleteBtn.setDisable(!isNicValidate | idTxt.getText().isEmpty() | addressTxt.getText().isEmpty()
+                   | emailTxt.getText().isEmpty() | contactTxt.getText().isEmpty() |
+                   nameTxt.getText().isEmpty());
+       if (isNicValidate){
+           nicIcon.setVisible(true);
+       }else{
+           nicIcon.setVisible(false);
+
+       }
+
+
 
     }
 
